@@ -1,0 +1,11 @@
+#Gitlab CI YAML for building latex
+image: gitlab.mrt.uni-karlsruhe.de:21443/mrt/mrt_build:latex
+
+compile_pdf:
+  script:
+    # compile pdf
+    - latexmk -pdf
+  artifacts:
+    paths:
+      - bare_conf.pdf
+
