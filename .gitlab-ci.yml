@@ -7,5 +7,4 @@ compile_pdf:
     - latexmk -pdf
   artifacts:
     paths:
-      - bare_conf.pdf
-
+      - root.pdf
