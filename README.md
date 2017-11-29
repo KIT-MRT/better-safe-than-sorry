@@ -1,6 +1,6 @@
 # Template for an IEEE Conference Paper
 
-- The latest version looks like: [download artefact "bare_conf.pdf" of latest build](https://gitlab.mrt.uni-karlsruhe.de/MRT/ieee_conference_template_latex/builds/artifacts/master/file/bare_conf.pdf?job=compile_pdf)
+- The latest version looks like: [download artefact "root.pdf" of latest build](https://gitlab.mrt.uni-karlsruhe.de/MRT/ieee_conference_template_latex/builds/artifacts/master/file/root.pdf?job=compile_pdf)
 - Original was downloaded from [here](http://www.ieee.org/conferences_events/conferences/publishing/templates.html) on 2017-03-24.
 
 ## Usage
