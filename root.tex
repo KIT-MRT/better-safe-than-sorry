@@ -42,6 +42,16 @@
 
 \usepackage{placeins}%for \FloatBarrier
 
+\usepackage[style=ieee,
+            doi=false,
+            url=false,
+            mincitenames=1,
+            maxcitenames=1,
+            minbibnames=6,
+            maxbibnames=6,
+            backend=biber]{biblatex}  % supports bibliography with BibLaTeX
+\addbibresource{sections/references.bib}
+
 
 \title{\LARGE \bf
 Preparation of Papers for IEEE Sponsored Conferences \& Symposia*
@@ -75,9 +85,7 @@ Preparation of Papers for IEEE Sponsored Conferences \& Symposia*
 \input{sections/05_conclusions}
 \input{sections/06_acknowledgements}
 
-\bibliographystyle{IEEEtran}
-\bibliography{sections/references}
-
+\printbibliography
 
 
 \end{document}
