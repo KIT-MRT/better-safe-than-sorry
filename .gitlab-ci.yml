@@ -3,6 +3,8 @@ image: gitlab.mrt.uni-karlsruhe.de:21443/mrt/mrt_build:latex
 
 compile_pdf:
   script:
+    # install biber as it's not included in the latex-docker
+    - sudo apt -y install biber
     # compile pdf
     - latexmk -pdf
   artifacts:
