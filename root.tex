@@ -6,10 +6,8 @@
 
 % \documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
 
-\IEEEoverridecommandlockouts                              % This command is only needed if
-                                                          % you want to use the \thanks command
-
-\overrideIEEEmargins                                      % Needed to meet printer requirements.
+% Conference papers do not typically use \thanks and this command is locked out in conference mode!
+% \IEEEoverridecommandlockouts    % If really needed, such as for the acknowledgment of grants
 
 % See the \addtolength command later in the file to balance the column lengths
 % on the last page of the document
@@ -53,19 +51,49 @@
             backend=biber]{biblatex}  % supports bibliography with BibLaTeX
 \addbibresource{sections/references.bib}
 
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
 
 \title{\LARGE \bf
 Preparation of Papers for IEEE Sponsored Conferences \& Symposia*
 }
 
 
-\author{Albert Author$^{1}$ and Bernard D. Researcher$^{2}$% <-this % stops a space
-\thanks{*This work was not supported by any organization}% <-this % stops a space
-\thanks{$^{1}$FZI Research Center for Information Technology, Karlsruhe, Germany%
-  {\tt\small \{orzechowski,ameyer\}@fzi.de}}%
-\thanks{$^{2}$Institute for Measurement and Control Systems, Karlsruhe Institute of Technology (KIT), Karlsruhe, Germany%
-  {\tt\small stiller@kit.edu}}%
-}
+% author names and affiliations
+% use a multiple column layout for up to three different affiliations
+% \author{\IEEEauthorblockN{Albert Author}
+% \IEEEauthorblockA{Intelligent Systems and Production Engineering\\
+% FZI Research Center for Information Technology\\
+% Karlsruhe, Germany\\
+% Email: author@fzi.de}
+% \and
+% \IEEEauthorblockN{Bernard D. Researcher}
+% \IEEEauthorblockA{Institute for Measurement and Control Systems\\
+% Karlsruhe Institute of Technology (KIT)\\
+% Karlsruhe, Germany\\
+% Email: stiller@kit.edu}}
+
+% for over three affiliations, or if they all won't fit within the width
+% of the page, use this alternative format:
+%
+\author{\IEEEauthorblockN{Albert Author\IEEEauthorrefmark{1},
+Max Mustermann\IEEEauthorrefmark{1},
+Kevin Klein\IEEEauthorrefmark{2},
+Bernard D. Researcher\IEEEauthorrefmark{2} and
+Susi Smart\IEEEauthorrefmark{2}}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}Intelligent Systems and Production Engineering,
+FZI Research Center for Information Technology,
+Karlsruhe, Germany\\
+Email: \{author,mustermann\}@fzi.de}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}Institute for Measurement and Control Systems,
+Karlsruhe Institute of Technology (KIT),
+Karlsruhe, Germany\\
+Email: \{klein,researcher,smart\}@kit.edu}}
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
 
 
 \begin{document}
