@@ -6,6 +6,7 @@
 ## Usage
 - fork (=make your own copy of) this repo before making changes
 - change the structure, add/remove packages, ...
+- see the `IEEEtran_doc` folder for a very exhaustive howto PDF, a smaller howto example and the original bare tex template with many comments.
 
 ## Compiling
 - use latexmk
