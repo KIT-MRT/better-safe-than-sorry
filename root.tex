@@ -2,13 +2,13 @@
 %2345678901234567890123456789012345678901234567890123456789012345678901234567890
 %        1         2         3         4         5         6         7         8
 
-\documentclass[letterpaper, 10 pt, conference]{IEEEtran}  % Comment this line out if you need a4paper
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out if you need a4paper
 % \usepackage[letterpaper,left=.75in,right=.75in,top=.75in,bottom=.75in]{geometry}  % use this in case the IEEE PDF check complains about incompliant page margins
 
 % \documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
 
-% Conference papers do not typically use \thanks and this command is locked out in conference mode!
-% \IEEEoverridecommandlockouts    % If really needed, such as for the acknowledgment of grants
+\IEEEoverridecommandlockouts
+\overrideIEEEmargins
 
 % See the \addtolength command later in the file to balance the column lengths
 % on the last page of the document
@@ -61,64 +61,27 @@
 Preparation of Papers for IEEE Sponsored Conferences \& Symposia
 }
 
-
-% author names and affiliations
-% use a multiple column layout for up to three different affiliations
-% \author{\IEEEauthorblockN{Albert Author}
-% \IEEEauthorblockA{Intelligent Systems and Production Engineering\\
-% FZI Research Center for Information Technology\\
-% Karlsruhe, Germany\\
-% Email: author@fzi.de}
-% \and
-% \IEEEauthorblockN{Bernard D. Researcher}
-% \IEEEauthorblockA{Institute for Measurement and Control Systems\\
-% Karlsruhe Institute of Technology (KIT)\\
-% Karlsruhe, Germany\\
-% Email: stiller@kit.edu}}
-
-% For over three affiliations, if the affiliation changes within the list of
-% authors or if they all won't fit within the width of the page, use this
-% alternative format:
-%
-\author{\IEEEauthorblockN{Albert Author\IEEEauthorrefmark{1},
-Max Mustermann\IEEEauthorrefmark{1},
-Kevin Klein\IEEEauthorrefmark{2},
-Bernard D. Researcher\IEEEauthorrefmark{2} and
-Susi Smart\IEEEauthorrefmark{2}}
-\IEEEauthorblockA{\IEEEauthorrefmark{1}Intelligent Systems and Production Engineering,
-FZI Research Center for Information Technology,
-Karlsruhe, Germany\\
-Email: \{author,mustermann\}@fzi.de}
-\IEEEauthorblockA{\IEEEauthorrefmark{2}Institute of Measurement and Control Systems,
-Karlsruhe Institute of Technology (KIT),
-Karlsruhe, Germany\\
-Email: \{klein,researcher,smart\}@kit.edu}}
-
-% Some conferences prefer author affiliations in the footer
-% Use this alternative format then.
-% Do not forget to enable \IEEEoverridecommandlockouts (in the first lines of this file)
-%
-% \author{Albert Author$^{1}$,
-% Max Mustermann$^{1}$,
-% Kevin Klein$^{2}$,
-% Bernard D. Researcher$^{2}$ and
-% Susi Smart$^{2}$% <-this % stops a space
-% \thanks{$^{1}$Albert Author and Max Mustermann are with Intelligent Systems and Production Engineering, FZI Research Center for Information Technology,
-%         Karlsruhe, Germany
-%         {\tt\small \{author,mustermann\}@fzi.de}}%
-% \thanks{$^{2}$Kevin Klein, Bernard D. Researcher and Susi Smart are with the Institute of Measurement and Control Systems, Karlsruhe Institute of Technology (KIT),
-%         Karlsruhe, Germany
-%         {\tt\small \{klein,researcher,smart\}@kit.edu}}%
-% }
+\author{
+    Albert Author$^{1}$,
+    Max Mustermann$^{1}$,
+    Kevin Klein$^{2}$,
+    Bernard D. Researcher$^{2}$ and
+    Susi Smart$^{2}$% <-this % stops a space
+    \thanks{
+        $^{1}$Albert Author and Max Mustermann are with Intelligent Systems and Production Engineering, FZI Research Center for Information Technology, Karlsruhe, Germany
+        {\tt\small \{author,mustermann\}@fzi.de}
+    }%
+    \thanks{
+        $^{2}$Kevin Klein, Bernard D. Researcher and Susi Smart are with the Institute of Measurement and Control Systems, Karlsruhe Institute of Technology (KIT),
+        Karlsruhe, Germany
+        {\tt\small \{klein,researcher,smart\}@kit.edu}
+    }%
+}
 
 % use for special paper notices
 %\IEEEspecialpapernotice{(Invited Paper)}
 
-
 \begin{document}
-
-
-
 \maketitle
 
 %% add copyright notice for arxiv or other non-IEEE publications, see https://ieeeauthorcenter.ieee.org/publish-with-ieee/author-education-resources/guidelines-and-policies/policy-posting-your-article/
@@ -140,7 +103,6 @@ Email: \{klein,researcher,smart\}@kit.edu}}
 \thispagestyle{empty}
 \pagestyle{empty}
 
-
 \input{content/01_abstract}
 \input{content/02_introduction}
 \input{content/03_main}
@@ -149,6 +111,5 @@ Email: \{klein,researcher,smart\}@kit.edu}}
 \input{content/06_acknowledgements}
 
 \printbibliography
-
 
 \end{document}
