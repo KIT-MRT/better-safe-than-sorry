@@ -5,7 +5,8 @@ all:
 	make archive
 
 clean:
-	rm -fr root.tex root.bbl figures biblatex arxiv.zip
+	ls | grep --invert-match -e Makefile -e .gitignore | xargs rm -rf
+	cd .. && latexmk -C && rm -f root.bbl
 
 latexbuild:
 	cd .. && pwd && docker run --rm --volume "${CURDIR}/..":/workdir --workdir /workdir makisyu/texlive-2016 latexmk
