@@ -5,16 +5,17 @@ all:
 	make archive
 
 clean:
-	rm -fr root.tex root.bbl figures biblatex arxiv.zip
+	ls | grep --invert-match -e Makefile -e .gitignore | xargs rm -rf
+	cd .. && latexmk -C && rm -f root.bbl
 
 latexbuild:
-	cd .. && pwd && docker run --rm --volume ${CURDIR}/..:/workdir --workdir /workdir makisyu/texlive-2016 latexmk
+	cd .. && pwd && docker run --rm --volume "${CURDIR}/..":/workdir --workdir /workdir makisyu/texlive-2016 latexmk
 
 copyfiles:
 	cd .. && latexpand --empty-comments root.tex > arxiv/root.tex
-	cp ../root.bbl .
+	cd .. && cp root.bbl ieeeconf.cls IEEEtran.bst arxiv
 	mkdir figures
-	grep includegraphics root.tex | sed -r 's#[[:space:]]*\\includegraphics\[.*\]\{(.*)\}#\1#g' | xargs -I% cp ../%.pdf %.pdf
+	grep -E "includegraphics\[?.*\]?{[^}]+}" root.tex | sed -r 's#.*\\includegraphics[^{]*\{([^}]*)\}.*#\1#g' | xargs -I% find ../figures -regextype sed -regex "../figures/%\.\(pdf\|png\|jpg\|jpeg\)" | xargs -I% cp % figures
 
 archive:
 	zip -r arxiv.zip * -x *.zip Makefile
