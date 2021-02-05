@@ -9,7 +9,7 @@ clean:
 	cd .. && latexmk -C && rm -f root.bbl
 
 latexbuild:
-	cd .. && pwd && docker run --rm --volume "${CURDIR}/..":/workdir --workdir /workdir makisyu/texlive-2016 latexmk
+	cd .. && pwd && docker run --rm --volume "${CURDIR}/..":/workdir --workdir /workdir makisyu/texlive-2020 latexmk
 
 copyfiles:
 	cd .. && latexpand --empty-comments root.tex > arxiv/root.tex
