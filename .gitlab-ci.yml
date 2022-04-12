@@ -4,7 +4,7 @@ image: gitlab.mrt.uni-karlsruhe.de:21443/mrt/misc/mrt_build/latex:latest
 compile_pdf:
   script:
     # compile pdf
-    - latexmk -pdf
+    - latexmk --shell-escape -pdf
   artifacts:
     paths:
       - root.pdf
