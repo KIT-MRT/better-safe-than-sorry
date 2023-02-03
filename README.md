@@ -1,8 +1,8 @@
 # Template for an IEEE Conference Paper (ieeeconf)
 
-- The latest version looks like [this](https://gitlab.mrt.uni-karlsruhe.de/MRT/ieee_conference_template_latex/-/jobs/artifacts/master/file/root.pdf?job=compile_pdf).
+- The latest version looks like [this](https://gitlab.mrt.kit.edu/MRT/ieee_conference_template_latex/-/jobs/artifacts/master/file/root.pdf?job=compile_pdf).
 - Original was downloaded from [ITS papercept](http://its.papercept.net/conferences/support/tex.php) on 2020-02-13.
-- If you look for the `IEEEtran` template, use the [ieeetran branch](https://gitlab.mrt.uni-karlsruhe.de/MRT/misc/ieee_conference_template_latex/tree/ieeetran).
+- If you look for the `IEEEtran` template, use the [ieeetran branch](https://gitlab.mrt.kit.edu/MRT/misc/ieee_conference_template_latex/tree/ieeetran).
 
 
 ## Usage
