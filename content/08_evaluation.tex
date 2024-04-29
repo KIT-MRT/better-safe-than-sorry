@@ -1,0 +1,151 @@
+\section{Evaluation}
+
+\subsection{Validation in Real-world Test}
+
+\begin{itemize}
+    \item Early Implementation: An early implementation of behavior arbitration for automated vehicles was integrated on the experimental vehicle "Bertha".
+    \item Test Track: The main test track is 6 km long and runs through urban and rural areas. It includes challenging sections such as intersections, a zipper merge, a crosswalk, and tram tracks.
+    \item Arbitration Graph: The arbitration graph for decision-making on the experimental vehicle "Bertha" is shown. The cost arbitrator "Urban Driving" selects the maneuver with the minimal long-term routing costs.
+    \item Parking: Near the target parking lot, the "Park Near Goal" maneuver becomes applicable and is activated according to priority.
+    \item Safety Goal: As an example of how the safety goal (guaranteeing an MRM when leaving the ODD) was implemented, the fallback level "Emergency Stop" becomes active after the parking maneuver and keeps the vehicle at a standstill.
+\end{itemize}
+
+Additional Notes:
+
+\begin{itemize}
+    \item The behavior arbitration for automated vehicles has been in regular test drives in road traffic since summer 2020.
+    \item It has replaced the previous finite state machine and has simplified the development and integration of new maneuvers in the form of further behavior modules.
+    \item The approach in the vehicle uses a corridor-based maneuver representation, which was changed to desired and fail-safe trajectories in the course of this work to enable the verification introduced in Section 3.1.2.
+\end{itemize}
+
+\subsection{Simulative Evaluation}
+
+Goal: Evaluate the revised maneuver representation and behavior generation as well as the extension of behavior arbitration to include the safety concept introduced in Chapter 3.
+
+\paragraph*{Safety Goals}
+
+\begin{itemize}
+    \item The system prevents invalid control variables (safety goal: valid).
+    \item The system avoids risky control variables (safety goal: safe).
+\end{itemize}
+
+\subsubsection*{Evaluation Setup}
+
+\begin{itemize}
+    \item The same test track as in the real-world test is used.
+    \item CoInCar-Sim is used as the simulation environment.
+    \item The behavior model for other road users is adapted so that they also react to the ego vehicle.
+\end{itemize}
+
+\subsubsection*{Implementation}
+
+\begin{itemize}
+    \item The behavior arbitration for automated vehicles is implemented in C++ and ROS.
+    \item The behavior modules are based on the basic driving maneuvers presented in Chapter 4.
+    \item A simplified, deterministic procedure is used for trajectory planning in order to focus on the behavior decision and verification process.
+    \item The three verifiers from Chapter 2 are used to implement the safety concept.
+    \item Three fallback levels are implemented:
+          \begin{itemize}
+              \item Continue Last Maneuver
+              \item Fail Safe Fallback
+              \item Emergency Stop
+          \end{itemize}
+\end{itemize}
+
+\paragraph*{Evaluation}
+
+\begin{itemize}
+    \item The following sections investigate the influence of invalid and risky setpoints on behavior generation with and without the safety concept.
+\end{itemize}
+
+Additional Notes:
+
+\begin{itemize}
+    \item The implementation described above, which uses verification in the arbitration process, is referred to as "Safe Behavior Arbitration".
+    \item The term "Optimistic Behavior Decision" refers to behavior arbitration without a safety concept, comparable to that from [Orzechowski et al., 2020].
+\end{itemize}
+
+\subsubsection*{Valid Behavior Decision}
+Goal: Evaluate the behavior arbitration with respect to the safety goal of handling invalid control variables (safety goal: valid).
+Invalid control variables can lead to unstable and unsafe driving behavior.
+
+\paragraph*{Hypothesis}
+\begin{itemize}
+    \item Optimistic Behavior Decision: Will not verify control variables and may execute invalid or infeasible maneuvers.
+          This can lead to swerving, lane departures, and reduced speed.
+          The vehicle may not reach its destination.
+    \item Safe Behavior Decision:
+          Verifies control variables for validity and feasibility.
+          Falls back to alternative options (Continue Last Maneuver, Fail Safe Fallback, Emergency Stop) if necessary.
+          Can complete the route safely without collisions.
+\end{itemize}
+
+\paragraph*{Results}
+
+Stresstest:
+
+\begin{itemize}
+    \item Optimistic Behavior Decision:
+          Fails to verify control variables and executes invalid trajectories.
+          Vehicle swerves, leaves lane, and reduces speed significantly.
+          Cannot reach destination.
+    \item Safe Behavior Decision:
+          Verifies control variables and falls back to alternative options if necessary.
+          Vehicle stays within lane, maintains safe speed, and reaches destination.
+\end{itemize}
+
+Dauerlauf:
+
+\begin{itemize}
+    \item Optimistic Behavior Decision:
+          Repeatedly executes invalid trajectories, leading to swerving and lane departures.
+          Cannot complete route and gets stuck at last intersection.
+    \item Safe Behavior Decision:
+          Verifies control variables and avoids risky maneuvers.
+          Completes route safely without collisions.
+\end{itemize}
+
+\subsubsection*{Safe Behavior Decision in Risky Scenarios}
+
+\begin{itemize}
+    \item Scenario: Ego vehicle needs to change lanes, but another vehicle is approaching in the target lane.
+    \item Optimistic Behavior Decision:
+          Selects lane change maneuver even though it is risky.
+          Could lead to a collision.
+    \item Safe Behavior Decision:
+          Verifies maneuver and recognizes it as risky.
+          Chooses alternative maneuver to avoid collision.
+    \item Goal: Evaluate the behavior arbitration with respect to the safety goal of handling risky control variables (safety goal: safe).
+          Risky control variables can lead to collisions with other traffic participants.
+    \item Hypothesis:
+
+          \begin{itemize}
+              \item Optimistic Behavior Decision: Will not verify control variables and may execute risky maneuvers.
+                    This could lead to collisions with other vehicles.
+              \item Safe Behavior Decision:
+                    Verifies control variables for safety using $\verifier_\text{sicher}$.
+                    Falls back to alternative options if necessary to avoid collisions.
+          \end{itemize}
+\end{itemize}
+
+\paragraph*{Experimental Setup and Implementation}
+
+\begin{itemize}
+    \item Scenario: Ego vehicle needs to change lanes, but another vehicle is approaching in the target lane.
+    \item Evaluation:
+          Behavior of both decision-making approaches (Optimistic and Safe) in the scenario.
+\end{itemize}
+
+\paragraph*{Results}
+
+\begin{itemize}
+    \item Optimistic Behavior Decision:
+          Fails to verify control variables and selects the risky lane change maneuver.
+          Does not consider the presence of the other vehicle and its right of way.
+          Continues with the lane change maneuver, resulting in a collision.
+    \item Safe Behavior Decision:
+          Verifies the lane change maneuver using $\verifier_\text{sicher}$ and recognizes it as risky.
+          Falls back to the alternative "Follow Lane" maneuver.
+          Safely follows the green vehicle until it is safe to change lanes.
+          Avoids collision with the other vehicle.
+\end{itemize}
