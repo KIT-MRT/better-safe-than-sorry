@@ -64,27 +64,22 @@ Figure \ref{fig:pacman_fsm} shows a simple FSM for playing Pacman.
 
 \subsection{Behavior Trees}
 
-\subsubsection*{Introduction:}
-\begin{itemize}
-    \item Originally designed for computer game development
-    \item Increasingly used in robotics applications since 2012
-    \item Only one published work in the field of driver assistance systems or automated vehicles (Olsson, 2016)
-\end{itemize}
+Behavior trees were initially designed in computer game development [Iov22] and have increasingly been used in robotics applications since 2012 [Bag12, Ögr12].
+Comprehensive overviews and introductions to behavior trees are provided in [Iov22, Col18].
+This section, however, aims to give a brief, practice-oriented introduction to the methodology.
 
-\subsubsection*{Basic concepts:}
-\begin{itemize}
-    \item A behavior tree is a connected, loop-free, undirected graph
-    \item Internal nodes (control flow nodes) determine the selection mechanism
-    \item Leaves represent possible behaviors (action nodes) and conditions (condition nodes)
-    \item Behavior decision is timer-based, not event-based
-    \item Tree structure determines decision-making
-    \item Tree is evaluated from the root node at a fixed frequency
-    \item Each node returns a value indicating whether it is still running, has been completed successfully, or has failed
-    \item Different types of control flow nodes are available, e.g., for sequences, fallback structures, and concurrency
-    \item Condition nodes return a value indicating whether the underlying condition is met
-    \item Action nodes execute the corresponding behavior and return a value indicating the status of that behavior
-\end{itemize}
+Behavior trees are characterized by a strict functional separation between behavior decision-making and execution.
+Formally, they are connected loop-free undirected graphs, where the internal nodes (control flow nodes) determine the selection mechanism, while the leaves describe possible behaviors (action nodes) and conditions (condition nodes).
+Starting from the root node, the tree is evaluated at a fixed frequency, similar to a depth-first search.
+A node indicates whether it is still running, has completed successfully, or has failed through its return value.
+Depending on the return value, the parent control flow node evaluates additional child nodes or returns its own status.
+Various types of control flow nodes are available, including sequences, fallback structures, and concurrency.
 
+When a condition node is evaluated, it returns whether the underlying condition is met, without affecting the environment.
+Action nodes, on the other hand, execute the corresponding behavior command upon invocation and return the status of that behavior.
+Thus, action nodes describe the individual behavior options of a system, while their preconditions are modeled through condition nodes.
+By distinguishing between condition and action nodes, the preconditions of a behavior are decoupled from the actual execution of the behavior.
+To design a safe system, these actions must be linked to reliable condition nodes.
 
 \begin{figure}
   \centering
@@ -96,20 +91,13 @@ Figure \ref{fig:pacman_fsm} shows a simple FSM for playing Pacman.
 
 Figure \ref{fig:pacman_bt} shows a simple behavior tree for playing Pacman.
 
-\subsubsection*{Advantages:}
-\begin{itemize}
-    \item Modular
-    \item Hierarchically organized
-    \item Reusable components
-    \item Responsive
-    \item Interpretable
-\end{itemize}
-
-\subsubsection*{Disadvantages:}
-\begin{itemize}
-    \item Can become large and difficult to understand for complex problems
-    \item Safety depends on the arrangement of the nodes in the tree
-\end{itemize}
+In summary, behavior trees generalize many other architectures such as hierarchical finite state machines and decision trees [Col17], offering several advantages over them: they excel in modularity, hierarchical organization, reusability of components, responsiveness, and interpretability [Col18].
+Compared to finite state machines, their greater flexibility is particularly advantageous.
+Individual behaviors can be (re)used within a behavior tree without specifying their relation to other behavior options [Bag12].
+The selection mechanism of a behavior tree is also intuitively comprehensible in graphical representation and easy to follow during online operation.
+However, in practice, the representation can become extensive, as each precondition is modeled as a separate leaf node.
+The system's safety also significantly depends on the arrangement of nodes within the tree due to the aforementioned decoupling of preconditions and behavior execution.
+These drawbacks are addressed by the arbitration graphs in the following section.
 
 \subsection*{Arbitration Graphs}
 
