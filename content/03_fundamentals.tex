@@ -5,26 +5,19 @@
 
 \subsection{Decision-Making}
 
-Wide range of methods available:
-\begin{itemize}
-  \item Rule-based methods (e.g., finite state machines, decision trees, arbitration graphs)
-  \item Graph-based methods (e.g., A*, PRM*, RRT*)
-  \item Probabilistic methods (e.g., POMDPs)
-  \item Machine learning methods (e.g., reinforcement learning)
-\end{itemize}
+Decision making is a crucial part of a robot's planning module.
+Based on the current situation, it determines a command, trajectory or maneuver to be executed.
+Various methods have been established in the literature, ranging from pure decision making to situation-specific trajectory planning.
 
-Focus of this chapter: Rule-based methods
+Rule-based methods, such as finite state machines, behavior trees, or arbitration graphs, address decision making through discrete state or mode transitions.
+Graph-based or search-based methods like A*, Probabilistic Roadmaps (PRM*), and Rapidly-exploring Random Trees (RRT*) are popular in path planning for mobile robots but can also be used for decision making.
+In trajectory planning, probabilistic methods like Partially Observable Markov Decision Processes (POMDPs) and machine learning techniques, including reinforcement learning, are increasingly employed.
+These methods often make implicit decisions, such as when and where to change paths.
 
-\subsubsection*{Classical state-based methods:}
-\begin{itemize}
-  \item Finite state machines (FSMs)
-\end{itemize}
-
-\subsection*{Behavior-based methods:}
-\begin{itemize}
-  \item Behavior trees
-  \item Arbitration graphs
-\end{itemize}
+This section focuses on rule-based methods, including classical state-based methods like finite state machines, as well as behavior-based methods like behavior trees and arbitration graphs.
+\todo{Fix references}
+For a comprehensive overview of methods, refer to [Sch18, Yur20, Voß21, Gam21], with a more detailed version of this section available in [Orz23].
+Rule-based methods are particularly prevalent for prototypes used by smaller research groups due to their ease of application, numerous freely available software frameworks [Sch14, Bur18, Gre21b, The20b], including direct integration with MATLAB [The20a], and their standardization in the Unified Modeling Language [Obj17].
 
 \subsection{Finite State Machines}
 
