@@ -4,6 +4,7 @@
 
 \subsection{Motivation}
 
+\todo[inline]{Rewrite motivation to be less focused on automated driving.}
 Motivation for automated driving:
 \begin{itemize}
     \item Increased traffic safety and comfort
@@ -32,130 +33,50 @@ Benefits of the proposed method:
 
 \subsection{State of the art}
 
-\subsubsection*{Behavioral planning}
+\subsubsection*{End-to-end learning}
+Learn a unified approach for all possible maneuver and trajectory variants \cite{casas_mp3_2021}
 
-Classical methods for trajectory planning:
-\begin{itemize}
-    \item Graph search algorithms from dynamic programming
-    \item Model predictive control to solve the optimal control problem
-    \item Direct or indirect methods from static optimization
-\end{itemize}
+\paragraph*{Advantages}
+        \begin{itemize}
+            \item Consider uncertainties in situation interpretation implicitly
+            \item Superior in perception and prediction
+        \end{itemize}
+\paragraph*{Disadvantages}
+        \begin{itemize}
+            \item Require enormous amounts of data and powerful computing infrastructure
+            \item Limited possibilities to influence system behavior
+            \item Difficult to improve specific misbehavior
+        \end{itemize}
 
-Examples:
-\begin{itemize}
-    \item Bertha Benz Memorial Route: Trajectory planning formulated as a quadratic optimization problem and solved using sequential quadratic programming \cite{ziegler_trajectory_2014}
-    \item Linear model predictive control: Solves a linear-quadratic optimal control problem \cite{gutjahr_lateral_2017}
-    \item RRT with kinematic motion models: Determines trajectories for maneuvering in tight environments \cite{banzhaf_footprints_2018}
-\end{itemize}
-
-Probabilistic methods and machine learning:
-\begin{itemize}
-    \item POMDPs: Integrate uncertainties explicitly into the decision problem \cite{hubmann_automated_2018}
-    \item Reinforcement learning: Builds on successful artificial neural networks from computer vision \cite{chen_model-free_2019}
-\end{itemize}
-
-\subsubsection*{Behavior decision-making}
-
-\begin{itemize}
-    \item End-to-end learning: Learn a unified approach for all possible maneuver and trajectory variants \cite{casas_mp3_2021}
-          \begin{itemize}
-              \item \textbf{Advantages:}
-                    \begin{itemize}
-                        \item Consider uncertainties in situation interpretation implicitly
-                        \item Superior in perception and prediction
-                    \end{itemize}
-              \item \textbf{Disadvantages:}
-                    \begin{itemize}
-                        \item Require enormous amounts of data and powerful computing infrastructure
-                        \item Limited possibilities to influence system behavior
-                        \item Difficult to improve specific misbehavior
-                    \end{itemize}
-\end{itemize}
-
-\item Finite state machines: Used to select an appropriate driving mode depending on the situation \cite{montemerlo_junior_2008, ziegler_making_2014}
-          \begin{itemize}
-              \item \textbf{Advantages:}
-                    \begin{itemize}
-                        \item Easy to implement
-                        \item Can combine different behavior planning methods
-                    \end{itemize}
-              \item \textbf{Disadvantages:}
-                    \begin{itemize}
-                        \item Top-down approach requires considering the entire system and interactions of individual states
-                        \item Scalability issues with a large number of states
-                    \end{itemize}
-\end{itemize}
-
-\item Behavior trees
+\subsubsection*{Behavior trees}
 Bottom-up design: Compose overall behavior from simple sub-behaviors \cite{brooks_robust_1986}
-          \begin{itemize}
-              \item \textbf{Advantages:}
-                    \begin{itemize}
-                        \item High reactivity
-                        \item Consistent modularity
-                        \item Good scalability
-                        \item Easy to implement
-                        \item Can combine different behavior planning methods
-                    \end{itemize}
-              \item \textbf{Disadvantages:}
-                    \begin{itemize}
-                        \item Can become complex and difficult to understand for large systems
-\end{itemize}
-\end{itemize}
 
-\item Arbitration graphs
-Combine subsumption concept with object-oriented programming \cite{lauer_cognitive_2010}
-          \begin{itemize}
-              \item \textbf{Advantages:}
-                    \begin{itemize}
-                        \item Modular behavioral components address fundamental behavioral competencies
-                        \item Application-independent arbitrators decide which behavior option is most suitable
-                        \item High modularity and scalability
-                        \item Verifiable and robust
-                    \end{itemize}
-          \end{itemize}
-\end{itemize}
-
-\subsubsection{Behavior Verification}
-
-Behavior verification methods:
+\paragraph*{Advantages}
+        \begin{itemize}
+            \item High reactivity
+            \item Consistent modularity
+            \item Good scalability
+            \item Easy to implement
+            \item Can combine different behavior planning methods
+        \end{itemize}
+\paragraph*{Disadvantages}
 \begin{itemize}
-    \item Responsibility-Sensitive Safety (RSS):
-          \begin{itemize}
-              \item Evaluates whether a behavior is appropriate and responsible for the given situation
-              \item Formalizes traffic rules, defines terms like safe distance, dangerous situation, appropriate response, and responsibility
-              \item Shows that no accident would occur if all traffic participants adhered to the proposed rules
-              \item \textbf{Advantages:}
-                    \begin{itemize}
-                        \item Provides a comprehensive catalog of situation-specific rules and requirements
-                    \end{itemize}
-              \item \textbf{Disadvantages:}
-                    \begin{itemize}
-                        \item Overwhelming number of parameters to be defined makes the method difficult to use
-                    \end{itemize}
-          \end{itemize}
-    \item Reachable sets:
-          \begin{itemize}
-              \item Aims to maintain a provably safe fail-safe trajectory that can be switched to if a collision is imminent
-              \item Fail-safe trajectory is only considered safe if it has no overlap with the worst-case positions of other road users
-              \item Set-point trajectory only needs to ensure that a switch to the fail-safe trajectory is still possible in the next planning interval
-              \item \textbf{Advantages:}
-                    \begin{itemize}
-                        \item Consistent, intuitive, and efficient
-                        \item Fail-safe trajectory concept can be well integrated into a behavior decision-making with fallbacks
-                    \end{itemize}
-              \item \textbf{Disadvantages:}
-                    \begin{itemize}
-                        \item Previous publications make far-reaching assumptions that need to be relaxed for real-world application (e.g., vehicles do not leave their lanes except for lane changes)
-                    \end{itemize}
-          \end{itemize}
+    \item Can become complex and difficult to understand for large systems
+\end{itemize}
+
+\subsubsection*{Arbitration graphs}
+Combine subsumption concept with object-oriented programming \cite{lauer_cognitive_2010}
+\begin{itemize}
+    \item Modular behavioral components address fundamental behavioral competencies
+    \item Application-independent arbitrators decide which behavior option is most suitable
+    \item High modularity and scalability
+    \item Verifiable and robust
 \end{itemize}
 
 \subsection{Contributions}
 
 \begin{itemize}
-    \item \textbf{Scenario-independent maneuver representation:} A scenario-independent maneuver representation is defined for automated driving. This representation allows for a modular and reusable implementation of different driving maneuvers.
     \item \textbf{Verification logic:} The arbitration process is extended by a verification logic that ensures that only behavior options are executed that pass verification. This verification logic is based on three verifiers that check potential maneuvers for validity, feasibility, and traffic safety.
     \item \textbf{Safety concept:} A safety concept is designed to ensure robust and safe behavior arbitration through verification, real-time capability, redundancy, and diversity.
-    \item \textbf{Evaluation:} The proposed safety concept is evaluated in an application-oriented simulation environment. The results show that the proposed approach can effectively reduce the risk of accidents and improve the overall safety of automated vehicles.
+    \item \textbf{Application:} The proposed safety concept is evaluated in an application-oriented simulation environment. The results show that the proposed approach can effectively reduce the risk of accidents and improve the overall safety of automated vehicles.
 \end{itemize}

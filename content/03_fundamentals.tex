@@ -2,63 +2,40 @@
 % -*- root: ../root.tex -*-
 
 \section{Fundamentals}
-\subsection{Architectures for Automated Vehicles}
-
-\subsubsection*{3-layer model for automated driving}
-\begin{itemize}
-    \item \textbf{Strategic layer:} Defines general long-term preferences and goals (e.g., planned route)
-    \item \textbf{Tactical layer:} Generates driving maneuvers (e.g., lane change, stop maneuver) based on current situation and goals
-    \item \textbf{Operational layer:} Actuates the intended maneuver with a high update frequency (e.g., milliseconds)
-\end{itemize}
-
-\subsubsection*{Architectures for automated vehicles}
-\begin{itemize}
-    \item \textbf{Processing chain:} Perception, prediction, behavior decision, trajectory planning, and control are performed in a decoupled manner
-    \item \textbf{Integrated prediction:} Prediction is integrated into behavior and trajectory planning for planning interactive behavior
-    \item \textbf{End-to-end planning:} The entire processing chain is interwoven into a common processing step (e.g., machine learning approaches)
-\end{itemize}
 
 \subsection{Decision-Making}
 
+Wide range of methods available:
 \begin{itemize}
-    \item Part of the tactical layer: Makes the decision of which maneuver to drive based on the current situation
-    \item Provides either constraints to the downstream trajectory planning or a set-point trajectory to the control
-    \item Wide range of methods available:
-          \begin{itemize}
-              \item Rule-based methods (e.g., finite state machines, decision trees, arbitration graphs)
-              \item Graph-based methods (e.g., A*, PRM*, RRT*)
-              \item Probabilistic methods (e.g., POMDPs)
-              \item Machine learning methods (e.g., reinforcement learning)
-          \end{itemize}
+  \item Rule-based methods (e.g., finite state machines, decision trees, arbitration graphs)
+  \item Graph-based methods (e.g., A*, PRM*, RRT*)
+  \item Probabilistic methods (e.g., POMDPs)
+  \item Machine learning methods (e.g., reinforcement learning)
 \end{itemize}
 
 Focus of this chapter: Rule-based methods
 
+\subsubsection*{Classical state-based methods:}
 \begin{itemize}
-    \item \textbf{Classical state-based methods:}
-          \begin{itemize}
-              \item Finite state machines (FSMs)
-              \item Decision trees
-          \end{itemize}
-
-    \item \textbf{Behavior-based methods:}
-          \begin{itemize}
-              \item Behavior trees
-              \item Arbitration graphs
-          \end{itemize}
+  \item Finite state machines (FSMs)
 \end{itemize}
 
-\subsubsection*{Finite State Machines}
-
+\subsection*{Behavior-based methods:}
 \begin{itemize}
-\item \textbf{Introduction:}
+  \item Behavior trees
+  \item Arbitration graphs
+\end{itemize}
+
+\subsection{Finite State Machines}
+
+\subsubsection*{Introduction:}
 \begin{itemize}
     \item Originated in hardware design and theoretical computer science
     \item Now used in robotics and driver assistance systems
     \item Easy to understand and implement
 \end{itemize}
 
-\item \textbf{Basic concepts:}
+\subsubsection*{Basic concepts:}
 \begin{itemize}
     \item A finite state machine consists of:
           \begin{itemize}
@@ -76,79 +53,38 @@ Focus of this chapter: Rule-based methods
     \item FSMs can be represented graphically using UML state diagrams
 \end{itemize}
 
-\item \textbf{Example: FSM used by the Stanford Junior team in the DARPA Urban Challenge}
+\todo[inline]{Replace with Pacman example}
+\subsubsection*{Example: FSM used by the Stanford Junior team in the DARPA Urban Challenge}
 \begin{itemize}
     \item States represent tactical driving maneuvers (e.g., follow, overtake, park)
     \item Transitions are triggered by situation interpretation
     \item FSM is effective for simple behavior problems but scales poorly with complexity
 \end{itemize}
 
-\item \textbf{Advantages:}
+\subsubsection*{Advantages:}
 \begin{itemize}
     \item Easy to implement and understand
     \item Intuitive graphical representation
 \end{itemize}
 
-\item \textbf{Disadvantages:}
+\subsubsection*{Disadvantages:}
 \begin{itemize}
     \item Poor scalability for complex systems
     \item Difficult to modify
     \item Difficult to understand and verify source code
     \item Visualizations of complex systems can become cluttered
 \end{itemize}
-\end{itemize}
 
-\subsubsection*{Decision Trees}
+\subsection{Behavior Trees}
 
-\begin{itemize}
-\item \textbf{Introduction:}
-\begin{itemize}
-    \item Originally designed as recursive structures for describing classification rules
-    \item Now used in a variety of applications, including machine learning and decision-making
-\end{itemize}
-
-\item \textbf{Basic concepts:}
-\begin{itemize}
-    \item Represented as directed ordered trees
-    \item Nodes represent conditions in the form of discrete or Boolean decision variables $x_i$
-    \item Leaves represent the resulting decisions $f(x_1, \ldots, x_n)$
-    \item Evaluation starts at the root node and continues recursively until a leaf is reached
-    \item Popular in practice due to their ease of implementation and intuitive representation
-\end{itemize}
-
-\item \textbf{Example: Decision trees used by BMW for highly automated driving on highways and an emergency stop assistant}
-\begin{itemize}
-    \item Two separate decision trees were designed, one for lateral and one for longitudinal control
-    \item Decision variables were derived from situation interpretation, e.g., lane change request
-    \item Leaves provided setpoints and constraints for downstream trajectory planning
-\end{itemize}
-
-\item \textbf{Advantages:}
-\begin{itemize}
-    \item Easy to implement and understand
-    \item Modular and extensible
-    \item Can handle both discrete and continuous decision variables
-\end{itemize}
-
-\item \textbf{Disadvantages:}
-\begin{itemize}
-    \item Can become large and difficult to interpret for complex problems
-    \item Not well-suited for real-time applications due to their computational cost
-    \item Do not provide any (success) status or other performance criteria
-\end{itemize}
-\end{itemize}
-
-\subsubsection*{Behavior Trees}
-
-\begin{itemize}
-\item \textbf{Introduction:}
+\subsubsection*{Introduction:}
 \begin{itemize}
     \item Originally designed for computer game development
     \item Increasingly used in robotics applications since 2012
     \item Only one published work in the field of driver assistance systems or automated vehicles (Olsson, 2016)
 \end{itemize}
 
-\item \textbf{Basic concepts:}
+\subsubsection*{Basic concepts:}
 \begin{itemize}
     \item A behavior tree is a connected, loop-free, undirected graph
     \item Internal nodes (control flow nodes) determine the selection mechanism
@@ -162,14 +98,15 @@ Focus of this chapter: Rule-based methods
     \item Action nodes execute the corresponding behavior and return a value indicating the status of that behavior
 \end{itemize}
 
-\item \textbf{Example: Behavior tree for an interactive humanoid entertainment robot (simplified from Colledanchise, 2018)}
+\todo[inline]{Replace with Pacman example}
+\subsubsection*{Example: Behavior tree for an interactive humanoid entertainment robot (simplified from Colledanchise, 2018)}
 \begin{itemize}
     \item Robot can sit down, stand up, play ball, or say goodbye on request
     \item Each action is linked to its corresponding condition node
     \item The modular hierarchical structure of the tree allows for a subdivision into subtasks
 \end{itemize}
 
-\item \textbf{Advantages:}
+\subsubsection*{Advantages:}
 \begin{itemize}
     \item Modular
     \item Hierarchically organized
@@ -178,14 +115,13 @@ Focus of this chapter: Rule-based methods
     \item Interpretable
 \end{itemize}
 
-\item \textbf{Disadvantages:}
+\subsubsection*{Disadvantages:}
 \begin{itemize}
     \item Can become large and difficult to understand for complex problems
     \item Safety depends on the arrangement of the nodes in the tree
 \end{itemize}
-\end{itemize}
 
-\subsubsection*{Arbitration Graphs}
+\subsection*{Arbitration Graphs}
 
 \begin{itemize}
     \item Developed for robot soccer.
@@ -199,7 +135,7 @@ Focus of this chapter: Rule-based methods
           \end{itemize}
 \end{itemize}
 
-\paragraph*{Concept}
+\subsubsection*{Concept}
 \begin{itemize}
     \item Based on atomic behavior modules that represent simple skills and behaviors.
     \item Complex system behavior, such as tactics and strategies, emerges from the interaction of numerous simple behavior modules.
@@ -207,7 +143,7 @@ Focus of this chapter: Rule-based methods
     \item Instead of breaking down a problem into subproblems in a top-down knowledge-based approach, complex behavior is iteratively composed from simple behavior competences in a bottom-up design.
 \end{itemize}
 
-\paragraph*{Behavior modules}
+\subsubsection*{Behavior modules}
 \begin{itemize}
 \item Input to the behavior modules is the current situation $\situation$ of the environment.
 \item This is mapped to actor-related control variables $\command$ using the \emph{control function} \texttt{getCommand}:
@@ -218,7 +154,7 @@ $\text{command} = \text{getCommand}(\text{situation})$
 \item To enable not only reactive but also deliberative behavior, the behavior modules can create situation and command histories or use randomized procedures.
 \end{itemize}
 
-\paragraph*{Start and continue conditions}
+\subsubsection*{Start and continue conditions}
 \begin{itemize}
     \item Each \emph{behavior module} determines, in addition to its actual action, whether its preconditions are met and the behavior is therefore currently applicable at all using the so-called \emph{start condition} $\invCond$.
     \item A soccer player can only dribble the ball towards the goal, for example, if he is actually in possession of the ball.
@@ -230,7 +166,7 @@ $\text{command} = \text{getCommand}(\text{situation})$
 \end{itemize}
 
 
-\paragraph*{Behavior generation}
+\subsubsection*{Behavior generation}
 Generic \emph{arbitrators} combine a set of behavior modules, also referred to as options here, into a tactic
 \begin{itemize}
 \item First, the current situation $\situation$ is determined from the latest input data and is made available to the behavior modules
@@ -241,42 +177,16 @@ Generic \emph{arbitrators} combine a set of behavior modules, also referred to a
 \item From the applicable options $\applicableOptions$, the arbitrator finally selects the best possible option, defines it as its intention $\intention$
 \end{itemize}
 
-\subsection{Trajectory Planning}
-Trajectory planning is the process of generating a trajectory that realizes a desired behavior or maneuver, given the current state of the vehicle and its environment. Trajectories can be modeled in continuous or discrete form and describe the Cartesian coordinates $(x, y)$ and orientation of a vehicle. Real-time trajectory planning methods typically only provide local solutions, so the maneuver decision is often separated from trajectory planning.
-
-\subsubsection*{Methods}
-A variety of methods are available for trajectory planning, including:
-\begin{itemize}
-    \item \textbf{Path Planning:} Determines the lateral guidance of the vehicle.
-          \begin{itemize}
-              \item \textbf{Graph Search Algorithms:} Used in free space, such as parking lots.
-              \item \textbf{Dynamic Programming:} Used in scenarios with lanes.
-              \item \textbf{Optimization:} Used to find a path that minimizes a cost function.
-          \end{itemize}
-    \item \textbf{Trajectory Planning:} Determines both the lateral and longitudinal motion of the vehicle.
-          \begin{itemize}
-              \item \textbf{Intelligent Driver Model (IDM):} A microscopic traffic flow model that describes the longitudinal behavior of drivers during car following.
-              \item \textbf{Nonlinear Optimization:} Formulates a discrete, nonlinear optimization problem and solves it using numerical methods.
-          \end{itemize}
-\end{itemize}
-
-\subsection{Fault-tolerant Systems}
+\subsection{Fault-tolerant/Robust Systems}
 
 Fault-tolerant systems are designed to maintain a high level of reliability despite potential faults or errors. In such systems, faults, errors, and failures are distinguished. Measures to increase reliability can be categorized into fault prevention, removal, tolerance, and prediction. Fault tolerance is a key pillar of reliable systems and encompasses fault diagnosis and fault handling. Fault handling methods include error recovery, error passivation, and error compensation.
 
-\subsection{Traffic Safety}
+\subsection{Safe Behaviors}
 
 \subsubsection*{Goal}
 The goal of traffic safety is to ensure the absence of unreasonable risks when objects are moved in a (traffic) system.
 
-\subsubsection*{Levels of Safety Analysis}
-Safety analysis in traffic systems can be conducted at various levels:
-\begin{itemize}
-    \item \textbf{Hardware:} This involves ensuring the safety of the physical vehicle, sensors, actuators, computing platform, and cybersecurity measures.
-    \item \textbf{Behavior:} Safety analysis at this level involves trajectory and behavior planning to ensure safe operation of the vehicle.
-    \item \textbf{Fleet:} This encompasses the entire fleet of automated vehicles and related safety questions, such as fleet coordination and management.
-\end{itemize}
-
+\todo[inline]{Generalize the following}
 \subsubsection*{Behavior Verification}
 One of the challenges in traffic safety is verifying the safety of a planned behavior while considering uncertainties. A common method for behavior verification is the set-based approach with reachable sets analysis. This approach involves planning a fail-safe trajectory in addition to the intended trajectory. Worst-case occupancies are used to overapproximate possible behaviors of other traffic participants. The behavior is considered safe if the fail-safe trajectory does not overlap with worst-case occupancies. The benefits of this approach include provable safety under specified assumptions.
 
