@@ -50,6 +50,18 @@ Another drawback is the poor modifiability: adding or removing states often requ
 FSM transitions resemble jump instructions, making code difficult to understand, analyze, or verify.
 Tracking the active state requires a detailed event history, reminiscent of the now-avoided Goto statements in structured programming languages [Dij68, Dah72].
 Additionally, visualizing FSMs for complex systems becomes cumbersome due to the numerous transitions.
+
+\todo{Make figure look pretty and use svg}
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{pacman_fsm}
+
+  \caption{Finite State Machine to play Pacman}%
+  \label{fig:pacman_fsm}
+\end{figure}
+
+Figure \ref{fig:pacman_fsm} shows a simple FSM for playing Pacman.
+
 \subsection{Behavior Trees}
 
 \subsubsection*{Introduction:}
@@ -73,13 +85,17 @@ Additionally, visualizing FSMs for complex systems becomes cumbersome due to the
     \item Action nodes execute the corresponding behavior and return a value indicating the status of that behavior
 \end{itemize}
 
-\todo[inline]{Replace with Pacman example}
-\subsubsection*{Example: Behavior tree for an interactive humanoid entertainment robot (simplified from Colledanchise, 2018)}
-\begin{itemize}
-    \item Robot can sit down, stand up, play ball, or say goodbye on request
-    \item Each action is linked to its corresponding condition node
-    \item The modular hierarchical structure of the tree allows for a subdivision into subtasks
-\end{itemize}
+
+\todo{Make figure look pretty and use svg}
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{pacman_bt}
+
+  \caption{Behavior Tree to play Pacman}%
+  \label{fig:pacman_bt}
+\end{figure}
+
+Figure \ref{fig:pacman_bt} shows a simple behavior tree for playing Pacman.
 
 \subsubsection*{Advantages:}
 \begin{itemize}
@@ -151,6 +167,17 @@ Generic \emph{arbitrators} combine a set of behavior modules, also referred to a
 
 \item From the applicable options $\applicableOptions$, the arbitrator finally selects the best possible option, defines it as its intention $\intention$
 \end{itemize}
+
+\todo{Make figure look pretty and use svg}
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{pacman_ag}
+
+  \caption{Arbitration graph to play Pacman}%
+  \label{fig:pacman_ag}
+\end{figure}
+
+Figure \ref{fig:pacman_ag} shows a simple arbitration graph for playing Pacman.
 
 \subsection{Fault-tolerant/Robust Systems}
 
