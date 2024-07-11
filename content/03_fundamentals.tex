@@ -101,69 +101,37 @@ These drawbacks are addressed by the arbitration graphs in the following section
 
 \subsection*{Arbitration Graphs}
 
-\begin{itemize}
-    \item Developed for robot soccer.
-    \item Combines ideas from Brooks' subsumption architecture, knowledge-based architectures, and object-oriented programming.
-    \item Goals:
-          \begin{itemize}
-              \item Achieve low reaction times.
-              \item Compose known game tactics from simple building blocks.
-              \item Combine deliberative components with machine learning approaches.
-              \item Develop a modular software framework that is incrementally expandable, has clear interfaces, and leads to a transparent decision-making process.
-          \end{itemize}
-\end{itemize}
+The concept of behavior arbitration originated in the context of robot soccer, integrating ideas from Brooks' behavior-based subsumption, knowledge-based architectures like Belief-Desire-Intention (BDI), and programming paradigms such as object-oriented programming.
+This approach was thoroughly described in [Lau10] and is summarized in the following.
 
-\subsubsection*{Concept}
-\begin{itemize}
-    \item Based on atomic behavior modules that represent simple skills and behaviors.
-    \item Complex system behavior, such as tactics and strategies, emerges from the interaction of numerous simple behavior modules.
-    \item These are combined into more complex system behavior, i.e., tactics to strategies, using arbitrators according to the subsumption principle.
-    \item Instead of breaking down a problem into subproblems in a top-down knowledge-based approach, complex behavior is iteratively composed from simple behavior competences in a bottom-up design.
-\end{itemize}
+Behavior arbitration is a modular framework, characterized by clear interfaces leading to a transparent decision-making process.
+The concept relies on atomic behavior modules that represent simple abilities and behaviors.
+These modules are combined using arbitrators to create complex system behaviors, from tactics to strategies.
+Instead of decomposing a problem top-down into subproblems, complex behavior is iteratively composed bottom-up from simple behavioral competencies.
 
-\subsubsection*{Behavior modules}
-\begin{itemize}
-\item Input to the behavior modules is the current situation $\situation$ of the environment.
-\item This is mapped to actor-related control variables $\command$ using the \emph{control function} \texttt{getCommand}:
+Behavior modules receive input from the current situation in the form of sensor data or an interpreted environment model and translate this into the behavior's command.
+In addition to its actual command, each behavior module determines whether its preconditions are met and the behavior is therefore currently applicable at all using the so-called invocation condition.
 
-$\text{command} = \text{getCommand}(\text{situation})$
+If a behavior module is active, it also returns whether all conditions are met to continue the behavior using the commitment condition.
+Therefore, the calling instance itself does not need any knowledge of the prerequisites for executing a behavior module.
 
-\item In robot soccer, $\command$ consists of the desired longitudinal and angular velocity of a player as well as instructions for his shooting device.
-\item To enable not only reactive but also deliberative behavior, the behavior modules can create situation and command histories or use randomized procedures.
-\end{itemize}
+Generic arbitrators compile a set of behavior modules, referred to as options, into a tactic.
+They filter applicable options using the options's invocation and commitment conditions and select the best option as the intention to execute.
+Various arbitration schemes can be used, including priority-based, completion-based, random, sequence-based, and cost-based arbitrators.
 
-\subsubsection*{Start and continue conditions}
-\begin{itemize}
-    \item Each \emph{behavior module} determines, in addition to its actual action, whether its preconditions are met and the behavior is therefore currently applicable at all using the so-called \emph{start condition} $\invCond$.
-    \item A soccer player can only dribble the ball towards the goal, for example, if he is actually in possession of the ball.
-    \item If a behavior module is active, it also returns whether all conditions are met to continue the behavior using the \emph{continue condition} $\comCond$.
-    \item Because the player can only dribble on as long as he does not lose the ball or has reached the dribbling target.
-    \item Or a more promising behavior such as a shot becomes possible.
-    \item Each behavior module thus determines itself, using the start and continue conditions, whether it is applicable in the given situation.
-    \item Therefore, the calling instance itself does not need any knowledge of the prerequisites for executing a behavior module.
-\end{itemize}
-
-
-\subsubsection*{Behavior generation}
-Generic \emph{arbitrators} combine a set of behavior modules, also referred to as options here, into a tactic
-\begin{itemize}
-\item First, the current situation $\situation$ is determined from the latest input data and is made available to the behavior modules
-\item Next, the arbitrator determines its best applicable action
-\item To do this, it filters out those options $\applicableOptions$ from its options $\options$ that are currently applicable or fall within the domain of the current situation
-\item The behavior modules signal this via their start and continue conditions
-
-\item From the applicable options $\applicableOptions$, the arbitrator finally selects the best possible option, defines it as its intention $\intention$
-\end{itemize}
+In the case of Pac-Man a behavior module such as "Avoid Ghost" uses the environment model to determine e.g. the ghost's position to check its own applicability using the invocation and commitment conditions.
+If it is applicable, the behavior module will pass a command such as a path or a desired direction to it's parental arbitrator which will decide if this behavior should be executed based on its decision-making policy.
+Without knowing its options internals, the arbitrator compiles a complex behavior from the simple behavior modules.
 
 \begin{figure}
   \centering
   \includegraphics[width=\columnwidth]{pacman_ag}
 
-  \caption{Arbitration graph to play Pacman}%
+  \caption{Arbitration graph to play Pac-Man}%
   \label{fig:pacman_ag}
 \end{figure}
 
-Figure \ref{fig:pacman_ag} shows a simple arbitration graph for playing Pacman.
+Figure \ref{fig:pacman_ag} shows a simple arbitration graph for playing Pac-Man.
 
 \subsection{Fault-tolerant/Robust Systems}
 
