@@ -20,54 +20,36 @@ For a comprehensive overview of methods, refer to [Sch18, Yur20, Voß21, Gam21],
 Rule-based methods are particularly prevalent for prototypes used by smaller research groups due to their ease of application, numerous freely available software frameworks [Sch14, Bur18, Gre21b, The20b], including direct integration with MATLAB [The20a], and their standardization in the Unified Modeling Language [Obj17].
 
 \subsection{Finite State Machines}
+\todo{Fix references}
+Finite state machines (FSMs) originate from hardware design and theoretical computer science [Wag06, Hop07, Vos16].
+They are now widely used in robotics [Sic16] and driver assistance systems [Zie14b, Aeb15] due to their simplicity and ease of implementation.
+This section provides a practical introduction to FSM theory, summarizing key concepts from [Vos16] and [Hop07].
 
-\subsubsection*{Introduction:}
+An FSM consists of:
+
 \begin{itemize}
-    \item Originated in hardware design and theoretical computer science
-    \item Now used in robotics and driver assistance systems
-    \item Easy to understand and implement
+  \item a finite set of states $S$,
+  \item a finite set of input symbols $\Sigma$ (or events),
+  \item a finite set of output symbols $\Delta$ (or actions),
+  \item a state transition function $\delta: S \times \Sigma \rightarrow S$,
+  \item an output function $\lambda: S \rightarrow \Delta$,
+  \item an initial state $s_0 \in S$ and
+  \item a finite set of final states $F \subseteq S$.
 \end{itemize}
 
-\subsubsection*{Basic concepts:}
-\begin{itemize}
-    \item A finite state machine consists of:
-          \begin{itemize}
-              \item A finite set of states $S$
-              \item A finite set of input symbols (events) $\Sigma$
-              \item A finite set of output symbols (actions) $\Delta$
-              \item A state transition function $\delta:S \times \Sigma \to S$
-              \item An output function $\lambda:S \to \Delta$
-              \item A start state $s_0 \in S$
-              \item A finite set of final states $F \subseteq S$
-          \end{itemize}
-    \item The FSM starts in the start state $s_0$
-    \item For each event $e_i \in \Sigma$, it transitions to a new state $s_{i+1} = \delta(s_i, e_i)$
-    \item After each transition, it outputs $a_i = \lambda(s_i)$
-    \item FSMs can be represented graphically using UML state diagrams
-\end{itemize}
+The FSM starts in the initial state $s_0$.
+Upon receiving an event $e_i \in \Sigma$, it transitions to a new state $s_{i+1} = \delta(s_i, e_i)$, which may be the same as the current state $s_{i+1} = s_i$.
+After each transition, the FSM produces an output $a_i = \lambda(s_i)$.
+Extensions like hierarchical state machines can contain nested or parallel FSMs.
+In robotics, states typically represent behavior modes, with outputs guiding actions to the execution layer.
 
-\todo[inline]{Replace with Pacman example}
-\subsubsection*{Example: FSM used by the Stanford Junior team in the DARPA Urban Challenge}
-\begin{itemize}
-    \item States represent tactical driving maneuvers (e.g., follow, overtake, park)
-    \item Transitions are triggered by situation interpretation
-    \item FSM is effective for simple behavior problems but scales poorly with complexity
-\end{itemize}
-
-\subsubsection*{Advantages:}
-\begin{itemize}
-    \item Easy to implement and understand
-    \item Intuitive graphical representation
-\end{itemize}
-
-\subsubsection*{Disadvantages:}
-\begin{itemize}
-    \item Poor scalability for complex systems
-    \item Difficult to modify
-    \item Difficult to understand and verify source code
-    \item Visualizations of complex systems can become cluttered
-\end{itemize}
-
+FSMs are suitable for manageable behavior problems due to their straightforward implementation and intuitive representation.
+However, their scalability is limited, as the number of possible transitions grows quadratically with the number of states.
+Hierarchical FSMs can mitigate this by organizing states into defined levels.
+Another drawback is the poor modifiability: adding or removing states often requires extensive adjustments to existing states and transitions.
+FSM transitions resemble jump instructions, making code difficult to understand, analyze, or verify.
+Tracking the active state requires a detailed event history, reminiscent of the now-avoided Goto statements in structured programming languages [Dij68, Dah72].
+Additionally, visualizing FSMs for complex systems becomes cumbersome due to the numerous transitions.
 \subsection{Behavior Trees}
 
 \subsubsection*{Introduction:}
