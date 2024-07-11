@@ -3,6 +3,9 @@
 
 \section{Fundamentals}
 
+\todo[inline]{Make figure look pretty and use svg}
+\todo[inline]{Fix references}
+
 \subsection{Decision-Making}
 
 Decision making is a crucial part of a robot's planning module.
@@ -15,12 +18,10 @@ In trajectory planning, probabilistic methods like Partially Observable Markov D
 These methods often make implicit decisions, such as when and where to change paths.
 
 This section focuses on rule-based methods, including classical state-based methods like finite state machines, as well as behavior-based methods like behavior trees and arbitration graphs.
-\todo{Fix references}
 For a comprehensive overview of methods, refer to [Sch18, Yur20, Voß21, Gam21], with a more detailed version of this section available in [Orz23].
 Rule-based methods are particularly prevalent for prototypes used by smaller research groups due to their ease of application, numerous freely available software frameworks [Sch14, Bur18, Gre21b, The20b], including direct integration with MATLAB [The20a], and their standardization in the Unified Modeling Language [Obj17].
 
 \subsection{Finite State Machines}
-\todo{Fix references}
 Finite state machines (FSMs) originate from hardware design and theoretical computer science [Wag06, Hop07, Vos16].
 They are now widely used in robotics [Sic16] and driver assistance systems [Zie14b, Aeb15] due to their simplicity and ease of implementation.
 This section provides a practical introduction to FSM theory, summarizing key concepts from [Vos16] and [Hop07].
@@ -51,7 +52,6 @@ FSM transitions resemble jump instructions, making code difficult to understand,
 Tracking the active state requires a detailed event history, reminiscent of the now-avoided Goto statements in structured programming languages [Dij68, Dah72].
 Additionally, visualizing FSMs for complex systems becomes cumbersome due to the numerous transitions.
 
-\todo{Make figure look pretty and use svg}
 \begin{figure}
   \centering
   \includegraphics[width=\columnwidth]{pacman_fsm}
@@ -86,7 +86,6 @@ Figure \ref{fig:pacman_fsm} shows a simple FSM for playing Pacman.
 \end{itemize}
 
 
-\todo{Make figure look pretty and use svg}
 \begin{figure}
   \centering
   \includegraphics[width=\columnwidth]{pacman_bt}
@@ -168,7 +167,6 @@ Generic \emph{arbitrators} combine a set of behavior modules, also referred to a
 \item From the applicable options $\applicableOptions$, the arbitrator finally selects the best possible option, defines it as its intention $\intention$
 \end{itemize}
 
-\todo{Make figure look pretty and use svg}
 \begin{figure}
   \centering
   \includegraphics[width=\columnwidth]{pacman_ag}
