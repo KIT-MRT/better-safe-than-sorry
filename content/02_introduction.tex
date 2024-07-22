@@ -73,8 +73,25 @@ Combine subsumption concept with object-oriented programming \cite{lauer_cogniti
     \item Verifiable and robust
 \end{itemize}
 
-\subsubsection*{Pacman}
-\todo[inline]{Very briefly explain the Pacman game and the basic behaviors.}
+\subsection{Pac-Man}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/entt_pacman.png}
+    \caption{The Pac-Man implementation used to demonstrate the proposed method.}
+    \label{fig:entt-pacman}
+\end{figure}
+Pac-Man is a classic arcade game released in 1980, where the player controls Pac-Man, a yellow, circular character navigating a maze.
+The primary objective is to eat all the dots in the maze while avoiding four ghosts—Blinky, Pinky, Inky, and Clyde—that pursue Pac-Man.
+Consuming power pellets temporarily turns the ghosts blue, allowing Pac-Man to eat them for bonus points.
+Depicted in Figure \ref{fig:entt-pacman} is an open-source implementation\footnote{github.com/indianakernick/EnTT-Pacman} of the game that we use to demonstrate the proposed method.
+We split Pac-Man's behavior into the following behavioral components:
+
+\begin{itemize}
+    \item \textbf{Avoid Ghosts:} Pac-Man tries to increase the distance to the ghosts to avoid being eaten.
+    \item \textbf{Chase Ghosts:} After consuming a power pellet Pac-Man might try to eat the ghosts for extra points.
+    \item \textbf{Eat Dots:} Pac-Man tries to eat all the dots in the maze to win the game.
+\end{itemize}
 
 \subsection{Contributions}
 
