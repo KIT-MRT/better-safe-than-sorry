@@ -17,57 +17,8 @@ Ensuring the safety and robustness of the arbitration graphs governing such deci
 
 This paper focuses on enhancing the safety and robustness of arbitration graphs by identifying and handling erronous or unsafe commands at runtime.
 
-Benefits of the proposed method:
-\begin{itemize}
-    \item Modular behavioral components in a hierarchical arbitration graph
-    \item Scalable in the number of behavioral options
-    \item Allows the combination of diverse scenario-specific methods
-    \item Robust execution and safe behavior through verification and various fallback levels
-    \item Modular and hierarchical structure enables an iterative design process
-    \item Increases maintainability and leads to transparent and traceable decision-making
-\end{itemize}
-
 \subsection{State of the art}
-
-\subsubsection*{End-to-end learning}
-Learn a unified approach for all possible maneuver and trajectory variants \cite{casas_mp3_2021}
-
-\paragraph*{Advantages}
-        \begin{itemize}
-            \item Consider uncertainties in situation interpretation implicitly
-            \item Superior in perception and prediction
-        \end{itemize}
-\paragraph*{Disadvantages}
-        \begin{itemize}
-            \item Require enormous amounts of data and powerful computing infrastructure
-            \item Limited possibilities to influence system behavior
-            \item Difficult to improve specific misbehavior
-        \end{itemize}
-
-\subsubsection*{Behavior trees}
-Bottom-up design: Compose overall behavior from simple sub-behaviors \cite{brooks_robust_1986}
-
-\paragraph*{Advantages}
-        \begin{itemize}
-            \item High reactivity
-            \item Consistent modularity
-            \item Good scalability
-            \item Easy to implement
-            \item Can combine different behavior planning methods
-        \end{itemize}
-\paragraph*{Disadvantages}
-\begin{itemize}
-    \item Can become complex and difficult to understand for large systems
-\end{itemize}
-
-\subsubsection*{Arbitration graphs}
-Combine subsumption concept with object-oriented programming \cite{lauer_cognitive_2010}
-\begin{itemize}
-    \item Modular behavioral components address fundamental behavioral competencies
-    \item Application-independent arbitrators decide which behavior option is most suitable
-    \item High modularity and scalability
-    \item Verifiable and robust
-\end{itemize}
+\todo[inline]{Add section about the need for decision-making and end-to-end learning vs rule-based systems.}
 
 \subsection{Pac-Man}
 
