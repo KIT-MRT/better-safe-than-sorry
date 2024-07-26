@@ -3,7 +3,6 @@
 
 \section{Fundamentals}
 
-\todo[inline]{Make figure look pretty and use svg}
 \todo[inline]{Fix references}
 
 \subsection{Decision-Making}
@@ -52,16 +51,6 @@ FSM transitions resemble jump instructions, making code difficult to understand,
 Tracking the active state requires a detailed event history, reminiscent of the now-avoided Goto statements in structured programming languages [Dij68, Dah72].
 Additionally, visualizing FSMs for complex systems becomes cumbersome due to the numerous transitions.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=\columnwidth]{pacman_fsm}
-
-  \caption{Finite State Machine to play Pac-Man}%
-  \label{fig:pacman_fsm}
-\end{figure}
-
-Figure \ref{fig:pacman_fsm} shows a simple FSM for playing Pac-Man.
-
 \subsection{Behavior Trees}
 
 Behavior trees were initially designed in computer game development [Iov22] and have increasingly been used in robotics applications since 2012 [Bag12, Ögr12].
@@ -80,16 +69,6 @@ Action nodes, on the other hand, execute the corresponding behavior command upon
 Thus, action nodes describe the individual behavior options of a system, while their preconditions are modeled through condition nodes.
 By distinguishing between condition and action nodes, the preconditions of a behavior are decoupled from the actual execution of the behavior.
 To design a safe system, these actions must be linked to reliable condition nodes.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=\columnwidth]{pacman_bt}
-
-  \caption{Behavior Tree to play Pac-Man}%
-  \label{fig:pacman_bt}
-\end{figure}
-
-Figure \ref{fig:pacman_bt} shows a simple behavior tree for playing Pac-Man.
 
 In summary, behavior trees generalize many other architectures such as hierarchical finite state machines and decision trees [Col17], offering several advantages over them: they excel in modularity, hierarchical organization, reusability of components, responsiveness, and interpretability [Col18].
 Compared to finite state machines, their greater flexibility is particularly advantageous.
@@ -122,16 +101,6 @@ Various arbitration schemes can be used, including priority-based, completion-ba
 In the case of Pac-Man a behavior module such as "Avoid Ghost" uses the environment model to determine e.g. the ghost's position to check its own applicability using the invocation and commitment conditions.
 If it is applicable, the behavior module will pass a command such as a path or a desired direction to it's parental arbitrator which will decide if this behavior should be executed based on its decision-making policy.
 Without knowing its options internals, the arbitrator compiles a complex behavior from the simple behavior modules.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=\columnwidth]{pacman_ag}
-
-  \caption{Arbitration graph to play Pac-Man}%
-  \label{fig:pacman_ag}
-\end{figure}
-
-Figure \ref{fig:pacman_ag} shows a simple arbitration graph for playing Pac-Man.
 
 \subsection{Fault-tolerant/Robust Systems}
 
