@@ -1,0 +1,64 @@
+arbitration:
+  type: PriorityArbitrator
+  name: PacmanAgent
+  invocationCondition: true
+  commitmentCondition: true
+  options:
+    - type: Option
+      behavior:
+        type: Behavior
+        name: ChaseGhost
+        invocationCondition: false
+        commitmentCondition: false
+      flags:
+        - INTERRUPTABLE
+    - type: Option
+      behavior:
+        type: Behavior
+        name: RunAwayFromGhost
+        invocationCondition: true
+        commitmentCondition: false
+      flags:
+        - INTERRUPTABLE
+    - type: Option
+      behavior:
+        type: CostArbitrator
+        name: CollectDots
+        invocationCondition: true
+        commitmentCondition: true
+        options:
+          - type: Option
+            behavior:
+              type: Behavior
+              name: CollectClosestDot
+              invocationCondition: true
+              commitmentCondition: false
+            verificationResult: passed
+            cost: 0
+          - type: Option
+            behavior:
+              type: Behavior
+              name: GotToDotPatch
+              invocationCondition: true
+              commitmentCondition: true
+            verificationResult: passed
+            cost: 0
+        activeBehavior: 0
+      verificationResult: passed
+      flags:
+        - INTERRUPTABLE
+    - type: Option
+      behavior:
+        type: Behavior
+        name: RandomWalk
+        invocationCondition: true
+        commitmentCondition: false
+    - type: Option
+      behavior:
+        type: Behavior
+        name: DoNothing
+        invocationCondition: true
+        commitmentCondition: false
+      flags:
+        - FALLBACK
+  activeBehavior: 1
