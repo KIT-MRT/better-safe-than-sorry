@@ -20,14 +20,14 @@ This paper focuses on enhancing the safety and robustness of arbitration graphs 
 \subsection{State of the art}
 \todo[inline]{Add section about the need for decision-making and end-to-end learning vs rule-based systems.}
 
-\subsection{Pac-Man}
-
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/entt_pacman.png}
-    \caption{The Pac-Man implementation used to demonstrate the proposed method.}
+    \includegraphics[width=0.5\textwidth]{figures/entt_pacman_with_graph.png}
+    \caption{The Pac-Man implementation used to demonstrate the proposed method and the corresponding arbitration graph.}
     \label{fig:entt-pacman}
 \end{figure}
+\subsection{Pac-Man}
+
 Pac-Man is a classic arcade game released in 1980, where the player controls Pac-Man, a yellow, circular character navigating a maze.
 The primary objective is to eat all the dots in the maze while avoiding four ghosts—Blinky, Pinky, Inky, and Clyde—that pursue Pac-Man.
 Consuming power pellets temporarily turns the ghosts blue, allowing Pac-Man to eat them for bonus points.
@@ -37,8 +37,11 @@ We split Pac-Man's behavior into the following behavioral components:
 \begin{itemize}
     \item \textbf{Avoid Ghosts:} Pac-Man tries to increase the distance to the ghosts to avoid being eaten.
     \item \textbf{Chase Ghosts:} After consuming a power pellet Pac-Man might try to eat the ghosts for extra points.
-    \item \textbf{Eat Dots:} Pac-Man tries to eat all the dots in the maze to win the game.
+    \item \textbf{Eat Closest Dot:} Pac-Man moves towards the dot closest to him.
+    \item \textbf{Change Dot Cluster:} Pac-Man moves towards another area with a high dot density.
 \end{itemize}
+
+The arbitration graph in Figure \ref{fig:entt-pacman} visualizes the corresponding arbitration graph.
 
 \subsection{Contributions}
 
