@@ -7,80 +7,43 @@
 
 \subsection{Decision-Making}
 
-% Intro
-Decision making is a crucial part of a robot's planning module.
-Based on the current situation, it determines a command, trajectory or maneuver to be executed.
-Various methods have been established in the literature, ranging from pure decision making to implicit decision making within a planning module.
-For a comprehensive overview of methods, refer to [Sch18, Yur20, Voß21, Gam21], with a more detailed version of this section available in [Orz23].
-
-% Overview
-Graph-based or search-based methods like A*, Probabilistic Roadmaps (PRM*), and Rapidly-exploring Random Trees (RRT*) are popular in path planning for mobile robots but can also be used for decision making.
-In trajectory planning, probabilistic methods like Partially Observable Markov Decision Processes (POMDPs) and machine learning techniques, including reinforcement learning, are increasingly employed.
-These methods often make implicit decisions, such as when and where to change paths.
+Decision-making is crucial in a robot's planning module, determining commands based on the current situation.
+Methods range from graph-based techniques like A*, PRM*, and RRT* to probabilistic methods and machine learning for implicit decisions.
 This work, however, focuses on rule-based methods, such as finite state machines, behavior trees, or arbitration graphs, which address decision making through discrete state or mode transitions.
-They are particularly prevalent for prototypes used by smaller research groups due to their ease of application, numerous freely available software frameworks [Sch14, Bur18, Gre21b, The20b], including direct integration with MATLAB [The20a], and their standardization in the Unified Modeling Language [Obj17].
 
 % Finite State Machines
-Finite state machines (FSMs) originate from hardware design and theoretical computer science [Wag06, Hop07, Vos16].
-They are widely used in robotics [Sic16] [Zie14b, Aeb15] due to their simplicity and ease of implementation.
-
-Starting in an initial state, the FSM transitions to a new state upon receiving an event while producing an output.
-In robotics, states typically represent behavior modes, with outputs guiding actions to the execution layer.
-
-FSMs are suitable for manageable behavior problems due to their straightforward implementation and intuitive representation.
-However, their scalability is limited, as the number of possible transitions grows quadratically with the number of states.
-Hierarchical FSMs can mitigate this by organizing states into defined levels.
-Another drawback is the poor modifiability: adding or removing states often requires extensive adjustments to existing states and transitions.
-FSM transitions resemble jump instructions, making code difficult to understand, analyze, or verify.
-Tracking the active state requires a detailed event history, reminiscent of the now-avoided Goto statements in structured programming languages [Dij68, Dah72].
-Additionally, visualizing FSMs for complex systems becomes cumbersome due to the numerous transitions.
+FSMs, from hardware design and theoretical computer science, represent behavior modes with transitions triggered by events. Despite their simplicity, FSMs scale poorly and are difficult to modify due to extensive transitions.
 
 % Behavior Trees
-Behavior trees were initially designed in computer game development [Iov22] and have increasingly been used in robotics applications since 2012 [Bag12, Ögr12].
-Comprehensive overviews and introductions to behavior trees are provided in [Iov22, Col18].
-Behavior trees are characterized by a strict functional separation between behavior decision-making and execution.
-Formally, they are connected loop-free undirected graphs, where the internal nodes (control flow nodes) determine the selection mechanism, while the leaves describe possible behaviors (action nodes) and conditions (condition nodes).
-Starting from the root node, the tree is evaluated at a fixed frequency, similar to a depth-first search.
-A node indicates whether it is still running, has completed successfully, or has failed through its return value.
-Depending on the return value, the parent control flow node evaluates additional child nodes or returns its own status.
-Various types of control flow nodes are available, including sequences, fallback structures, and concurrency.
+Behavior trees, initially designed for game development, have been increasingly used in robotics since 2012.
+They separate behavior decision-making from execution, forming loop-free undirected graphs.
+Internal nodes determine selection mechanisms, while leaves describe behaviors and conditions.
+Evaluated at a fixed frequency, nodes return their status as running, completed, or failed.
+Control flow nodes decide on further evaluations.
 
-When a condition node is evaluated, it returns whether the underlying condition is met, without affecting the environment.
-Action nodes, on the other hand, execute the corresponding behavior command upon invocation and return the status of that behavior.
-Thus, action nodes describe the individual behavior options of a system, while their preconditions are modeled through condition nodes.
+Condition nodes check if their underlying conditions are met without affecting the environment, while action nodes execute behaviors and return their status.
 By distinguishing between condition and action nodes, the preconditions of a behavior are decoupled from the actual execution of the behavior.
 To design a safe system, these actions must be linked to reliable condition nodes.
 
-In summary, behavior trees generalize many other architectures such as hierarchical finite state machines and decision trees [Col17], offering several advantages over them: they excel in modularity, hierarchical organization, reusability of components, responsiveness, and interpretability [Col18].
-Compared to finite state machines, their greater flexibility is particularly advantageous.
-Individual behaviors can be (re)used within a behavior tree without specifying their relation to other behavior options [Bag12].
-The selection mechanism of a behavior tree is also intuitively comprehensible in graphical representation and easy to follow during online operation.
-However, in practice, the representation can become extensive, as each precondition is modeled as a separate leaf node.
-The system's safety also significantly depends on the arrangement of nodes within the tree due to the aforementioned decoupling of preconditions and behavior execution.
-These drawbacks are addressed by the arbitration graphs in the following section.
+Behavior trees generalize many architectures, such as hierarchical finite state machines and decision trees [Col17], excelling in modularity, hierarchical organization, reusability, responsiveness, and interpretability [Col18].
+Their flexibility allows reuse of individual behaviors without specifying their relations [Bag12].
+The selection mechanism is intuitive and easy to follow during operation.
+However, extensive preconditions can make representations unwieldy, and safety depends significantly on node arrangement.
+These drawbacks are addressed by arbitration graphs.
 
 % Arbitration Graphs
 The concept of behavior arbitration originated in the context of robot soccer, integrating ideas from Brooks' behavior-based subsumption, knowledge-based architectures like Belief-Desire-Intention (BDI), and programming paradigms such as object-oriented programming.
 This approach was thoroughly described in [Lau10] and is summarized in the following.
 
-Behavior arbitration is a modular framework, characterized by clear interfaces leading to a transparent decision-making process.
-The concept relies on atomic behavior modules that represent simple abilities and behaviors.
+This modular framework is characterized by clear interfaces for transparent decision-making, using atomic behavior modules to represent simple abilities and behaviors.
 These modules are combined using arbitrators to create complex system behaviors.
-Instead of decomposing a problem top-down into subproblems, complex behavior is iteratively composed bottom-up from simple behavioral competencies.
 
-Behavior modules receive input from the current situation in the form of sensor data or an interpreted environment model and translate this into the behavior's command.
-In addition to its actual command, each behavior module determines whether its preconditions are met and the behavior is therefore currently applicable at all using the so-called invocation condition.
+The input to a behavior module is the current situation in the form sensor data or an interpreted environment model.
+If its preconditions are met, i.e. the so-called invocation condition is satisfied and the behavior is therefore applicable, the behavior module computes a command.
+An active behavior module checks whether all conditions are met to continue the behavior using the commitment condition meaning the calling instance itself does not need any knowledge of the prerequisites for executing a behavior module.
 
-If a behavior module is active, it returns whether all conditions are met to continue the behavior using the commitment condition.
-Therefore, the calling instance itself does not need any knowledge of the prerequisites for executing a behavior module.
-
-Generic arbitrators comine a set of behavior modules, referred to as options.
-They filter applicable options using the options's invocation and commitment conditions and select the best option as the intention to execute.
-Various arbitration schemes can be used, including priority-based, completion-based, random, sequence-based, and cost-based arbitrators.
-
-In the case of Pac-Man a behavior module such as "Avoid Ghost" uses the environment model to determine e.g. the ghost's position to check its own applicability using the invocation and commitment conditions.
-If it is applicable, the behavior module will pass a command such as a path or a desired direction to it's parental arbitrator which will decide if this behavior should be executed based on its decision-making policy.
-Without knowing its options internals, the arbitrator compiles a complex behavior from the simple behavior modules.
+Generic arbitrators combine behavior modules, filtering them using invocation and commitment conditions, and select the best option to execute.
+Arbitration schemes include priority-based, completion-based, random, sequence-based, and cost-based.
 
 \subsection{Fault-tolerant/Robust Systems}
 
