@@ -4,18 +4,14 @@
 
 \subsection{Motivation}
 
-Behavior planning and decision-making are critical components that enable robots to perform tasks autonomously and adaptively in dynamic environments.
-These processes involve selecting and executing commands to achieve specific goals while responding to changes and uncertainties in the surroundings.
-Ensuring safety and robustness in behavior planning and decision-making is essential for robots to operate reliably and effectively across various applications, such as autonomous driving, industrial automation, and service robotics.
+Behavior planning and decision-making are crucial for robots to operate autonomously in dynamic environments, ensuring they achieve goals while adapting to changes and uncertainties.
+Key to reliable operation in fields like autonomous driving and industrial automation is ensuring safety and robustness in these processes.
 
-Arbitration graphs, a type of hierarchical behavior model, can be used to manage complex decision-making processes in robots.
-The bottom-up architecture makes them very scalable and maintainable while allowing for a very transparent decision-making process.
-The modularity of arbitration graphs enables the integration of diverse scenario-specific methods and seamless switching between them.
-However, the inherent complexity and dynamic nature of real-world environments pose significant challenges to the safety and robustness of these systems.
+Arbitration graphs, hierarchical behavior models, manage complex decision-making with scalability, maintainability, and transparency.
+Their modularity allows integration of diverse methods and seamless switching between them.
+However, real-world complexities challenge the safety and robustness of these systems.
 
-Ensuring the safety and robustness of the arbitration graphs governing such decisions is paramount to prevent failures and ensure reliable operation under varying conditions.
-
-This paper focuses on enhancing the safety and robustness of arbitration graphs by identifying and handling erronous or unsafe commands at runtime.
+This paper aims to enhance arbitration graph safety and robustness by identifying and handling erroneous or unsafe commands at runtime.
 
 \begin{figure}
     \centering
@@ -25,34 +21,16 @@ This paper focuses on enhancing the safety and robustness of arbitration graphs 
 \end{figure}
 
 \subsection{State of the art}
-In the field of behavioral decision-making, there are both monothematic methods and generic architectures that allow the combination of various behavior planning procedures.
-End-to-end machine learning architectures employ a unified approach for all scenarios, learning the entire decision-making process from raw sensor data to actuator commands.
-\todo[inline]{Add examples of end-to-end learning architectures.}
-These machine learning approaches account for uncertainties in situation interpretation but require extensive data and powerful computing infrastructure.
-They also offer limited direct influence over system behavior, making it challenging to improve specific issues without affecting other situations.
+Behavioral decision-making encompasses both monothematic methods and generic architectures.
 
-Traditional behavioral decision architectures, like state-based architectures such as finite state machines, can reduce or eliminate such dependencies and employ different planning methods based on functionality or situation.
-For example, [Mon08] uses states representing different maneuvers, and [Ard11] combines finite state machines and decision trees for highly automated highway driving.
-However, state-based systems can become unmanageable with numerous states and scale poorly with the number of behavioral options.
+End-to-end machine learning approaches learn the entire process from sensor data to commands, requiring extensive data and computational power but limiting direct system behavior influence.
 
-In robotics, behavior-based methods have evolved from Brooks' subsumption concept [Bro86], constructing overall behavior from simple sub-behaviors in a bottom-up design.
-The gaming industry developed behavior trees, first used conceptually for unmanned aerial vehicles [Ögr12] and later adapted to other robotic applications [Col18].
-Here, behavioral decisions are made through a tree structure with control flow nodes, while leaves handle planning or control and can access sensors and actuators directly.
+Traditional architectures like finite state machines (FSMs) allow situational planning but scale poorly with complexity. Behavior-based methods, derived from Brooks' subsumption architecture, evolved into behavior trees used in gaming and robotics. These trees structure decisions hierarchically, offering modularity and responsiveness but becoming unwieldy with extensive conditions.
 
-In robotic soccer, arbitration graphs combining subsumption with object-oriented programming were created [Lau10], with modular behavior modules responsible for interpreting situations and determining applicable behaviors.
-Arbitrators in a hierarchical graph structure then select the most suitable behavior option.
-Uniform input-output interfaces ensure reusability and system comprehensibility.
-This approach was applied to automated driving in [Orz20], validating its benefits in simulations.
-
-Behavior-based architectures are highly reactive, modular, and scalable.
-They are as easy to implement as state-based architectures and can combine various planning methods within a single system.
-Additionally, their hierarchical modular structure allows for the integration of verification mechanisms with fallback levels directly into behavioral decision-making.
+Arbitration graphs, combining subsumption and object-oriented programming, modularize behavior for reusability and system comprehensibility. Applied in robotic soccer and automated driving, these graphs ensure behavior modules interpret situations and determine actions while arbitrators select suitable behaviors.
 
 \subsection{Pac-Man}
-
-Pac-Man is a classic arcade game released in 1980, where the player controls Pac-Man, a yellow, circular character navigating a maze.
-The primary objective is to eat all the dots in the maze while avoiding four ghosts—Blinky, Pinky, Inky, and Clyde—that pursue Pac-Man.
-Consuming power pellets temporarily turns the ghosts blue, allowing Pac-Man to eat them for bonus points.
+Pac-Man, the 1980 arcade game, involves navigating a maze to eat dots while avoiding ghosts.
 Depicted in Figure \ref{fig:entt-pacman} is an open-source implementation\footnote{github.com/indianakernick/EnTT-Pacman} of the game that we use to demonstrate the proposed method.
 We split Pac-Man's behavior into the following behavioral components:
 
@@ -68,7 +46,7 @@ The arbitration graph in Figure \ref{fig:entt-pacman} visualizes the correspondi
 \subsection{Contributions}
 
 \begin{itemize}
-    \item \textbf{Verification logic:} The arbitration process is extended by a verification logic that ensures that only behavior options are executed that pass verification.
-    \item \textbf{Fallback logic:} When behavior options fail verification, a fallback logic is used to seamlessly fall back to an alternative behavior.
-    \item \textbf{Application:} The proposed safety concept is evaluated in the context of autonomous driving in an application-oriented simulation environment. The results show that the proposed approach can effectively reduce the risk of accidents and improve the overall safety of automated vehicles.
+\item \textbf{Verification Logic:} Extends the arbitration process to ensure only verified behaviors are executed.
+\item \textbf{Fallback Logic:} Introduces fallback options when behaviors fail verification.
+\item \textbf{Application:} Evaluates the safety concept in autonomous driving simulations, showing reduced accident risk and improved safety.
 \end{itemize}
