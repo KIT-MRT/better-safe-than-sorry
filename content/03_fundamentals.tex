@@ -7,40 +7,24 @@
 
 \subsection{Decision-Making}
 
+% Intro
 Decision making is a crucial part of a robot's planning module.
 Based on the current situation, it determines a command, trajectory or maneuver to be executed.
-Various methods have been established in the literature, ranging from pure decision making to situation-specific trajectory planning.
+Various methods have been established in the literature, ranging from pure decision making to implicit decision making within a planning module.
+For a comprehensive overview of methods, refer to [Sch18, Yur20, Voß21, Gam21], with a more detailed version of this section available in [Orz23].
 
-Rule-based methods, such as finite state machines, behavior trees, or arbitration graphs, address decision making through discrete state or mode transitions.
+% Overview
 Graph-based or search-based methods like A*, Probabilistic Roadmaps (PRM*), and Rapidly-exploring Random Trees (RRT*) are popular in path planning for mobile robots but can also be used for decision making.
 In trajectory planning, probabilistic methods like Partially Observable Markov Decision Processes (POMDPs) and machine learning techniques, including reinforcement learning, are increasingly employed.
 These methods often make implicit decisions, such as when and where to change paths.
+This work, however, focuses on rule-based methods, such as finite state machines, behavior trees, or arbitration graphs, which address decision making through discrete state or mode transitions.
+They are particularly prevalent for prototypes used by smaller research groups due to their ease of application, numerous freely available software frameworks [Sch14, Bur18, Gre21b, The20b], including direct integration with MATLAB [The20a], and their standardization in the Unified Modeling Language [Obj17].
 
-This section focuses on rule-based methods, including classical state-based methods like finite state machines, as well as behavior-based methods like behavior trees and arbitration graphs.
-For a comprehensive overview of methods, refer to [Sch18, Yur20, Voß21, Gam21], with a more detailed version of this section available in [Orz23].
-Rule-based methods are particularly prevalent for prototypes used by smaller research groups due to their ease of application, numerous freely available software frameworks [Sch14, Bur18, Gre21b, The20b], including direct integration with MATLAB [The20a], and their standardization in the Unified Modeling Language [Obj17].
-
-\subsection{Finite State Machines}
+% Finite State Machines
 Finite state machines (FSMs) originate from hardware design and theoretical computer science [Wag06, Hop07, Vos16].
-They are now widely used in robotics [Sic16] and driver assistance systems [Zie14b, Aeb15] due to their simplicity and ease of implementation.
-This section provides a practical introduction to FSM theory, summarizing key concepts from [Vos16] and [Hop07].
+They are widely used in robotics [Sic16] [Zie14b, Aeb15] due to their simplicity and ease of implementation.
 
-An FSM consists of:
-
-\begin{itemize}
-  \item a finite set of states $S$,
-  \item a finite set of input symbols $\Sigma$ (or events),
-  \item a finite set of output symbols $\Delta$ (or actions),
-  \item a state transition function $\delta: S \times \Sigma \rightarrow S$,
-  \item an output function $\lambda: S \rightarrow \Delta$,
-  \item an initial state $s_0 \in S$ and
-  \item a finite set of final states $F \subseteq S$.
-\end{itemize}
-
-The FSM starts in the initial state $s_0$.
-Upon receiving an event $e_i \in \Sigma$, it transitions to a new state $s_{i+1} = \delta(s_i, e_i)$, which may be the same as the current state $s_{i+1} = s_i$.
-After each transition, the FSM produces an output $a_i = \lambda(s_i)$.
-Extensions like hierarchical state machines can contain nested or parallel FSMs.
+Starting in an initial state, the FSM transitions to a new state upon receiving an event while producing an output.
 In robotics, states typically represent behavior modes, with outputs guiding actions to the execution layer.
 
 FSMs are suitable for manageable behavior problems due to their straightforward implementation and intuitive representation.
@@ -51,12 +35,9 @@ FSM transitions resemble jump instructions, making code difficult to understand,
 Tracking the active state requires a detailed event history, reminiscent of the now-avoided Goto statements in structured programming languages [Dij68, Dah72].
 Additionally, visualizing FSMs for complex systems becomes cumbersome due to the numerous transitions.
 
-\subsection{Behavior Trees}
-
+% Behavior Trees
 Behavior trees were initially designed in computer game development [Iov22] and have increasingly been used in robotics applications since 2012 [Bag12, Ögr12].
 Comprehensive overviews and introductions to behavior trees are provided in [Iov22, Col18].
-This section, however, aims to give a brief, practice-oriented introduction to the methodology.
-
 Behavior trees are characterized by a strict functional separation between behavior decision-making and execution.
 Formally, they are connected loop-free undirected graphs, where the internal nodes (control flow nodes) determine the selection mechanism, while the leaves describe possible behaviors (action nodes) and conditions (condition nodes).
 Starting from the root node, the tree is evaluated at a fixed frequency, similar to a depth-first search.
@@ -78,23 +59,22 @@ However, in practice, the representation can become extensive, as each precondit
 The system's safety also significantly depends on the arrangement of nodes within the tree due to the aforementioned decoupling of preconditions and behavior execution.
 These drawbacks are addressed by the arbitration graphs in the following section.
 
-\subsection*{Arbitration Graphs}
-
+% Arbitration Graphs
 The concept of behavior arbitration originated in the context of robot soccer, integrating ideas from Brooks' behavior-based subsumption, knowledge-based architectures like Belief-Desire-Intention (BDI), and programming paradigms such as object-oriented programming.
 This approach was thoroughly described in [Lau10] and is summarized in the following.
 
 Behavior arbitration is a modular framework, characterized by clear interfaces leading to a transparent decision-making process.
 The concept relies on atomic behavior modules that represent simple abilities and behaviors.
-These modules are combined using arbitrators to create complex system behaviors, from tactics to strategies.
+These modules are combined using arbitrators to create complex system behaviors.
 Instead of decomposing a problem top-down into subproblems, complex behavior is iteratively composed bottom-up from simple behavioral competencies.
 
 Behavior modules receive input from the current situation in the form of sensor data or an interpreted environment model and translate this into the behavior's command.
 In addition to its actual command, each behavior module determines whether its preconditions are met and the behavior is therefore currently applicable at all using the so-called invocation condition.
 
-If a behavior module is active, it also returns whether all conditions are met to continue the behavior using the commitment condition.
+If a behavior module is active, it returns whether all conditions are met to continue the behavior using the commitment condition.
 Therefore, the calling instance itself does not need any knowledge of the prerequisites for executing a behavior module.
 
-Generic arbitrators compile a set of behavior modules, referred to as options, into a tactic.
+Generic arbitrators comine a set of behavior modules, referred to as options.
 They filter applicable options using the options's invocation and commitment conditions and select the best option as the intention to execute.
 Various arbitration schemes can be used, including priority-based, completion-based, random, sequence-based, and cost-based arbitrators.
 
@@ -104,21 +84,20 @@ Without knowing its options internals, the arbitrator compiles a complex behavio
 
 \subsection{Fault-tolerant/Robust Systems}
 
-Fault-tolerant systems are designed to maintain a high level of reliability despite potential faults or errors. In such systems, faults, errors, and failures are distinguished. Measures to increase reliability can be categorized into fault prevention, removal, tolerance, and prediction. Fault tolerance is a key pillar of reliable systems and encompasses fault diagnosis and fault handling. Fault handling methods include error recovery, error passivation, and error compensation.
+Fault-tolerant systems are designed to maintain a high level of reliability despite potential faults or errors.
+In such systems, faults, errors, and failures are distinguished.
+Measures to increase reliability can be categorized into fault prevention, removal, tolerance, and prediction.
+Fault tolerance is a key pillar of reliable systems and encompasses fault diagnosis and fault handling.
+Fault handling methods include error recovery, error passivation, and error compensation.
 
-\subsection{Safe Behaviors}
+\subsection{Behavior Verification}
 
-\subsubsection*{Goal}
-The goal of traffic safety is to ensure the absence of unreasonable risks when objects are moved in a (traffic) system.
+Verifying the safety of a command is a challenge in itself only complicated by the fact that it is highly domain-specific.
+In the Pac-Man example, a command could be considered safe if it does not lead to a collision with a wall or a ghost.
+In real-world applications such as autonomous driving, more sophisticated methods are required to ensure safety.
+Here, a common method for behavior verification is the set-based approach with reachable sets analysis.
+This approach involves planning a fail-safe trajectory in addition to the intended trajectory.
+Worst-case occupancies are used to overapproximate possible behaviors of other traffic participants.
+The behavior is considered safe if the fail-safe trajectory does not overlap with worst-case occupancies.
+The benefits of this approach include provable safety under specified assumptions.
 
-\todo[inline]{Generalize the following}
-\subsubsection*{Behavior Verification}
-One of the challenges in traffic safety is verifying the safety of a planned behavior while considering uncertainties. A common method for behavior verification is the set-based approach with reachable sets analysis. This approach involves planning a fail-safe trajectory in addition to the intended trajectory. Worst-case occupancies are used to overapproximate possible behaviors of other traffic participants. The behavior is considered safe if the fail-safe trajectory does not overlap with worst-case occupancies. The benefits of this approach include provable safety under specified assumptions.
-
-\subsubsection*{Overall Safety Approach}
-An effective approach to ensuring traffic safety involves:
-\begin{itemize}
-    \item \textbf{Risk Analysis:} Identify and assess risks throughout the development process.
-    \item \textbf{Verification and Validation:} Verify and validate safety at all levels, including hardware, behavior, and fleet.
-    \item \textbf{Monitoring:} Continuously monitor risks during operation to ensure ongoing safety.
-\end{itemize}
