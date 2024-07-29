@@ -47,11 +47,16 @@ Arbitration schemes include priority-based, completion-based, random, sequence-b
 
 \subsection{Fault-tolerant/Robust Systems}
 
-Fault-tolerant systems are designed to maintain a high level of reliability despite potential faults or errors.
-In such systems, faults, errors, and failures are distinguished.
-Measures to increase reliability can be categorized into fault prevention, removal, tolerance, and prediction.
-Fault tolerance is a key pillar of reliable systems and encompasses fault diagnosis and fault handling.
-Fault handling methods include error recovery, error passivation, and error compensation.
+In automated systems, both hardware and software issues can compromise performance and safety.
+Causes include programming errors and runtime issues such as optimization problems, making error diagnosis and treatment crucial in system design.
+
+Research on reliable and fault-tolerant systems aims to design dependable hardware and software despite potential errors, using metrics like error probability, mean lifespan, failure rate, and availability.
+Terminology varies, but disturbances ("faults") can lead to errors, potentially causing system failures.
+
+Reliability measures include error prevention, removal, tolerance, and prediction.
+Prevention and removal focus on design and development, while tolerance involves detecting and preventing operational errors.
+Prediction estimates future failures.
+Error tolerance involves diagnosing and handling errors—restoring faulty components, computing correct results despite faults, or removing faulty components from the system.
 
 \subsection{Behavior Verification}
 
