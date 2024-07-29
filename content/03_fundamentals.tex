@@ -58,14 +58,3 @@ Prevention and removal focus on design and development, while tolerance involves
 Prediction estimates future failures.
 Error tolerance involves diagnosing and handling errors—restoring faulty components, computing correct results despite faults, or removing faulty components from the system.
 
-\subsection{Behavior Verification}
-
-Verifying the safety of a command is a challenge in itself only complicated by the fact that it is highly domain-specific.
-In the Pac-Man example, a command could be considered safe if it does not lead to a collision with a wall or a ghost.
-In real-world applications such as autonomous driving, more sophisticated methods are required to ensure safety.
-Here, a common method for behavior verification is the set-based approach with reachable sets analysis.
-This approach involves planning a fail-safe trajectory in addition to the intended trajectory.
-Worst-case occupancies are used to overapproximate possible behaviors of other traffic participants.
-The behavior is considered safe if the fail-safe trajectory does not overlap with worst-case occupancies.
-The benefits of this approach include provable safety under specified assumptions.
-
