@@ -1,23 +1,23 @@
 \section{Safe Arbitration Graphs}
 
-In designing autonomous systems, the ideal scenario is one where each behavior component operates reliably under all conditions in which it could be called.
+Designing autonomous systems ideally involves ensuring that each behavior component operates reliably under all potential conditions.
 However, achieving this level of reliability is often impractical, especially when deploying these systems in complex and dynamic environments.
 Real-world applications might involve numerous behaviors, implemented by different teams, which increases the likelihood of bugs and inconsistencies.
-Consequently, ensuring the overall safety and robustness of such systems becomes a significant challenge.
+Consequently, ensuring the overall safety and robustness of such systems presents a significant challenge.
 
-In autonomous systems, the question of responsibility for safety is critical.
-For individual behavior components, the responsibility typically falls on the developer who creates the component.
-This responsibility is manageable when components are simple and isolated, but as systems grow in complexity, this approach does not scale well.
-Additionally, in traditional approaches such as behavior trees, the system engineer will combine these behaviors into a coherent system bearing the responsibility for the system's safety.
+The responsibility for safety in autonomous systems is a critical consideration.
+Typically, the responsibility for individual behavior components lies with the developer who creates them.
+This responsibility is manageable when components are simple and isolated. However, as systems grow in complexity, this approach becomes less scalable.
+In traditional approaches such as behavior trees, the system engineer is tasked with integrating these behaviors into a coherent system, bearing the overall responsibility for system safety.
 
 To address these challenges, we propose a safety concept embedded directly into the arbitration graph framework.
 With this approach, we aim to reduce the burden on both behavior component developers and system engineers.
 This approach allows for more scalable and maintainable safety assurance, ensuring that even in the presence of unreliable or unsafe behaviors, the system as a whole remains robust and secure.
 
-Before we discuss how to detect and mitigate unsafe and unreliable behaviors, we will first introduce the safety goals we aim to achieve with our approach:
+In this section, we will explore methods for detecting and mitigating unsafe and unreliable behaviors, with the following safety goals in mind:
 
 \begin{itemize}
-    \item The system ensures an safety action is executed whenever the operating conditions exceed the system's designed capabilities.
+    \item The system ensures a safety action is executed whenever the operating conditions exceed the system's designed capabilities.
     \item The system is robust against behavior component failures
     \item The system prevents invalid control inputs
     \item The system avoids risky control inputs
@@ -58,7 +58,6 @@ Before we discuss how to detect and mitigate unsafe and unreliable behaviors, we
   \caption{Generic arbitration algorithm with verification \label{algo:verifying_arbitrator}}
 \end{algorithm}
 
-To be able to prevent these issues from causing a system failure, we propose a verification step embedded into the arbitration framework.
 \Cref{algo:verifying_arbitrator} shows a generic arbitration algorithm extended with a verification step.
 First, in \cref{algo:verifying_arbitrator:situation}, the current situation~$\situation$ is determined.
 Based on this, the root arbitrator determines its best applicable and safe action using the \BestOption{$\situation$} function.
@@ -72,22 +71,42 @@ If none of the options pass the verification step, the arbitrator returns the er
 %
 The command~$\command$ returned by the root arbitrator can then be executed and deemed safe given the assumptions of the verifier~$\verifier$.
 %
-\begin{itemize}
-    \item Basic arbitration graph that works in theory
-    \item Might contain unsafe or unreliable behavior implementations
-    \item Contains Chase, RunAway and Collect (EatClosest + GoToPatch) behaviors
-    \item Example: EatClosest contains bug and throws exception when two or more closest pills exist
-    \item Reference to paper title/research question: How to mitigate unsafe and unreliable behavior implementations?
-    \item We could fix the bug in EatClosest but we want to show how to handle these scenarios in a more general way using Arbitration Graphs
-    \item → Detect error and add RandomWalk as first fallback layer
-\end{itemize}
+The utilized verifier~$\verifier$ is domain-specific and may run various checks on the behavior command.
+In Pac-Man for example, the verifier could check whether the command would lead to a collision with a wall or ghost.
+In autonomous driving, we could verify if the behavior output is free of collisions and respects traffic rules.
+A robotic manipulator could verify if the command is within the robot's workspace and does not exceed joint limits.
+More generally, the verifier could check if the format of the command is correct and respects the system's specifications.
 
-\subsection{Unsafe}
-Issues that arise due to logic errors. Output is executable but considered invalid or unsafe.
-\begin{itemize}
-    \item Random walk could output commands crashing into walls
-    \item Domain specific verification step detects this → List examples from other domains
-    \item Add dumb behavior (preferably so easy that it is proofably safe) as last resort fallback layer → StayInPlace
-    \item StayInPlace does not have to pass verifier so Arbitration Graphs will always return a commnd
-\end{itemize}
-Discussion: StayInPlace could still be undesirable → Add additional fallback layers such as a duplicated RunAway (probably using other parameter).
+\subsection{Mitigate Unsafe \& Unreliable Behaviors}
+If a behavior component fails the verification step, the arbitration graph must handle this situation to ensure the system remains safe and robust.
+Even without addtional measures, the verification step already improves the system's safety by preventing unsafe commands from being executed.
+If an arbitrator detects a failure but has other applicable options, it can simply choose the next best option.
+
+However, to further increase robustness, we make use of the bottom-up approach of arbitration graphs to add fallback layers in form of additional behavior components.
+
+% Increase robustness by adding diverse or redundant behaviors.
+One straightforward idea is to increase the system's diversity and redundance.
+A redundant behavior component is simply a duplicate instantiation of an existing behavior component.
+If the behavior is non-deterministic, the redundant behavior might find a safe command where the original behavior failed.
+A diverse behavior component is a behavior that solves the same task but with a different approach.
+For example, an experimental or learning-based behavior could be complemented by a more conervative, but stable and reliable behavior component.
+ 
+% Increase robustness by adding continue last maneuver behavior
+Another approach is to add a behavior component that repeats or continues the last maneuver.
+This helps to mitigate short-term failures, such as a single frame where the behavior component fails to produce a valid command.
+
+% Increase robustness by adding emergency behavior
+Finally, a last resort behavior component.
+This behavior should be simple and safe, ensuring that the system always has a valid command to execute.
+For example, in a mobile robot, the emergency behavior could be to stop moving and wait for further instructions.
+Since this is the last resort, the emergency behavior does not need to pass the verification step.
+
+Where the original arbitration graph may have been functional in principle, it might fail in practice if a behavior component returns an unsafe or unreliable command.
+\todo{Add a figure showing the arbitration graph with fallback layers} showing the arbitration graph with fallback layers.
+It utilizes the verifiers to ensure that only safe commands are executed, and the fallback layers to mitigate unsafe or unreliable behaviors.
+In this example, the verifier checks if the command would lead to a collision with a wall or ghost.
+
+As an initial fallback layer, a random walk behavior component is added.
+If primary behaviors fail verification, this behavior helps explore alternative strategies while maintaining safety.
+A random walk might of course also fail verification, therefore we added a last resort behavior component that tries to keep Pac-Man in the same place moving back and forth between two grid cells.
+
