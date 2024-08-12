@@ -1,0 +1,50 @@
+arbitration:
+  type: PriorityArbitrator
+  name: PacmanAgent
+  invocationCondition: true
+  commitmentCondition: true
+  options:
+    - type: Option
+      behavior:
+        type: Behavior
+        name: ChaseGhost
+        invocationCondition: false
+        commitmentCondition: false
+      flags:
+        - INTERRUPTABLE
+    - type: Option
+      behavior:
+        type: Behavior
+        name: AvoidGhost
+        invocationCondition: false
+        commitmentCondition: false
+      flags:
+        - INTERRUPTABLE
+    - type: Option
+      behavior:
+        type: CostArbitrator
+        name: EatDots
+        invocationCondition: true
+        commitmentCondition: false
+        options:
+          - type: Option
+            behavior:
+              type: Behavior
+              name: EatClosestDot
+              invocationCondition: true
+              commitmentCondition: false
+            verificationResult: passed
+            cost: 0
+          - type: Option
+            behavior:
+              type: Behavior
+              name: ChangeDotCluster
+              invocationCondition: true
+              commitmentCondition: false
+            verificationResult: passed
+            cost: 0
+        activeBehavior: 0
+      verificationResult: passed
+      flags:
+        - INTERRUPTABLE
+  activeBehavior: 2

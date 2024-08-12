@@ -3,197 +3,63 @@
 
 \section{Fundamentals}
 
+\todo[inline]{Fix references}
+
 \subsection{Decision-Making}
 
-Wide range of methods available:
-\begin{itemize}
-  \item Rule-based methods (e.g., finite state machines, decision trees, arbitration graphs)
-  \item Graph-based methods (e.g., A*, PRM*, RRT*)
-  \item Probabilistic methods (e.g., POMDPs)
-  \item Machine learning methods (e.g., reinforcement learning)
-\end{itemize}
+Decision-making is crucial in a robot's planning module, determining commands based on the current situation.
+Methods range from graph-based techniques like A*, PRM*, and RRT* to probabilistic methods and machine learning for implicit decisions.
+This work, however, focuses on rule-based methods, such as finite state machines, behavior trees, or arbitration graphs, which address decision making through discrete state or mode transitions.
 
-Focus of this chapter: Rule-based methods
+% Finite State Machines
+\glspl{FSM}, first used in hardware design and theoretical computer science, represent behavior modes with transitions triggered by events.
+Despite their simplicity, \glspl{FSM} scale poorly and are difficult to modify due to the amount of transitions increasing exponentially with the number of states.
+% Behavior Trees
+Behavior trees, initially designed for game development, have been increasingly used in robotics since 2012.
+They separate behavior decision-making from execution by leveraging a tree structure.
+Internal nodes determine selection mechanisms, while leaves describe behaviors and conditions.
+Evaluated at a fixed frequency, nodes return their status as running, completed, or failed.
+Control flow nodes decide on further evaluations.
 
-\subsubsection*{Classical state-based methods:}
-\begin{itemize}
-  \item Finite state machines (FSMs)
-\end{itemize}
+Condition nodes check if their underlying conditions are met without affecting the environment, while action nodes execute behaviors and return their status.
+By distinguishing between condition and action nodes, the preconditions of a behavior  are decoupled from the actual execution of the behavior.
+To design a safe system, these actions must be linked to reliable condition nodes.
 
-\subsection*{Behavior-based methods:}
-\begin{itemize}
-  \item Behavior trees
-  \item Arbitration graphs
-\end{itemize}
+Behavior trees generalize many architectures, such as hierarchical finite state machines and decision trees [Col17], excelling in modularity, hierarchical organization, reusability, responsiveness, and interpretability [Col18].
+Their flexibility allows reuse of individual behaviors [Bag12].
+The selection mechanism is intuitive and easy to follow during operation.
+However, extensive preconditions can make representations cumbersome, and safety as well as reliability depend significantly on node arrangement.
+These drawbacks are addressed by arbitration graphs.
 
-\subsection{Finite State Machines}
+% Arbitration Graphs
+The concept of behavior arbitration originated in the context of robot soccer, integrating ideas from Brooks' behavior-based subsumption, knowledge-based architectures like Belief-Desire-Intention (BDI), and programming paradigms such as object-oriented programming.
+This approach was thoroughly described in [Lau10] and is summarized in the following.
 
-\subsubsection*{Introduction:}
-\begin{itemize}
-    \item Originated in hardware design and theoretical computer science
-    \item Now used in robotics and driver assistance systems
-    \item Easy to understand and implement
-\end{itemize}
+This modular framework is characterized by clear interfaces for transparent decision-making, using atomic behavior components to represent simple abilities and behaviors.
+These modules are combined using arbitrators to create complex system behaviors.
 
-\subsubsection*{Basic concepts:}
-\begin{itemize}
-    \item A finite state machine consists of:
-          \begin{itemize}
-              \item A finite set of states $S$
-              \item A finite set of input symbols (events) $\Sigma$
-              \item A finite set of output symbols (actions) $\Delta$
-              \item A state transition function $\delta:S \times \Sigma \to S$
-              \item An output function $\lambda:S \to \Delta$
-              \item A start state $s_0 \in S$
-              \item A finite set of final states $F \subseteq S$
-          \end{itemize}
-    \item The FSM starts in the start state $s_0$
-    \item For each event $e_i \in \Sigma$, it transitions to a new state $s_{i+1} = \delta(s_i, e_i)$
-    \item After each transition, it outputs $a_i = \lambda(s_i)$
-    \item FSMs can be represented graphically using UML state diagrams
-\end{itemize}
+The input to a behavior component is the current situation $\situation$, provided as sensor data or an interpreted environment model.
+If its preconditions are met, the invocation condition $\invCond$ \todo{translate macros} indicates that the behavior component is applicable in the current situation $\situation$.
+In this case, the higher-level instance (i.e., the arbitrator) can instruct the behavior component to compute a command $\command_a$.
+The currently active behavior component additionally uses the commitment condition $\comCond$ to indicate that its behavior can be continued.
+Consequently, the calling instance does not need to know the prerequisites for executing the behavior's command.
 
-\todo[inline]{Replace with Pacman example}
-\subsubsection*{Example: FSM used by the Stanford Junior team in the DARPA Urban Challenge}
-\begin{itemize}
-    \item States represent tactical driving maneuvers (e.g., follow, overtake, park)
-    \item Transitions are triggered by situation interpretation
-    \item FSM is effective for simple behavior problems but scales poorly with complexity
-\end{itemize}
-
-\subsubsection*{Advantages:}
-\begin{itemize}
-    \item Easy to implement and understand
-    \item Intuitive graphical representation
-\end{itemize}
-
-\subsubsection*{Disadvantages:}
-\begin{itemize}
-    \item Poor scalability for complex systems
-    \item Difficult to modify
-    \item Difficult to understand and verify source code
-    \item Visualizations of complex systems can become cluttered
-\end{itemize}
-
-\subsection{Behavior Trees}
-
-\subsubsection*{Introduction:}
-\begin{itemize}
-    \item Originally designed for computer game development
-    \item Increasingly used in robotics applications since 2012
-    \item Only one published work in the field of driver assistance systems or automated vehicles (Olsson, 2016)
-\end{itemize}
-
-\subsubsection*{Basic concepts:}
-\begin{itemize}
-    \item A behavior tree is a connected, loop-free, undirected graph
-    \item Internal nodes (control flow nodes) determine the selection mechanism
-    \item Leaves represent possible behaviors (action nodes) and conditions (condition nodes)
-    \item Behavior decision is timer-based, not event-based
-    \item Tree structure determines decision-making
-    \item Tree is evaluated from the root node at a fixed frequency
-    \item Each node returns a value indicating whether it is still running, has been completed successfully, or has failed
-    \item Different types of control flow nodes are available, e.g., for sequences, fallback structures, and concurrency
-    \item Condition nodes return a value indicating whether the underlying condition is met
-    \item Action nodes execute the corresponding behavior and return a value indicating the status of that behavior
-\end{itemize}
-
-\todo[inline]{Replace with Pacman example}
-\subsubsection*{Example: Behavior tree for an interactive humanoid entertainment robot (simplified from Colledanchise, 2018)}
-\begin{itemize}
-    \item Robot can sit down, stand up, play ball, or say goodbye on request
-    \item Each action is linked to its corresponding condition node
-    \item The modular hierarchical structure of the tree allows for a subdivision into subtasks
-\end{itemize}
-
-\subsubsection*{Advantages:}
-\begin{itemize}
-    \item Modular
-    \item Hierarchically organized
-    \item Reusable components
-    \item Responsive
-    \item Interpretable
-\end{itemize}
-
-\subsubsection*{Disadvantages:}
-\begin{itemize}
-    \item Can become large and difficult to understand for complex problems
-    \item Safety depends on the arrangement of the nodes in the tree
-\end{itemize}
-
-\subsection*{Arbitration Graphs}
-
-\begin{itemize}
-    \item Developed for robot soccer.
-    \item Combines ideas from Brooks' subsumption architecture, knowledge-based architectures, and object-oriented programming.
-    \item Goals:
-          \begin{itemize}
-              \item Achieve low reaction times.
-              \item Compose known game tactics from simple building blocks.
-              \item Combine deliberative components with machine learning approaches.
-              \item Develop a modular software framework that is incrementally expandable, has clear interfaces, and leads to a transparent decision-making process.
-          \end{itemize}
-\end{itemize}
-
-\subsubsection*{Concept}
-\begin{itemize}
-    \item Based on atomic behavior modules that represent simple skills and behaviors.
-    \item Complex system behavior, such as tactics and strategies, emerges from the interaction of numerous simple behavior modules.
-    \item These are combined into more complex system behavior, i.e., tactics to strategies, using arbitrators according to the subsumption principle.
-    \item Instead of breaking down a problem into subproblems in a top-down knowledge-based approach, complex behavior is iteratively composed from simple behavior competences in a bottom-up design.
-\end{itemize}
-
-\subsubsection*{Behavior modules}
-\begin{itemize}
-\item Input to the behavior modules is the current situation $\situation$ of the environment.
-\item This is mapped to actor-related control variables $\command$ using the \emph{control function} \texttt{getCommand}:
-
-$\text{command} = \text{getCommand}(\text{situation})$
-
-\item In robot soccer, $\command$ consists of the desired longitudinal and angular velocity of a player as well as instructions for his shooting device.
-\item To enable not only reactive but also deliberative behavior, the behavior modules can create situation and command histories or use randomized procedures.
-\end{itemize}
-
-\subsubsection*{Start and continue conditions}
-\begin{itemize}
-    \item Each \emph{behavior module} determines, in addition to its actual action, whether its preconditions are met and the behavior is therefore currently applicable at all using the so-called \emph{start condition} $\invCond$.
-    \item A soccer player can only dribble the ball towards the goal, for example, if he is actually in possession of the ball.
-    \item If a behavior module is active, it also returns whether all conditions are met to continue the behavior using the \emph{continue condition} $\comCond$.
-    \item Because the player can only dribble on as long as he does not lose the ball or has reached the dribbling target.
-    \item Or a more promising behavior such as a shot becomes possible.
-    \item Each behavior module thus determines itself, using the start and continue conditions, whether it is applicable in the given situation.
-    \item Therefore, the calling instance itself does not need any knowledge of the prerequisites for executing a behavior module.
-\end{itemize}
-
-
-\subsubsection*{Behavior generation}
-Generic \emph{arbitrators} combine a set of behavior modules, also referred to as options here, into a tactic
-\begin{itemize}
-\item First, the current situation $\situation$ is determined from the latest input data and is made available to the behavior modules
-\item Next, the arbitrator determines its best applicable action
-\item To do this, it filters out those options $\applicableOptions$ from its options $\options$ that are currently applicable or fall within the domain of the current situation
-\item The behavior modules signal this via their start and continue conditions
-
-\item From the applicable options $\applicableOptions$, the arbitrator finally selects the best possible option, defines it as its intention $\intention$
-\end{itemize}
+Generic arbitrators combine behavior components $\options = \left< o_0, o_1, \dots \right>$, 
+filter out the applicable subset $\applicableOptions \subset \options$ using their invocation and commitment conditions, 
+and select the best applicable option $a^*$ for execution.
+Arbitration schemes include priority-based, sequence-based, cost-based, and random.
+Due to inheritance and a shared interface, arbitrators can include both behavior components and other arbitrators, enabling a hierarchical architecture.
 
 \subsection{Fault-tolerant/Robust Systems}
 
-Fault-tolerant systems are designed to maintain a high level of reliability despite potential faults or errors. In such systems, faults, errors, and failures are distinguished. Measures to increase reliability can be categorized into fault prevention, removal, tolerance, and prediction. Fault tolerance is a key pillar of reliable systems and encompasses fault diagnosis and fault handling. Fault handling methods include error recovery, error passivation, and error compensation.
+In automated systems, both hardware and software issues can compromise performance and safety.
+Causes include programming errors and runtime issues such as optimization problems, making error diagnosis and treatment crucial in system design and during runtime.
 
-\subsection{Safe Behaviors}
+Research on reliable and fault-tolerant systems aims to design dependable hardware and software despite potential errors, using metrics like error probability, mean lifespan, failure rate, and availability.
+Terminology varies, but disturbances ("faults") can lead to errors, potentially causing system failures.
 
-\subsubsection*{Goal}
-The goal of traffic safety is to ensure the absence of unreasonable risks when objects are moved in a (traffic) system.
+Reliability measures include error prevention, removal, tolerance, and prediction.
+Prevention and removal focus on design and development, while tolerance involves detecting and preventing operational errors.
+Prediction estimates future failures.
+Error tolerance involves diagnosing and handling errors—restoring faulty components, computing correct results despite faults, or removing faulty components from the system.
 
-\todo[inline]{Generalize the following}
-\subsubsection*{Behavior Verification}
-One of the challenges in traffic safety is verifying the safety of a planned behavior while considering uncertainties. A common method for behavior verification is the set-based approach with reachable sets analysis. This approach involves planning a fail-safe trajectory in addition to the intended trajectory. Worst-case occupancies are used to overapproximate possible behaviors of other traffic participants. The behavior is considered safe if the fail-safe trajectory does not overlap with worst-case occupancies. The benefits of this approach include provable safety under specified assumptions.
-
-\subsubsection*{Overall Safety Approach}
-An effective approach to ensuring traffic safety involves:
-\begin{itemize}
-    \item \textbf{Risk Analysis:} Identify and assess risks throughout the development process.
-    \item \textbf{Verification and Validation:} Verify and validate safety at all levels, including hardware, behavior, and fleet.
-    \item \textbf{Monitoring:} Continuously monitor risks during operation to ensure ongoing safety.
-\end{itemize}

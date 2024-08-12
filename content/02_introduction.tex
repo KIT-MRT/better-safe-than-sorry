@@ -4,79 +4,50 @@
 
 \subsection{Motivation}
 
-\todo[inline]{Rewrite motivation to be less focused on automated driving.}
-Motivation for automated driving:
-\begin{itemize}
-    \item Increased traffic safety and comfort
-    \item Optimized traffic flow and reduced emissions
-    \item New forms of mobility, including social participation for people with limited mobility
-    \item Reshaping parking spaces into public spaces
-    \item Economic considerations, such as cost savings in logistics and passenger transport
-\end{itemize}
+Behavior planning and decision-making are crucial for robots to operate autonomously in dynamic environments, ensuring they achieve goals while adapting to changes and uncertainties.
+Key to reliable operation in fields like autonomous driving and industrial automation is ensuring safety and robustness in these processes.
 
-Challenges of automated driving:
-\begin{itemize}
-    \item Job losses in the transport sector, especially for truck drivers
-    \item Worsening working conditions for professional drivers
-    \item Difficulties finding bus drivers for public transport
-\end{itemize}
+Arbitration graphs, hierarchical behavior models, manage complex decision-making
+by allowing integration of diverse methods while ensuring scalability, maintainability, and transparency.
+However, real-world complexities challenge the safety and robustness of these systems.
 
-Benefits of the proposed method:
-\begin{itemize}
-    \item Modular behavioral components in a hierarchical arbitration graph
-    \item Scalable in the number of behavioral options
-    \item Allows the combination of diverse scenario-specific methods
-    \item Robust execution and safe behavior through verification and various fallback levels
-    \item Modular and hierarchical structure enables an iterative design process
-    \item Increases maintainability and leads to transparent and traceable decision-making
-\end{itemize}
+This paper aims to enhance arbitration graph safety and robustness by identifying and handling erroneous or unsafe behavior commands at runtime.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/entt_pacman_with_graph.png}
+    \caption{The Pac-Man implementation used to demonstrate the proposed method and the corresponding arbitration graph.}
+    \label{fig:entt-pacman}
+\end{figure}
 
 \subsection{State of the art}
+Behavioral decision-making includes both monothematic methods and generic architectures.
 
-\subsubsection*{End-to-end learning}
-Learn a unified approach for all possible maneuver and trajectory variants \cite{casas_mp3_2021}
+End-to-end machine learning approaches learn the entire process from sensor data to commands, requiring extensive data and computational power.
+Due to their highly integrated nature, it is challenging to interpret or influence the resulting behavior directly.
 
-\paragraph*{Advantages}
-        \begin{itemize}
-            \item Consider uncertainties in situation interpretation implicitly
-            \item Superior in perception and prediction
-        \end{itemize}
-\paragraph*{Disadvantages}
-        \begin{itemize}
-            \item Require enormous amounts of data and powerful computing infrastructure
-            \item Limited possibilities to influence system behavior
-            \item Difficult to improve specific misbehavior
-        \end{itemize}
+Traditional architectures like \glspl{FSM} allow situational planning but scale poorly with complexity. Behavior-based methods, derived from Brooks' subsumption architecture, evolved into behavior trees (among others). Popularized by their use in gaming, they are also applied in robotics. These structure decision making hierarchically, offering modularity and responsiveness but becoming unwieldy with extensive conditions.
 
-\subsubsection*{Behavior trees}
-Bottom-up design: Compose overall behavior from simple sub-behaviors \cite{brooks_robust_1986}
+Arbitration graphs, combining subsumption and object-oriented programming, enhance reusability and system clarity through modularity and functional decomposition. Used in robotic soccer and automated driving, these graphs employ behavior components to interpret situations and plan actions, while arbitrators select the most suitable behaviors.
 
-\paragraph*{Advantages}
-        \begin{itemize}
-            \item High reactivity
-            \item Consistent modularity
-            \item Good scalability
-            \item Easy to implement
-            \item Can combine different behavior planning methods
-        \end{itemize}
-\paragraph*{Disadvantages}
+\subsection{Pac-Man}
+Pac-Man, the 1980 arcade game, involves navigating a maze to eat dots while avoiding ghosts.
+Depicted in Figure \ref{fig:entt-pacman} is an open-source implementation\footnote{github.com/indianakernick/EnTT-Pacman} \todo{fix number} of the game that that is being used use to demonstrate the proposed method.
+We split Pac-Man's behavior into the following behavioral components:
+
 \begin{itemize}
-    \item Can become complex and difficult to understand for large systems
+    \item \textbf{Avoid Ghosts:} Pac-Man tries to increase the distance to the ghosts to avoid being eaten.
+    \item \textbf{Chase Ghosts:} After consuming a energizer Pac-Man might try to eat the ghosts for extra points.
+    \item \textbf{Eat Closest Dot:} Pac-Man moves towards the dot closest to him.
+    \item \textbf{Change Dot Cluster:} Pac-Man moves towards another area with a high dot density.
 \end{itemize}
 
-\subsubsection*{Arbitration graphs}
-Combine subsumption concept with object-oriented programming \cite{lauer_cognitive_2010}
-\begin{itemize}
-    \item Modular behavioral components address fundamental behavioral competencies
-    \item Application-independent arbitrators decide which behavior option is most suitable
-    \item High modularity and scalability
-    \item Verifiable and robust
-\end{itemize}
+The arbitration graph in Figure \ref{fig:entt-pacman}\todo{Add cost for behaviors, center behavior names} visualizes the corresponding arbitration graph.
 
 \subsection{Contributions}
 
 \begin{itemize}
-    \item \textbf{Verification logic:} The arbitration process is extended by a verification logic that ensures that only behavior options are executed that pass verification. This verification logic is based on three verifiers that check potential maneuvers for validity, feasibility, and traffic safety.
-    \item \textbf{Safety concept:} A safety concept is designed to ensure robust and safe behavior arbitration through verification, real-time capability, redundancy, and diversity.
-    \item \textbf{Application:} The proposed safety concept is evaluated in an application-oriented simulation environment. The results show that the proposed approach can effectively reduce the risk of accidents and improve the overall safety of automated vehicles.
+\item \textbf{Verification Logic:} We extend the arbitration process to ensure that only verified behaviors are executed.
+\item \textbf{Fallback Logic:} We introduce fallback options for cases where behaviors fail verification.
+\item \textbf{Application:} We evaluate the safety concept in autonomous driving simulations, demonstrating reduced accident risk and improved safety.
 \end{itemize}
