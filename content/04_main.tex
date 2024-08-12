@@ -1,10 +1,20 @@
 \section{main}
 
+- each behavior component reliable would be nice but unrealistic
+- real-world application: many, different behaviors, people working on it, high probability of bugs
+- who's resposible for safety?
+- for the individual behavior component: developer
+- behavior trees: system engineer → not scalable
+- introducing safety concept on arbitration graph concept level, baked into the framework, lowering the anforderung for safety for component developers and system engineers
+- We will first show how to detect unsafe and unreliable behaviors, then propose solutions to mitigate these issues.
+- Safety goals:
 \begin{itemize}
-    \item Motivate safety layers by presenting a functional but not robust/safe arbitration graph capable of playing Pacman.
-    \item Improve this implementation by adding safety layers.
-    \item Split this into two sections: Unreliable and Unsafe
+    \item The system ensures an safety action is executed upon leaving the ODDs
+    \item The system is robust against behavioral component failures
+    \item The system prevents invalid control inputs
+    \item The system avoids risky control inputs
 \end{itemize}
+- adding verification logic to arbitrators to ensure only safe and reliable behaviors are executed
 
 \subsection{Unreliable}
 Issues that arise due to bad implementations etc. → Error handling
