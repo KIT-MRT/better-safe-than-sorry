@@ -1,23 +1,29 @@
 \section{main}
 
-- each behavior component reliable would be nice but unrealistic
-- real-world application: many, different behaviors, people working on it, high probability of bugs
-- who's resposible for safety?
-- for the individual behavior component: developer
-- behavior trees: system engineer → not scalable
-- introducing safety concept on arbitration graph concept level, baked into the framework, lowering the anforderung for safety for component developers and system engineers
-- We will first show how to detect unsafe and unreliable behaviors, then propose solutions to mitigate these issues.
-- Safety goals:
+In designing autonomous systems, the ideal scenario is one where each behavior component operates reliably under all conditions in which it could be called.
+However, achieving this level of reliability is often impractical, especially when deploying these systems in complex and dynamic environments.
+Real-world applications might involve numerous behaviors, implemented by different teams, which increases the likelihood of bugs and inconsistencies.
+Consequently, ensuring the overall safety and robustness of such systems becomes a significant challenge.
+
+In autonomous systems, the question of responsibility for safety is critical.
+For individual behavior components, the responsibility typically falls on the developer who creates the component.
+This responsibility is manageable when components are simple and isolated, but as systems grow in complexity, this approach does not scale well.
+Additionally, in traditional approaches such as behavior trees, the system engineer will combine these behaviors into a coherent system bearing the responsibility for the system's safety.
+
+To address these challenges, we propose a safety concept embedded directly into the arbitration graph framework.
+With this approach, we aim to reduce the burden on both behavior component developers and system engineers.
+This approach allows for more scalable and maintainable safety assurance, ensuring that even in the presence of unreliable or unsafe behaviors, the system as a whole remains robust and secure.
+
+Before we discuss how to detect and mitigate unsafe and unreliable behaviors, we will first introduce the safety goals we aim to achieve with our approach:
+
 \begin{itemize}
-    \item The system ensures an safety action is executed upon leaving the ODDs
-    \item The system is robust against behavioral component failures
+    \item The system ensures an safety action is executed whenever the operating conditions exceed the system's designed capabilities.
+    \item The system is robust against behavior component failures
     \item The system prevents invalid control inputs
     \item The system avoids risky control inputs
 \end{itemize}
-- adding verification logic to arbitrators to ensure only safe and reliable behaviors are executed
 
-\subsection{Unreliable}
-Issues that arise due to bad implementations etc. → Error handling
+\subsection{Detect Unsafe \& Unreliable Behaviors}
 \begin{itemize}
     \item Basic arbitration graph that works in theory
     \item Might contain unsafe or unreliable behavior implementations
