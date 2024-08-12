@@ -24,6 +24,39 @@ Before we discuss how to detect and mitigate unsafe and unreliable behaviors, we
 \end{itemize}
 
 \subsection{Detect Unsafe \& Unreliable Behaviors}
+\begin{algorithm}
+  \SetKwFunction{BestOption}{BesteAnwendbareAktion}%
+  \SetKwProg{Fn}{function}{}{end}
+
+  \Fn{\BestOption{Situation $\situation$}}{\label{algo:verifying_arbitrator:bestOption}
+    Filtere anwendbare Optionen $\applicableOptions \subset \options$\;
+    Sortiere anwendbare Optionen %mit der zugrundeliegenden Strategie:
+      $\sortedApplicableOptions = \left< a_0, a_1, \dots \right> = \text{strategie}(\applicableOptions)$\;
+
+    \For{$a \in \sortedApplicableOptions$}{
+      Bestimme Stellgröße $\command_a = \getCommand_a(\situation)$\;
+
+      Führe Verifikation $\verification_a = \verifier (\command_a)$ durch\;
+      % \If(\tcp*[f]{Verifikation bestanden}){$\verification_a = 0$}{%
+      \If{Verifikation bestanden $\verification_a = 0$}{%
+        \KwRet{$(\command_a, \verification_a)$}\;
+      }
+    }
+
+    \KwRet{$(\emptyset, \text{NO\_SAFE\_OPTION})$}\;
+    }
+  \;
+  \While{true}{
+    Bestimme die aktuelle Situation $\situation$\;\label{algo:verifying_arbitrator:situation}
+    Bestimme $\verifiedCommand = (\command, \verification) = $ \BestOption{$\situation$}\;
+    \If{Verifikation bestanden $\verification_a = 0$}{
+      Führe $\command$ aus\;
+    % }{
+    %   Gebe Fehlermeldung mit $\verification_a$ aus\;
+    }
+  }
+  \caption{Generisches Arbitrationsverfahren mit Verifikation\label{algo:verifying_arbitrator}}
+\end{algorithm}
 \begin{itemize}
     \item Basic arbitration graph that works in theory
     \item Might contain unsafe or unreliable behavior implementations
