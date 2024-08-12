@@ -11,7 +11,7 @@ Arbitration graphs, hierarchical behavior models, manage complex decision-making
 Their modularity allows integration of diverse methods and seamless switching between them.
 However, real-world complexities challenge the safety and robustness of these systems.
 
-This paper aims to enhance arbitration graph safety and robustness by identifying and handling erroneous or unsafe commands at runtime.
+This paper aims to enhance arbitration graph safety and robustness by identifying and handling erroneous or unsafe behavior commands at runtime.
 
 \begin{figure}
     \centering
@@ -25,18 +25,18 @@ Behavioral decision-making encompasses both monothematic methods and generic arc
 
 End-to-end machine learning approaches learn the entire process from sensor data to commands, requiring extensive data and computational power but limiting direct system behavior influence.
 
-Traditional architectures like finite state machines (FSMs) allow situational planning but scale poorly with complexity. Behavior-based methods, derived from Brooks' subsumption architecture, evolved into behavior trees used in gaming and robotics. These trees structure decisions hierarchically, offering modularity and responsiveness but becoming unwieldy with extensive conditions.
+Traditional architectures like finite state machines (FSMs) allow situational planning but scale poorly with complexity. Behavior-based methods, derived from Brooks' subsumption architecture, evolved into behavior trees (among others). Popularized by their use in gaming, they are also applied in robotics. These structure decision making hierarchically, offering modularity and responsiveness but becoming unwieldy with extensive conditions.
 
-Arbitration graphs, combining subsumption and object-oriented programming, modularize behavior for reusability and system comprehensibility. Applied in robotic soccer and automated driving, these graphs ensure behavior modules interpret situations and determine actions while arbitrators select suitable behaviors.
+Arbitration graphs, combining subsumption and object-oriented programming, enhance reusability and system clarity through modularity and functional decomposition. Used in robotic soccer and automated driving, these graphs employ behavior modules to interpret situations and plan actions, while arbitrators select the most suitable behaviors.
 
 \subsection{Pac-Man}
 Pac-Man, the 1980 arcade game, involves navigating a maze to eat dots while avoiding ghosts.
-Depicted in Figure \ref{fig:entt-pacman} is an open-source implementation\footnote{github.com/indianakernick/EnTT-Pacman} \todo{fix number} of the game that we use to demonstrate the proposed method.
+Depicted in Figure \ref{fig:entt-pacman} is an open-source implementation\footnote{github.com/indianakernick/EnTT-Pacman} \todo{fix number} of the game that that is being used use to demonstrate the proposed method.
 We split Pac-Man's behavior into the following behavioral components:
 
 \begin{itemize}
     \item \textbf{Avoid Ghosts:} Pac-Man tries to increase the distance to the ghosts to avoid being eaten.
-    \item \textbf{Chase Ghosts:} After consuming a power pellet Pac-Man might try to eat the ghosts for extra points.
+    \item \textbf{Chase Ghosts:} After consuming a energizer Pac-Man might try to eat the ghosts for extra points.
     \item \textbf{Eat Closest Dot:} Pac-Man moves towards the dot closest to him.
     \item \textbf{Change Dot Cluster:} Pac-Man moves towards another area with a high dot density.
 \end{itemize}
@@ -46,7 +46,7 @@ The arbitration graph in Figure \ref{fig:entt-pacman} visualizes the correspondi
 \subsection{Contributions}
 
 \begin{itemize}
-\item \textbf{Verification Logic:} Extends the arbitration process to ensure only verified behaviors are executed.
-\item \textbf{Fallback Logic:} Introduces fallback options when behaviors fail verification.
-\item \textbf{Application:} Evaluates the safety concept in autonomous driving simulations, showing reduced accident risk and improved safety.
+\item \textbf{Verification Logic:} We extend the arbitration process to ensure that only verified behaviors are executed.
+\item \textbf{Fallback Logic:} We introduce fallback options for cases where behaviors fail verification.
+\item \textbf{Application:} We evaluate the safety concept in autonomous driving simulations, demonstrating reduced accident risk and improved safety.
 \end{itemize}
