@@ -1,5 +1,12 @@
-# Template for an IEEE Conference Paper (ieeeconf)
+# Safe Arbitrators Paper - ICRA 2025
 
+2025 IEEE International Conference on Robotics & Automation, 19–23 May, Atlanta, USA
+
+## Deadlines
+- Paper Submission Deadline: 15.09.24
+- Internal Deadline: 16.08.24
+
+## Template
 - The latest version looks like [this](https://gitlab.mrt.kit.edu/MRT/ieee_conference_template_latex/-/jobs/artifacts/master/file/root.pdf?job=compile_pdf).
 - Original was downloaded from [ITS papercept](http://its.papercept.net/conferences/support/tex.php) on 2020-02-13.
 - If you look for the `IEEEtran` template, use the [ieeetran branch](https://gitlab.mrt.kit.edu/MRT/misc/ieee_conference_template_latex/tree/ieeetran).

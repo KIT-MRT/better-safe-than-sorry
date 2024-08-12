@@ -1,0 +1,161 @@
+\ProvidesPackage{customMath}
+
+\newcommand\hmmax{0}
+\newcommand\bmmax{1}  %%2 ist schon zuviel
+\usepackage{bm}
+
+\usepackage{amsmath}
+
+\makeatletter
+\@ifpackageloaded{unicode-math}{%
+    %nichts tun
+}{%ansonsten fehlende Makros definieren
+    %
+    %\usepackage{amssymb}   %for using \mathbb{}, \nexists etc.
+    %
+    %Folgende Makros, die in unicode-math definiert sind, brauchen das bm-Paket
+    \newcommand{\symbf}[1]{\bm{#1}}
+    \newcommand{\symbfit}[1]{\bm{#1}}
+    \newcommand{\symbfcal}[1]{\bm{\mathcal{#1}}}
+    \newcommand{\mathbfcal}[1]{\bm{\mathcal{#1}}}
+}
+\makeatother
+
+\newcommand{\vect}{\symbfit}
+
+% first option: behavior / arbitrator j
+% second option: point in time k
+\NewDocumentCommand{\indices}{O{} O{}}{%
+    % upper and lower index:
+    % \ifblank{#1}{}{^{#1}}%
+    % \ifblank{#2}{}{_{#2}}%
+    % lower index with comma separation:
+    \ifblank{#1}{%
+        \ifblank{#2}{}{_{#2}}%
+    }{%
+        \ifblank{#2}{_{#1}}{_{#1,#2}}%
+    }%
+}
+
+% Situation → Zustand aller Objekte, Ego, Sichtbarkeit, etc.
+\NewDocumentCommand{\situation}{O{} O{}}{%
+    \vect{s}\indices[#1][#2]%
+}
+
+% Zustand eines Fahrzeugs, zB als Teil der Ego Trajektorie
+\NewDocumentCommand{\state}{O{} O{}}{%
+    \vect{x}\indices[#1][#2]%
+}
+
+\newcommand{\orientation}[1][]{%
+    \phi%
+}
+\newcommand{\occupancies}[1][]{%
+    \mathcal{B}%
+    \ifblank{#1}{}{^{#1}}%
+}
+
+\newcommand{\domain}{%
+    \text{Domäne}%
+}
+\newcommand{\behavior}[1]{%
+    \textit{#1}%
+}
+\newcommand{\arbitrator}[1]{%
+    \textsc{#1}%
+}
+\newcommand{\code}[1]{%
+    \texttt{#1}%
+}
+\newcommand{\invCond}{%
+    \texttt{Start}%
+    % \texttt{invCond}%
+}
+\newcommand{\comCond}{%
+    \texttt{Fortsetzung}%
+    % \texttt{comCond}%
+}
+\newcommand{\getCommand}{%
+    \texttt{Aktion}%
+    % \texttt{getCommand}%
+}
+\newcommand{\command}[1][]{%
+    \vect{u}%
+    \ifblank{#1}{}{^{#1}}%
+}
+\NewDocumentCommand{\intention}{O{} O{}}{%
+    \theta\indices[#1][#2]%
+}
+\NewDocumentCommand{\option}{O{} O{}}{%
+    o\indices[#1][#2]%
+}
+\NewDocumentCommand{\options}{O{} O{}}{%
+    \mathcal{O}\indices[#1][#2]%
+}
+\NewDocumentCommand{\applicableOptions}{O{} O{}}{%
+    \mathcal{A}\indices[#1][#2]%
+}
+\NewDocumentCommand{\sortedOptions}{O{} O{}}{%
+    \mathnormal{O}^*\indices[#1][#2]%
+}
+\NewDocumentCommand{\sortedApplicableOptions}{O{} O{}}{%
+    \mathnormal{A}^*\indices[#1][#2]%
+}
+
+\newcommand{\optionIdx}{i}
+\newcommand{\arbitratorIdx}{j}
+\newcommand{\plTimeIdx}{k} % planningTimeIdx
+\newcommand{\plIntervalIdx}{\kappa} % planningIntervalIdx
+\newcommand{\trajPointIdx}{l} % trajectoryPointIdx
+
+\newcommand{\soll}[1][]{%
+    \vect{x}%
+    \ifblank{#1}{}{^{#1}}%
+}
+\newcommand{\failsafe}[1][]{%
+    \vect{\breve{x}}%
+    \ifblank{#1}{}{^{#1}}%
+}
+\newcommand{\hmi}[1][]{%
+    m_{\text{HMI}}%
+    \ifblank{#1}{}{^{#1}}%
+}
+\newcommand{\vtx}[1][]{%
+    m_{\text{V2X}}%
+    \ifblank{#1}{}{^{#1}}%
+}
+
+\NewDocumentCommand{\alternatives}{O{} O{}}{%
+    \mathcal{B}\indices[#1][#2]%
+}
+\newcommand{\nAlternatives}{%
+    n_\text{beste}%
+}
+
+\newcommand{\verifier}{%
+    \mathcal{V}%
+}
+\newcommand{\verification}[1][]{%
+    \nu%
+    \ifblank{#1}{}{^{#1}}%
+}
+\newcommand{\error}[1][]{%
+    \eta%
+    \ifblank{#1}{}{^{#1}}%
+}
+\newcommand{\monitoredCommand}[1][]{%
+    \vect{\eta}%
+    \ifblank{#1}{}{^{#1}}%
+}
+\newcommand{\verifiedCommand}[1][]{%
+    \vect{\nu}%
+    \ifblank{#1}{}{^{#1}}%
+}
+\newcommand{\safeCommand}[1][]{%
+    \underline{\vect{u}}%
+    \ifblank{#1}{}{^{#1}}%
+}
+\newcommand{\unsafeCommand}[1][]{%
+    \not{\vect{u}}%
+    \ifblank{#1}{}{^{#1}}%
+}

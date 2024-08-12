@@ -1,32 +1,82 @@
 % !TeX root = ../root.tex
 % -*- root: ../root.tex -*-
 \section{Introduction}
-\label{introduction}
 
-\lipsum[1]
+\subsection{Motivation}
 
-\begin{figure}[!h]
+\todo[inline]{Rewrite motivation to be less focused on automated driving.}
+Motivation for automated driving:
+\begin{itemize}
+    \item Increased traffic safety and comfort
+    \item Optimized traffic flow and reduced emissions
+    \item New forms of mobility, including social participation for people with limited mobility
+    \item Reshaping parking spaces into public spaces
+    \item Economic considerations, such as cost savings in logistics and passenger transport
+\end{itemize}
 
-\begin{subfigure}{\columnwidth}
-\includegraphics[width=\linewidth]{foo} 
-\caption{Foo one.}
-\label{fig:foo_sub_one}
-\end{subfigure}
+Challenges of automated driving:
+\begin{itemize}
+    \item Job losses in the transport sector, especially for truck drivers
+    \item Worsening working conditions for professional drivers
+    \item Difficulties finding bus drivers for public transport
+\end{itemize}
 
-\begin{subfigure}{\columnwidth}
-\includegraphics[width=\linewidth]{foo}
-\caption{Foo two.}
-\label{fig:foo_sub_two}
-\end{subfigure}
- 
-\caption{Foo subfigures.}
-\label{fig:foo_sub}
-\end{figure}
+Benefits of the proposed method:
+\begin{itemize}
+    \item Modular behavioral components in a hierarchical arbitration graph
+    \item Scalable in the number of behavioral options
+    \item Allows the combination of diverse scenario-specific methods
+    \item Robust execution and safe behavior through verification and various fallback levels
+    \item Modular and hierarchical structure enables an iterative design process
+    \item Increases maintainability and leads to transparent and traceable decision-making
+\end{itemize}
 
+\subsection{State of the art}
 
-\lipsum[1]
+\subsubsection*{End-to-end learning}
+Learn a unified approach for all possible maneuver and trajectory variants \cite{casas_mp3_2021}
 
-% place this line somewhere in the second column of the title page when using \IEEEpubid
-% \IEEEpubidadjcol
+\paragraph*{Advantages}
+        \begin{itemize}
+            \item Consider uncertainties in situation interpretation implicitly
+            \item Superior in perception and prediction
+        \end{itemize}
+\paragraph*{Disadvantages}
+        \begin{itemize}
+            \item Require enormous amounts of data and powerful computing infrastructure
+            \item Limited possibilities to influence system behavior
+            \item Difficult to improve specific misbehavior
+        \end{itemize}
 
-\lipsum[1]
+\subsubsection*{Behavior trees}
+Bottom-up design: Compose overall behavior from simple sub-behaviors \cite{brooks_robust_1986}
+
+\paragraph*{Advantages}
+        \begin{itemize}
+            \item High reactivity
+            \item Consistent modularity
+            \item Good scalability
+            \item Easy to implement
+            \item Can combine different behavior planning methods
+        \end{itemize}
+\paragraph*{Disadvantages}
+\begin{itemize}
+    \item Can become complex and difficult to understand for large systems
+\end{itemize}
+
+\subsubsection*{Arbitration graphs}
+Combine subsumption concept with object-oriented programming \cite{lauer_cognitive_2010}
+\begin{itemize}
+    \item Modular behavioral components address fundamental behavioral competencies
+    \item Application-independent arbitrators decide which behavior option is most suitable
+    \item High modularity and scalability
+    \item Verifiable and robust
+\end{itemize}
+
+\subsection{Contributions}
+
+\begin{itemize}
+    \item \textbf{Verification logic:} The arbitration process is extended by a verification logic that ensures that only behavior options are executed that pass verification. This verification logic is based on three verifiers that check potential maneuvers for validity, feasibility, and traffic safety.
+    \item \textbf{Safety concept:} A safety concept is designed to ensure robust and safe behavior arbitration through verification, real-time capability, redundancy, and diversity.
+    \item \textbf{Application:} The proposed safety concept is evaluated in an application-oriented simulation environment. The results show that the proposed approach can effectively reduce the risk of accidents and improve the overall safety of automated vehicles.
+\end{itemize}

@@ -43,6 +43,8 @@
 
 \usepackage{placeins}%for \FloatBarrier
 
+\usepackage{customMath}
+
 \usepackage[style=ieee,
             doi=false,
             url=false,
@@ -59,26 +61,23 @@
 
 \title{%
 % \vspace{.25in}  % use this in case the IEEE PDF check complains about incompliant page margins
-Preparation of Papers for IEEE Sponsored Conferences \& Symposia
+    Seamlessly Mitigating Unsafe \& Unreliable Behavior Implementations using Arbitration Graphs
 }
 
 \author{
-    Albert Author$^{1}$,
-    Max Mustermann$^{1}$,
-    Kevin Klein$^{2}$,
-    Bernard D. Researcher$^{2}$ and
-    Susi Smart$^{2}$% <-this % stops a space
+    Piotr Spieker$^{1}$, 
+    Nick Le Large$^{2}$ and
+    ?$^{2}$% <-this % stops a space
     \thanks{
-        $^{1}$Albert Author and Max Mustermann are with Intelligent Systems and Production Engineering, FZI Research Center for Information Technology, Karlsruhe, Germany
-        {\tt\small \{author,mustermann\}@fzi.de}
-    }%
+        $^{1}$Piotr Spieker, né Orzechowski, is with dotscene GmbH, Freiburg, Germany
+        {\tt\small \{orzechow\}@posteo.de}
+    }
     \thanks{
-        $^{2}$Kevin Klein, Bernard D. Researcher and Susi Smart are with the Institute of Measurement and Control Systems, Karlsruhe Institute of Technology (KIT),
+        $^{2}$Nick Le Large and ? are with the Institute of Measurement and Control Systems, Karlsruhe Institute of Technology (KIT),
         Karlsruhe, Germany
-        {\tt\small \{klein,researcher,smart\}@kit.edu}
-    }%
+        {\tt\small \{nick.lelarge\}@kit.edu}
+    }
 }
-
 % use for special paper notices
 %\IEEEspecialpapernotice{(Invited Paper)}
 
@@ -104,12 +103,11 @@ Preparation of Papers for IEEE Sponsored Conferences \& Symposia
 \thispagestyle{empty}
 \pagestyle{empty}
 
-\input{content/01_abstract}
+% \input{content/01_abstract}
 \input{content/02_introduction}
-\input{content/03_main}
-\input{content/04_results_and_evaluation}
-\input{content/05_conclusions}
-\input{content/06_acknowledgements}
+\input{content/03_fundamentals}
+\input{content/04_main.tex}
+\input{content/05_application.tex}
 
 \printbibliography
 
