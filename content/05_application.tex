@@ -1,0 +1,28 @@
+\section{Application}
+
+\todo[inline]{Condense and include the following two sections that used to be in fundamentals.}
+\subsubsection*{Behavior Verification}
+
+Reachable sets:
+\begin{itemize}
+  \item Aims to maintain a provably safe fail-safe trajectory that can be switched to if a collision is imminent
+  \item Fail-safe trajectory is only considered safe if it has no overlap with the worst-case positions of other road users
+  \item Set-point trajectory only needs to ensure that a switch to the fail-safe trajectory is still possible in the next planning interval
+  \item \textbf{Advantages:}
+        \begin{itemize}
+            \item Consistent, intuitive, and efficient
+            \item Fail-safe trajectory concept can be well integrated into a behavior decision-making with fallbacks
+        \end{itemize}
+  \item \textbf{Disadvantages:}
+        \begin{itemize}
+            \item Previous publications make far-reaching assumptions that need to be relaxed for real-world application (e.g., vehicles do not leave their lanes except for lane changes)
+        \end{itemize}
+\end{itemize}
+
+\subsubsection*{3-layer model for automated driving}
+\begin{itemize}
+    \item \textbf{Strategic layer:} Defines general long-term preferences and goals (e.g., planned route)
+    \item \textbf{Tactical layer:} Generates driving maneuvers (e.g., lane change, stop maneuver) based on current situation and goals
+    \item \textbf{Operational layer:} Actuates the intended maneuver with a high update frequency (e.g., milliseconds)
+\end{itemize}
+

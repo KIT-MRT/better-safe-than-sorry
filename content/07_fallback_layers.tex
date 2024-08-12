@@ -1,0 +1,107 @@
+\section{Fallback Layers}
+
+\subsection{Continue Last Maneuver}
+
+    Goal: Continue the last maneuver as long as it is still feasible and not too old.
+    Start Condition:
+
+\begin{itemize}
+    \item A maneuver was already executed in the previous time interval.
+    \item This maneuver is not older than a certain maximum age.
+    \item The corresponding desired trajectory is still feasible.
+\end{itemize}
+
+    Continuation Condition:
+
+\begin{itemize}
+    \item The behavior module is already active.
+    \item The maneuver executed in the previous time interval is not older than a certain maximum age.
+    \item The corresponding desired trajectory is still feasible.
+\end{itemize}
+
+    Behavior Generation:
+
+\begin{itemize}
+    \item Take over the desired trajectory~$\soll[\plIntervalIdx-1]$, the HMI outputs~$\hmi[\plIntervalIdx-1]$, and the V2X messages~$\vtx[\plIntervalIdx-1]$ of the maneuver from the previous planning interval~${\plIntervalIdx-1}$.
+    \item Determine a new fail-safe trajectory $\failsafe[\plIntervalIdx]$ to ensure that it is still feasible in the next time interval.
+    \item It must coincide with the desired trajectory in the first three planned poses
+\end{itemize}
+
+Additional Notes:
+
+\begin{itemize}
+    \item This behavior module is the most optimistic fallback behavior.
+    \item Considering the maneuver age, i.e. the duration since it was planned, prevents relying on an old state of the environment model for too long.
+    \item The "Continue Last Maneuver" behavior module is also subject to actuator verification from Section 3.1.2, which guarantees its validity, feasibility, and safety.
+\end{itemize}
+
+\subsection{Fail-Safe Trajectory}
+
+    Goal: Use the fail-safe trajectory from the previous planning interval as the current desired and fail-safe trajectory.
+    Start Condition:
+
+\begin{itemize}
+    \item A maneuver was already executed in the previous time interval.
+\end{itemize}
+
+    Continuation Condition:
+
+\begin{itemize}
+    \item The behavior module is already active.
+\end{itemize}
+
+    Behavior Generation:
+
+\begin{itemize}
+    \item In its getCommand function, the "Fail-Safe" behavior module takes over the fail-safe trajectory planned in the previous planning interval~$\plIntervalIdx-1$ as the current desired and fail-safe trajectory: \begin{subequations} \begin{align} \soll[\plIntervalIdx] &= \failsafe[\plIntervalIdx-1]\ \failsafe[\plIntervalIdx] &= \failsafe[\plIntervalIdx-1] \end{align} \end{subequations}
+    \item Depending on the hazard situation, it may also make sense to activate the hazard lights via the HMI outputs~$\hmi[\plIntervalIdx]$.
+\end{itemize}
+
+Additional Notes:
+
+\begin{itemize}
+    \item This fallback level ties in directly with the requirement formulated in the safety concept that each behavior module must also determine a fail-safe alternative trajectory, the so-called fail-safe trajectory, in addition to the desired trajectory (Section 3.1.2).
+    \item This fail-safe trajectory must, among other things, withstand verification with regard to traffic safety.
+    \item Accordingly, the fallback level "Fail-Safe" can fall back on the fail-safe trajectory~$\failsafe[\plIntervalIdx-1]$ planned in the previous planning interval~$\plIntervalIdx-1$ and directly output it as its desired trajectory.
+    \item "Fail-Safe" is also subjected to verification by the superordinate arbitrator to ensure that this fail-safe trajectory is only executed as long as the assumptions of its verification are still met.
+    \item Therefore, the start condition is limited to checking whether a fail-safe trajectory~$\failsafe[\plIntervalIdx-1]$ exists at all.
+    \item Whether it is still valid, feasible, and safe is checked in the verification step.
+\end{itemize}
+
+\subsection{Emergency Stop}
+
+    Goal: Perform an emergency full stop on a straight path.
+    Start Condition:
+
+\begin{itemize}
+    \item The behavior module can be called at any time as long as the current vehicle state~$\state$ (e.g., through an odometer) is known.
+    \item In particular, the emergency stop can also be called if
+          \begin{itemize}
+              \item The ego vehicle has left the route.
+              \item The planning map is no longer available.
+              \item Parts of perception, localization, or prediction have failed.
+          \end{itemize}
+\end{itemize}
+
+    Continuation Condition:
+
+\begin{itemize}
+    \item The behavior module can be continued as long as it is already active.
+\end{itemize}
+
+    Behavior Generation:
+
+\begin{itemize}
+    \item In its getCommand function, the "Emergency Stop" behavior module determines a trajectory that brings the vehicle to a standstill from the current state~$\state$ at constant orientation with the maximum feasible braking deceleration.
+    \item Due to the emergency, the hazard lights are also activated via the HMI outputs~$\hmi[\plIntervalIdx]$.
+\end{itemize}
+
+Additional Notes:
+
+\begin{itemize}
+    \item This behavior module serves as the third fallback level and makes a full stop on a straight path available.
+    \item Since it is also the last fallback level, it is crucial that the "Emergency Stop" can be called in any situation.
+    \item The vehicle state~$\state$ is required for this purpose in order to determine a feasible trajectory.
+    \item If this is also not available, because, for example, even the vehicle odometry has failed, it is the task of the controller to recognize this failure and directly initiate an emergency stop via the actuator variables (desired acceleration and steering angle).
+\end{itemize}
+
