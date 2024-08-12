@@ -28,7 +28,7 @@ To design a safe system, these actions must be linked to reliable condition node
 Behavior trees generalize many architectures, such as hierarchical finite state machines and decision trees [Col17], excelling in modularity, hierarchical organization, reusability, responsiveness, and interpretability [Col18].
 Their flexibility allows reuse of individual behaviors without specifying their relations [Bag12].
 The selection mechanism is intuitive and easy to follow during operation.
-However, extensive preconditions can make representations unwieldy, and safety depends significantly on node arrangement.
+However, extensive preconditions can make representations cumbersome, and safety as well as reliability depend significantly on node arrangement.
 These drawbacks are addressed by arbitration graphs.
 
 % Arbitration Graphs
@@ -38,17 +38,22 @@ This approach was thoroughly described in [Lau10] and is summarized in the follo
 This modular framework is characterized by clear interfaces for transparent decision-making, using atomic behavior modules to represent simple abilities and behaviors.
 These modules are combined using arbitrators to create complex system behaviors.
 
-The input to a behavior module is the current situation in the form sensor data or an interpreted environment model.
-If its preconditions are met, i.e. the so-called invocation condition is satisfied and the behavior is therefore applicable, the behavior module computes a command.
-An active behavior module checks whether all conditions are met to continue the behavior using the commitment condition meaning the calling instance itself does not need any knowledge of the prerequisites for executing a behavior module.
+The input to a behavior module is the current situation $\situation$, provided as sensor data or an interpreted environment model.
+If its preconditions are met, the invocation condition $\invCond$ indicates that the behavior is applicable in the current situation $\situation$.
+In this case, the higher-level instance (i.e., the arbitrator) can instruct the behavior module to compute a command $\command_a$.
+The currently active behavior module additionally uses the commitment condition $\comCond$ to indicate that its behavior can be continued.
+Consequently, the calling instance does not need to know the prerequisites for executing the behavior's command.
 
-Generic arbitrators combine behavior modules, filtering them using invocation and commitment conditions, and select the best option to execute.
-Arbitration schemes include priority-based, completion-based, random, sequence-based, and cost-based.
+Generic arbitrators combine behavior modules $\options = \left< o_0, o_1, \dots \right>$, 
+filter out the applicable subset $\applicableOptions \subset \options$ using their invocation and commitment conditions, 
+and select the best applicable option $a^*$ for execution.
+Arbitration schemes include priority-based, sequence-based, cost-based, and random.
+Due to inheritance and a shared interface, arbitrators can include both behavior modules and other arbitrators, enabling a hierarchical architecture.
 
 \subsection{Fault-tolerant/Robust Systems}
 
 In automated systems, both hardware and software issues can compromise performance and safety.
-Causes include programming errors and runtime issues such as optimization problems, making error diagnosis and treatment crucial in system design.
+Causes include programming errors and runtime issues such as optimization problems, making error diagnosis and treatment crucial in system design and during runtime.
 
 Research on reliable and fault-tolerant systems aims to design dependable hardware and software despite potential errors, using metrics like error probability, mean lifespan, failure rate, and availability.
 Terminology varies, but disturbances ("faults") can lead to errors, potentially causing system failures.
