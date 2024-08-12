@@ -22,7 +22,7 @@ Evaluated at a fixed frequency, nodes return their status as running, completed,
 Control flow nodes decide on further evaluations.
 
 Condition nodes check if their underlying conditions are met without affecting the environment, while action nodes execute behaviors and return their status.
-By distinguishing between condition and action nodes, the preconditions of a behavior are decoupled from the actual execution of the behavior.
+By distinguishing between condition and action nodes, the preconditions of a behavior  are decoupled from the actual execution of the behavior.
 To design a safe system, these actions must be linked to reliable condition nodes.
 
 Behavior trees generalize many architectures, such as hierarchical finite state machines and decision trees [Col17], excelling in modularity, hierarchical organization, reusability, responsiveness, and interpretability [Col18].
@@ -35,20 +35,20 @@ These drawbacks are addressed by arbitration graphs.
 The concept of behavior arbitration originated in the context of robot soccer, integrating ideas from Brooks' behavior-based subsumption, knowledge-based architectures like Belief-Desire-Intention (BDI), and programming paradigms such as object-oriented programming.
 This approach was thoroughly described in [Lau10] and is summarized in the following.
 
-This modular framework is characterized by clear interfaces for transparent decision-making, using atomic behavior modules to represent simple abilities and behaviors.
+This modular framework is characterized by clear interfaces for transparent decision-making, using atomic behavior components to represent simple abilities and behaviors.
 These modules are combined using arbitrators to create complex system behaviors.
 
-The input to a behavior module is the current situation $\situation$, provided as sensor data or an interpreted environment model.
-If its preconditions are met, the invocation condition $\invCond$ indicates that the behavior is applicable in the current situation $\situation$.
-In this case, the higher-level instance (i.e., the arbitrator) can instruct the behavior module to compute a command $\command_a$.
-The currently active behavior module additionally uses the commitment condition $\comCond$ to indicate that its behavior can be continued.
+The input to a behavior component is the current situation $\situation$, provided as sensor data or an interpreted environment model.
+If its preconditions are met, the invocation condition $\invCond$ indicates that the behavior component is applicable in the current situation $\situation$.
+In this case, the higher-level instance (i.e., the arbitrator) can instruct the behavior component to compute a command $\command_a$.
+The currently active behavior component additionally uses the commitment condition $\comCond$ to indicate that its behavior can be continued.
 Consequently, the calling instance does not need to know the prerequisites for executing the behavior's command.
 
-Generic arbitrators combine behavior modules $\options = \left< o_0, o_1, \dots \right>$, 
+Generic arbitrators combine behavior components $\options = \left< o_0, o_1, \dots \right>$, 
 filter out the applicable subset $\applicableOptions \subset \options$ using their invocation and commitment conditions, 
 and select the best applicable option $a^*$ for execution.
 Arbitration schemes include priority-based, sequence-based, cost-based, and random.
-Due to inheritance and a shared interface, arbitrators can include both behavior modules and other arbitrators, enabling a hierarchical architecture.
+Due to inheritance and a shared interface, arbitrators can include both behavior components and other arbitrators, enabling a hierarchical architecture.
 
 \subsection{Fault-tolerant/Robust Systems}
 
