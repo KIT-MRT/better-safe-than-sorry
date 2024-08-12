@@ -7,8 +7,8 @@
 Behavior planning and decision-making are crucial for robots to operate autonomously in dynamic environments, ensuring they achieve goals while adapting to changes and uncertainties.
 Key to reliable operation in fields like autonomous driving and industrial automation is ensuring safety and robustness in these processes.
 
-Arbitration graphs, hierarchical behavior models, manage complex decision-making with scalability, maintainability, and transparency.
-Their modularity allows integration of diverse methods and seamless switching between them.
+Arbitration graphs, hierarchical behavior models, manage complex decision-making
+by allowing integration of diverse methods while ensuring scalability, maintainability, and transparency.
 However, real-world complexities challenge the safety and robustness of these systems.
 
 This paper aims to enhance arbitration graph safety and robustness by identifying and handling erroneous or unsafe behavior commands at runtime.
@@ -23,7 +23,8 @@ This paper aims to enhance arbitration graph safety and robustness by identifyin
 \subsection{State of the art}
 Behavioral decision-making includes both monothematic methods and generic architectures.
 
-End-to-end machine learning approaches learn the entire process from sensor data to commands, requiring extensive data and computational power but limiting direct system behavior influence.
+End-to-end machine learning approaches learn the entire process from sensor data to commands, requiring extensive data and computational power.
+Due to their highly integrated nature, it is challenging to interpret or influence the resulting behavior directly.
 
 Traditional architectures like finite state machines (FSMs) allow situational planning but scale poorly with complexity. Behavior-based methods, derived from Brooks' subsumption architecture, evolved into behavior trees (among others). Popularized by their use in gaming, they are also applied in robotics. These structure decision making hierarchically, offering modularity and responsiveness but becoming unwieldy with extensive conditions.
 
@@ -41,7 +42,7 @@ We split Pac-Man's behavior into the following behavioral components:
     \item \textbf{Change Dot Cluster:} Pac-Man moves towards another area with a high dot density.
 \end{itemize}
 
-The arbitration graph in Figure \ref{fig:entt-pacman} visualizes the corresponding arbitration graph.
+The arbitration graph in Figure \ref{fig:entt-pacman}\todo{Add cost for behaviors, center behavior names} visualizes the corresponding arbitration graph.
 
 \subsection{Contributions}
 
