@@ -48,15 +48,30 @@ Before we discuss how to detect and mitigate unsafe and unreliable behaviors, we
   \;
   \While{true}{
     determine current situation $\situation$\;\label{algo:verifying_arbitrator:situation}
-    get $\verifiedCommand = (\command, \verification) = $ \BestOption{$\situation$}\;
+    determine $\verifiedCommand = (\command, \verification) = $ \BestOption{$\situation$}\;
     \If{verification passed $\verification_a = 0$}{
       execute $\command$\;
     % }{
     %   Gebe Fehlermeldung mit $\verification_a$ aus\;
     }
   }
-  \caption{Generic arbitration procedure with verification \label{algo:verifying_arbitrator}}
+  \caption{Generic arbitration algorithm with verification \label{algo:verifying_arbitrator}}
 \end{algorithm}
+
+To be able to prevent these issues from causing a system failure, we propose a verification step embedded into the arbitration framework.
+\Cref{algo:verifying_arbitrator} shows a generic arbitration algorithm extended with a verification step.
+First, in \cref{algo:verifying_arbitrator:situation}, the current situation~$\situation$ is determined.
+Based on this, the root arbitrator determines its best applicable and safe action using the \BestOption{$\situation$} function.
+%
+To do this, it filters from its options $\options$ (which may be a combination of behavior components and lower-level arbitrators) those options~$\applicableOptions$ that are applicable in the situation~$\situation$.
+These are then sorted into a descending list~$\sortedApplicableOptions$ according to the underlying strategy.
+%
+Now, for each option $a \in \sortedApplicableOptions$, it is checked whether its command $\command_a = \getCommand_a(\situation)$ withstands a verification~$\verifier (\command_a)$.
+If so, this option is returned as the best applicable and safe option.
+If none of the options pass the verification step, the arbitrator returns the error value $\text{NO\_SAFE\_OPTION}$.
+%
+The command~$\command$ returned by the root arbitrator can then be executed and deemed safe given the assumptions of the verifier~$\verifier$.
+%
 \begin{itemize}
     \item Basic arbitration graph that works in theory
     \item Might contain unsafe or unreliable behavior implementations
