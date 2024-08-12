@@ -12,11 +12,11 @@ Methods range from graph-based techniques like A*, PRM*, and RRT* to probabilist
 This work, however, focuses on rule-based methods, such as finite state machines, behavior trees, or arbitration graphs, which address decision making through discrete state or mode transitions.
 
 % Finite State Machines
-FSMs, from hardware design and theoretical computer science, represent behavior modes with transitions triggered by events. Despite their simplicity, FSMs scale poorly and are difficult to modify due to extensive transitions.
-
+FSMs, first used in hardware design and theoretical computer science, represent behavior modes with transitions triggered by events.
+Despite their simplicity, FSMs scale poorly and are difficult to modify due to the amount of transitions increasing exponentially with the number of states.
 % Behavior Trees
 Behavior trees, initially designed for game development, have been increasingly used in robotics since 2012.
-They separate behavior decision-making from execution, forming loop-free undirected graphs.
+They separate behavior decision-making from execution by leveraging a tree structure.
 Internal nodes determine selection mechanisms, while leaves describe behaviors and conditions.
 Evaluated at a fixed frequency, nodes return their status as running, completed, or failed.
 Control flow nodes decide on further evaluations.
@@ -26,7 +26,7 @@ By distinguishing between condition and action nodes, the preconditions of a beh
 To design a safe system, these actions must be linked to reliable condition nodes.
 
 Behavior trees generalize many architectures, such as hierarchical finite state machines and decision trees [Col17], excelling in modularity, hierarchical organization, reusability, responsiveness, and interpretability [Col18].
-Their flexibility allows reuse of individual behaviors without specifying their relations [Bag12].
+Their flexibility allows reuse of individual behaviors [Bag12].
 The selection mechanism is intuitive and easy to follow during operation.
 However, extensive preconditions can make representations cumbersome, and safety as well as reliability depend significantly on node arrangement.
 These drawbacks are addressed by arbitration graphs.
