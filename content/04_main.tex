@@ -101,6 +101,8 @@ This behavior should be simple and safe, ensuring that the system always has a v
 For example, in a mobile robot, the emergency behavior could be to stop moving and wait for further instructions.
 Since this is the last resort, the emergency behavior does not need to pass the verification step.
 
+% TODO: Add paragraph about seamless degradation
+
 Where the original arbitration graph may have been functional in principle, it might fail in practice if a behavior component returns an unsafe or unreliable command.
 \todo{Add a figure showing the arbitration graph with fallback layers} showing the arbitration graph with fallback layers.
 It utilizes the verifiers to ensure that only safe commands are executed, and the fallback layers to mitigate unsafe or unreliable behaviors.
@@ -109,4 +111,10 @@ In this example, the verifier checks if the command would lead to a collision wi
 As an initial fallback layer, a random walk behavior component is added.
 If primary behaviors fail verification, this behavior helps explore alternative strategies while maintaining safety.
 A random walk might of course also fail verification, therefore we added a last resort behavior component that tries to keep Pac-Man in the same place moving back and forth between two grid cells.
+
+
+% TODO: Discussion
+% Example situation with screenshot and arbirtration graph state
+% → Show red/failed behavior
+% Highlight that system may now contain unsafe behaviors and responsibility for safety is centralized in verifier
 
