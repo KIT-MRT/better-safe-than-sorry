@@ -34,7 +34,7 @@ arbitration:
               invocationCondition: true
               commitmentCondition: false
             verificationResult: passed
-            cost: 0
+            cost: 5
           - type: Option
             behavior:
               type: Behavior
@@ -42,7 +42,7 @@ arbitration:
               invocationCondition: true
               commitmentCondition: false
             verificationResult: passed
-            cost: 0
+            cost: 10
         activeBehavior: 0
       verificationResult: passed
       flags:
