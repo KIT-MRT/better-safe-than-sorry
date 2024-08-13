@@ -107,6 +107,23 @@ This layered approach using multiple fallback allows the system's performance to
 
 \subsection{Example: Safe Pac-Man}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\columnwidth]{figures/pacman_scenario_cropped.png}
+    \caption{A scenario where the \behavior{EatClosestDot} behavior fails to produce a valid command.}
+    \label{fig:pacman-scenario}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includesvg[width=\columnwidth,inkscapelatex=false]{figures/pacman_arbitrator_safe}
+    \caption{The extended arbitration graph with fallback layers. The icons indicate whether a behavior component
+        timed out (hourglass),
+        failed verification (lightning bolt),
+        or is a last resort fallback (safety buoy).}
+    \label{fig:pacman-arbitrator-safe}
+\end{figure}
+
 Where the original arbitration graph shown in \cref{fig:entt-pacman} may have been functional in principle, it might fail in practice if a behavior component returns an unsafe or unreliable command.
 Consider the scenario depicted in \cref{fig:pacman-scenario}.
 Since no ghosts are nearby and there is only one dot cluster left, the only applicable behavior is \behavior{EatClosestDot}.
