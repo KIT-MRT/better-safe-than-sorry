@@ -15,36 +15,36 @@ arbitration:
     - type: Option
       behavior:
         type: Behavior
-        name: RunAwayFromGhost
-        invocationCondition: true
+        name: AvoidGhost
+        invocationCondition: false
         commitmentCondition: false
       flags:
         - INTERRUPTABLE
     - type: Option
       behavior:
         type: CostArbitrator
-        name: CollectDots
+        name: EatDots
         invocationCondition: true
         commitmentCondition: true
         options:
           - type: Option
             behavior:
               type: Behavior
-              name: CollectClosestDot
+              name: EatClosestDot
               invocationCondition: true
               commitmentCondition: false
-            verificationResult: passed
+            verificationResult: noTimelyResponse
             cost: 0
           - type: Option
             behavior:
               type: Behavior
-              name: GotToDotPatch
-              invocationCondition: true
-              commitmentCondition: true
+              name: ChangeDotCluster
+              invocationCondition: false
+              commitmentCondition: false
             verificationResult: passed
             cost: 0
-        activeBehavior: 0
-      verificationResult: passed
+        activeBehavior: -1
+      verificationResult: noTimelyResponse
       flags:
         - INTERRUPTABLE
     - type: Option
@@ -53,12 +53,13 @@ arbitration:
         name: RandomWalk
         invocationCondition: true
         commitmentCondition: false
+      verificationResult: failed
     - type: Option
       behavior:
         type: Behavior
-        name: DoNothing
+        name: StayInPlace
         invocationCondition: true
         commitmentCondition: false
       flags:
         - FALLBACK
-  activeBehavior: 1
+  activeBehavior: 4
