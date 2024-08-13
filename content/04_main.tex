@@ -18,9 +18,9 @@ In this section, we will explore methods for detecting and mitigating unsafe and
 
 \begin{itemize}
     \item The system ensures a safety action is executed whenever the operating conditions exceed the system's designed capabilities.
-    \item The system is robust against behavior component failures
-    \item The system prevents invalid control inputs
-    \item The system avoids risky control inputs
+    \item The system is robust against behavior component failures.
+    \item The system prevents invalid control inputs.
+    \item The system avoids risky control inputs.
 \end{itemize}
 
 \subsection{Detect Unsafe \& Unreliable Behaviors}
@@ -70,7 +70,7 @@ If so, this option is returned as the best applicable and safe option.
 If none of the options pass the verification step, the arbitrator returns the error value $\text{NO\_SAFE\_OPTION}$.
 %
 The command~$\command$ returned by the root arbitrator can then be executed and deemed safe given the assumptions of the verifier~$\verifier$.
-%
+
 The utilized verifier~$\verifier$ is domain-specific and may run various checks on the behavior command.
 In Pac-Man for example, the verifier could check whether the command would lead to a collision with a wall or ghost.
 In autonomous driving, we could verify if the behavior output is free of collisions and respects traffic rules.
@@ -79,17 +79,18 @@ More generally, the verifier could check if the format of the command is correct
 
 \subsection{Mitigate Unsafe \& Unreliable Behaviors}
 If a behavior component fails the verification step, the arbitration graph must handle this situation to ensure the system remains safe and robust.
-Even without addtional measures, the verification step already improves the system's safety by preventing unsafe commands from being executed.
-If an arbitrator detects a failure but has other applicable options, it can simply choose the next best option.
+Even without additional measures, the verification step already improves the system's safety by preventing unsafe commands from being executed.
+If an arbitrator detects a failure but has other applicable options, it simply chooses the next best option.
 
 However, to further increase robustness, we make use of the bottom-up approach of arbitration graphs to add fallback layers in form of additional behavior components.
 
 % Increase robustness by adding diverse or redundant behaviors.
-One straightforward idea is to increase the system's diversity and redundance.
+One common approach in fault-tolerant systems is to increase the system's diversity and redundancy.
+In the case of arbitration graphs this can be achieved by adding additional behavior components.
 A redundant behavior component is simply a duplicate instantiation of an existing behavior component.
-If the behavior is non-deterministic, the redundant behavior might find a safe command where the original behavior failed.
-A diverse behavior component is a behavior that solves the same task but with a different approach.
-For example, an experimental or learning-based behavior could be complemented by a more conervative, but stable and reliable behavior component.
+If the behavior component is non-deterministic, the redundant behavior component might find a safe command where the original behavior component failed.
+A diverse behavior component solves the same task but with a different approach.
+For example, an experimental or learning-based behavior could be complemented by a more conservative, but stable and reliable behavior component.
  
 % Increase robustness by adding continue last maneuver behavior
 Another approach is to add a behavior component that repeats or continues the last maneuver.
@@ -102,7 +103,7 @@ For example, in a mobile robot, the emergency behavior could be to stop moving a
 Since this is the last resort, the emergency behavior does not need to pass the verification step.
 
 % Seamless degradation
-This layered approach using multiple fallback allows the system's performance to degreade gracefully instead of having to execute an emergency command immediately.
+This layered approach using multiple fallback allows the system's performance to degrade gracefully instead of having to execute an emergency command immediately.
 
 \subsection{Example: Safe Pac-Man}
 
