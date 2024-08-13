@@ -101,20 +101,27 @@ This behavior should be simple and safe, ensuring that the system always has a v
 For example, in a mobile robot, the emergency behavior could be to stop moving and wait for further instructions.
 Since this is the last resort, the emergency behavior does not need to pass the verification step.
 
-% TODO: Add paragraph about seamless degradation
+% Seamless degradation
+This layered approach using multiple fallback allows the system's performance to degreade gracefully instead of having to execute an emergency command immediately.
 
-Where the original arbitration graph may have been functional in principle, it might fail in practice if a behavior component returns an unsafe or unreliable command.
-\todo{Add a figure showing the arbitration graph with fallback layers} showing the arbitration graph with fallback layers.
-It utilizes the verifiers to ensure that only safe commands are executed, and the fallback layers to mitigate unsafe or unreliable behaviors.
-In this example, the verifier checks if the command would lead to a collision with a wall or ghost.
+\subsection{Example: Safe Pac-Man}
 
-As an initial fallback layer, a random walk behavior component is added.
-If primary behaviors fail verification, this behavior helps explore alternative strategies while maintaining safety.
-A random walk might of course also fail verification, therefore we added a last resort behavior component that tries to keep Pac-Man in the same place moving back and forth between two grid cells.
+Where the original arbitration graph shown in \cref{fig:entt-pacman} may have been functional in principle, it might fail in practice if a behavior component returns an unsafe or unreliable command.
+Consider the scenario depicted in \cref{fig:pacman-scenario}.
+Since no ghosts are nearby and there is only one dot cluster left, the only applicable behavior is \behavior{EatClosestDot}.
+Ideally, this behavior has the intended effect and Pac-Man should move towards the last remaining dots.
+If, however, the behavior component fails to produce a valid command, the system might behave unpredictably or even crash.
+For example, a bug in the underlying path planning algorithm might get stuck in a loop.
 
+\todo{Add a figure showing the arbitration graph with fallback layers} shows the arbitration graph extended with fallback layers.
+With the \behavior{EatClosestDot} not returning a command in a reasonable time, the system falls back to the newly added \behavior{RandomWalk} behavior.
+This behavior component simply moves Pac-Man in a random direction.
+This random exploration might help to escape a deadlock and find a new valid command.
+In our scenario, however, the \behavior{RandomWalk} return a command which would lead to a collision with a wall.
+This command is therefore rejected by the verifier, and the system falls back to the last resort behavior \behavior{StayInPlace}.
+While it might be impossible to complete the level with this behavior, the system remains in a predictable and safe state giving the primary behavior components a chance to recover.
 
-% TODO: Discussion
-% Example situation with screenshot and arbirtration graph state
-% → Show red/failed behavior
-% Highlight that system may now contain unsafe behaviors and responsibility for safety is centralized in verifier
+Of course it would be possible to find the bug in \behavior{EatClosestDot} in a test before deployment in this toy-example.
+In a real-world scenario, however, it is impossible to test all possible situations and bugs might only occur in specific edge cases.
+The proposed safety concept centralizes the responsibility for safety in the verifier, which enables the usage of imperfect or experimental behavior components without risking the system's overall safety.
 
