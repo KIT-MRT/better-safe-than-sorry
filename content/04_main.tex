@@ -14,12 +14,11 @@ This responsibility is manageable when components are simple and isolated.
 However, it does not scale well with increasingly complex architectures.
 
 To address these challenges, we propose a safety concept embedded directly into the arbitration graph framework.
-With this approach, we aim to reduce the burden on both behavior component developers and system engineers.
-It centralizes the responsibility for the platform's safety within the decision-making framework,
-    allowing for more scalable and maintainable safety assurance.
+With this approach, we aim to reduce the burden on both behavior component developers and system engineers
+by shifting the responsibility for the platform's safety to the verification step within the decision-making framework.
 This ensures that even in the presence of unreliable or unsafe behavior components, the system as a whole remains robust and secure.
 
-In this section, we will explore methods for detecting and mitigating unsafe and unreliable behaviors, with the following safety goals in mind:
+In this section, we will explore methods for detecting and mitigating unsafe and unreliable behavior components, with the following safety goals in mind:
 
 \begin{itemize}
     \item The system ensures that a safety action is taken whenever operating conditions exceed the system's designed capabilities.
