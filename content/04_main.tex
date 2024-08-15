@@ -138,14 +138,13 @@ Where the original arbitration graph shown in \cref{fig:pacman-arbitrator-base} 
 Consider the scenario depicted in \cref{fig:pacman-scenario}.
 Since the ghosts are relatively far away and there is only one dot cluster left, the only applicable behavior is \behavior{EatClosestDot}.
 Ideally, this behavior has the intended effect and Pac-Man should move towards the last remaining dots.
-In our scenario, however, a bug in the underlying path planning algorithm causes it to get stuck in a loop.
-In this case, the behavior component fails to produce a valid command and the system might behave unpredictably or even crash.
+In our hypothetical scenario, however, a bug in the underlying path planning algorithm leads to erroneous results.
+Consequently, the behavior component fails to generate a valid command, causing the system to behave unpredictably or even crash.
 
 \Cref{fig:pacman-arbitrator-safe} shows the arbitration graph from \cref{fig:pacman-arbitrator-base} extended with fallback layers.
-With the \behavior{EatClosestDot} not returning a command in a reasonable time, the system falls back to the newly added \behavior{RandomWalk} behavior.
-This behavior component simply moves Pac-Man in a random direction
-which might help to escape a deadlock and find a new valid command.
-In our scenario, however, the \behavior{RandomWalk} returns a command which would lead to a collision with a wall.
+With \behavior{EatClosestDot} not returning a valid command, the system falls back to the newly added \behavior{MoveRandomly} behavior component.
+Moving Pac-Man in a random direction is a simple action which might help the primary behavior components to escape a deadlock and find a new valid command.
+In our scenario, however, \behavior{MoveRandomly} returns a command which would lead to a collision with a wall.
 This command is therefore rejected by the verifier, and the system falls back to the last resort behavior \behavior{StayInPlace}.
 While it might be impossible to complete the level with this behavior, the system remains in a predictable and safe state giving the primary behavior components a chance to recover.
 
