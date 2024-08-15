@@ -1,0 +1,20 @@
+% We have to tweak around with the placement of the figure:
+%
+% Another LATEX 2ε limitation (patched with stfloats or not) is
+% that double column floats will not appear on the same page
+% where they are defined. So, the user will have to define such
+% things prior to the page on which they are to (possibly) appear.
+%
+% --- IEEEtran_HOWTO.pdf
+
+\begin{figure}[!t]
+  \centering
+  \includesvg[width=\columnwidth,inkscapelatex=false]{figures/experiments_safe_timeline}
+  \caption{
+      Timeline of the chosen behavior in the case with verification.
+      The verifier prevents unsafe behavior commands from being executed.
+      The arbitrator falls back to another safe behavior option,
+      \behavior{FollowLane} in this case.
+  }
+  \label{fig:experiments-safe-timeline}
+\end{figure}

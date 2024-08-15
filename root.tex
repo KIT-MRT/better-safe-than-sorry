@@ -47,11 +47,30 @@
 \usepackage[acronym]{glossaries}
 \usepackage[algoruled,linesnumbered,ngerman]{algorithm2e}
 \DontPrintSemicolon
+\usepackage{enumitem}
 
 \usepackage{placeins}%for \FloatBarrier
 
+\usepackage{customCommands}
 \usepackage{customMath}
 \usepackage{cleveref}
+
+%for allowing hyphenation of words that contain a dash
+%using shortcuts \-/, \=/, \--, \==, \---, and \===
+\usepackage[shortcuts]{extdash}
+
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% science packages
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\usepackage[range-units=single]{siunitx} % proper number and unit formatting with \si \SI \num and \ang
+%range-phrase = --,
+\sisetup{locale = US, per-mode = fraction, quotient-mode = fraction, fraction-function = \tfrac}
+\newcommand{\kmh}{\tfrac{\kilo\meter}{\hour}}
+\newcommand{\mps}{\tfrac{\meter}{\second}}
+\newcommand{\mpss}{\tfrac{\meter}{\second^2}}
+
 
 
 \usepackage[inkscapepath=out/svg-inkscape/,inkscapearea=page]{svg}

@@ -1,0 +1,23 @@
+% We have to tweak around with the placement of the figure:
+%
+% Another LATEX 2ε limitation (patched with stfloats or not) is
+% that double column floats will not appear on the same page
+% where they are defined. So, the user will have to define such
+% things prior to the page on which they are to (possibly) appear.
+%
+% --- IEEEtran_HOWTO.pdf
+
+\begin{figure*}
+  \centering
+  \includesvg[width=\textwidth,inkscapelatex=true,pretex=\begin{svgfont},apptex=\end{svgfont}]{figures/experiments_crash_combined_topview}
+  \caption{
+      At position B (see \cref{fig:test-track}),
+      the ego vehicle intends to change lanes at $t=\SI{1.9}{\second}$,
+      but another vehicle is following close and fast.
+      Without verification, the too optimistic \behavior{ChangeLaneLeft} behavior is chosen,
+      leading to a collision at $t=\SI{5.3}{\second}$.
+      Verification using occupancy predictions prevents this
+      (\cref{fig:experiments-safe-occupancies,fig:experiments-safe-arbitration-graph,fig:experiments-safe-timeline}).
+  }
+  \label{fig:experiments-topview}
+\end{figure*}
