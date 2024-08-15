@@ -39,7 +39,7 @@ This modular framework is characterized by clear interfaces for transparent deci
 These modules are combined using arbitrators to create complex system behaviors.
 
 The input to a behavior component is the current situation $\situation$, provided as sensor data or an interpreted environment model.
-If its preconditions are met, the invocation condition $\invCond$ \todo{translate macros} indicates that the behavior component is applicable in the current situation $\situation$.
+If its preconditions are met, the invocation condition $\invCond$ indicates that the behavior component is applicable in the current situation $\situation$.
 In this case, the higher-level instance (i.e., the arbitrator) can instruct the behavior component to compute a command $\command_a$.
 The currently active behavior component additionally uses the commitment condition $\comCond$ to indicate that its behavior can be continued.
 Consequently, the calling instance does not need to know the prerequisites for executing the behavior's command.
