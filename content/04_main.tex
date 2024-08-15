@@ -1,29 +1,154 @@
-\section{main}
+\section{Safe Arbitration Graphs}
+
+Designing autonomous systems ideally involves ensuring that each behavior component operates reliably under all potential conditions.
+However, achieving this level of reliability is often impractical, especially when deploying these systems in complex and dynamic environments.
+Real-world applications might involve numerous behaviors, implemented by different teams and using various methods.
+With increasing complexity, the likelihood of bugs and inconsistencies grows, making it challenging to ensure the overall safety and robustness of such systems.
+
+The responsibility for safety in autonomous platforms is a critical consideration.
+Typically, the responsibility for individual behavior components lies with the developer who creates or maintains them.
+Additionally, when using hierarchical approaches such as behavior trees,
+    a system engineer is tasked with integrating these behavior components into a coherent system,
+    bearing the overall responsibility for operational safety.
+This responsibility is manageable when components are simple and isolated.
+However, it does not scale well with increasingly complex architectures.
+
+To address these challenges, we propose a safety concept embedded directly into the arbitration graph framework.
+With this approach, we aim to reduce the burden on both behavior component developers and system engineers.
+It centralizes the responsibility for the platform's safety within the decision-making framework,
+    allowing for more scalable and maintainable safety assurance.
+This ensures that even in the presence of unreliable or unsafe behavior components, the system as a whole remains robust and secure.
+
+In this section, we will explore methods for detecting and mitigating unsafe and unreliable behaviors, with the following safety goals in mind:
 
 \begin{itemize}
-    \item Motivate safety layers by presenting a functional but not robust/safe arbitration graph capable of playing Pacman.
-    \item Improve this implementation by adding safety layers.
-    \item Split this into two sections: Unreliable and Unsafe
+    \item The system ensures that a safety action is taken whenever operating conditions exceed the system's designed capabilities.
+    \item The system is robust against behavior component failures.
+    \item The system prevents invalid behavior commands.
+    \item The system avoids risky behavior commands.
 \end{itemize}
 
-\subsection{Unreliable}
-Issues that arise due to bad implementations etc. → Error handling
-\begin{itemize}
-    \item Basic arbitration graph that works in theory
-    \item Might contain unsafe or unreliable behavior implementations
-    \item Contains Chase, RunAway and Collect (EatClosest + GoToPatch) behaviors
-    \item Example: EatClosest contains bug and throws exception when two or more closest pills exist
-    \item Reference to paper title/research question: How to mitigate unsafe and unreliable behavior implementations?
-    \item We could fix the bug in EatClosest but we want to show how to handle these scenarios in a more general way using Arbitration Graphs
-    \item → Detect error and add RandomWalk as first fallback layer
-\end{itemize}
+\subsection{Detect Unsafe \& Unreliable Behaviors}
+\begin{algorithm}
+  \SetKwFunction{BestOption}{BestOption}%
+  \SetKwProg{Fn}{function}{}{end}
 
-\subsection{Unsafe}
-Issues that arise due to logic errors. Output is executable but considered invalid or unsafe.
-\begin{itemize}
-    \item Random walk could output commands crashing into walls
-    \item Domain specific verification step detects this → List examples from other domains
-    \item Add dumb behavior (preferably so easy that it is proofably safe) as last resort fallback layer → StayInPlace
-    \item StayInPlace does not have to pass verifier so Arbitration Graphs will always return a commnd
-\end{itemize}
-Discussion: StayInPlace could still be undesirable → Add additional fallback layers such as a duplicated RunAway (probably using other parameter).
+  \Fn{\BestOption{situation $\situation$}}{\label{algo:verifying_arbitrator:bestOption}
+    filter applicable options $\applicableOptions \subset \options$\;
+    sort applicable options
+      $\sortedApplicableOptions = \left< a_0, a_1, \dots \right> = \text{strategie}(\applicableOptions)$\;
+
+    \For{$a \in \sortedApplicableOptions$}{
+      get command $\command_a = \getCommand_a(\situation)$\;
+
+      verify $\verification_a = \verifier (\command_a)$\;
+      % \If(\tcp*[f]{Verifikation bestanden}){$\verification_a = 0$}{%
+      \If{verification passed $\verification_a = 0$}{%
+        \KwRet{$(\command_a, \verification_a)$}\;
+      }
+    }
+
+    \KwRet{$(\emptyset, \text{NO\_SAFE\_OPTION})$}\;
+    }
+  \;
+  \While{true}{
+    determine current situation $\situation$\;\label{algo:verifying_arbitrator:situation}
+    determine $\verifiedCommand = (\command, \verification) = $ \BestOption{$\situation$}\;
+    \If{verification passed $\verification_a = 0$}{
+      execute $\command$\;
+    % }{
+    %   Gebe Fehlermeldung mit $\verification_a$ aus\;
+    }
+  }
+  \caption{Generic arbitration algorithm with verification \label{algo:verifying_arbitrator}}
+\end{algorithm}
+
+\Cref{algo:verifying_arbitrator} shows the generic arbitration algorithm from \cite{lauer}
+that we have extended with a verification logic.
+The utilized verifier~$\verifier$ is domain-specific and may run various checks on the behavior command.
+In Pac-Man for example, the verifier could check whether the command would lead to a collision with walls or ghosts.
+In autonomous driving, one could verify if the behavior output is free of collisions and respects traffic rules.
+Similarly, a robotic manipulator could verify if the command is within the robot's workspace and does not exceed joint limits.
+More generally, the verifier could check if the format of the command is correct and respects the system's specifications.
+
+The verification step is embedded as follows:
+First, in \cref{algo:verifying_arbitrator:situation}, the current situation~$\situation$ is determined.
+Based on this, the root arbitrator determines its best applicable and safe action using the \BestOption{$\situation$} function.
+%
+To do this, it filters out of its list of options~$\options$ those options~$\applicableOptions$ that are applicable in the situation~$\situation$.
+Like in the original arbitration algorithm, an arbitrator's options can themselves be arbitrators or behavior components.
+The applicable options~$\applicableOptions$ are then sorted into a descending list~$\sortedApplicableOptions$ according to the underlying strategy.
+%
+Now, for each option $a \in \sortedApplicableOptions$, it is checked whether its command $\command_a = \getCommand_a(\situation)$ withstands a verification~$\verifier (\command_a)$.
+If so, this option is returned as the best applicable and safe option.
+If none of the options pass the verification step, the arbitrator returns the error value $\text{NO\_SAFE\_OPTION}$.
+%
+Otherwise, the command~$\command$ returned by the root arbitrator can be executed and deemed safe given the assumptions of the verifier~$\verifier$.
+
+\subsection{Mitigate Unsafe \& Unreliable Behaviors}
+If a behavior component fails the verification step, the arbitration graph must handle this situation to ensure the system remains safe and robust.
+Even without additional measures, the verification step already improves the system's safety by preventing unsafe commands from being executed.
+If an arbitrator detects a failure and has other applicable options, it simply chooses the next best option.
+%
+However, to further increase robustness and reduce performance degradation, we make use of the bottom-up approach of arbitration graphs to add fallback layers in the form of additional behavior components.
+
+% Increase robustness by adding diverse or redundant behaviors.
+One common approach in fault-tolerant systems is to increase the system's diversity and redundancy.
+In the case of arbitration graphs this can be achieved by adding additional behavior components.
+A redundant behavior component is merely a duplicate instantiation of an existing behavior component.
+If it is non-deterministic, the redundant behavior component might find a safe command where the original behavior component failed to do so.
+In contrast, a diverse behavior component addresses the same task but with a different approach.
+For example, a preferred experimental or learning-based behavior component could be complemented by a fallback that employs a more conservative yet stable method to generate the command.
+% 
+% Increase robustness by adding continue last maneuver behavior
+Another approach is to add a behavior component that repeats or continues the last maneuver.
+This helps to mitigate short-term failures, such as a single frame where the behavior component fails to produce a valid command.
+%
+% Increase robustness by adding emergency behavior
+Finally, a last resort behavior component should be added to the arbitration graph.
+This behavior should be simple and safe, ensuring that the system always has a valid command to execute.
+For example, in a mobile robot, the emergency behavior could be to stop moving and wait for further instructions.
+Since this is the last resort, the emergency behavior does not need to pass the verification step.
+%
+% Seamless degradation
+This layered approach using multiple fallback behavior components allows the system's performance to degrade gracefully instead of having to execute an emergency command right away.
+% https://github.com/KIT-MRT/safe_arbitrators_paper/pull/7/files#r1717325535
+\todo{If there is space: Add a figure showing a seamlessly degrading arbitration graph.}
+
+\subsection{Example: Safe Pac-Man}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\columnwidth]{figures/pacman_scenario_cropped.png}
+    \caption{A scenario where the \behavior{EatClosestDot} behavior fails to produce a valid command.}
+    \label{fig:pacman-scenario}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includesvg[width=\columnwidth,inkscapelatex=false]{figures/pacman_arbitrator_safe}
+    \caption{The extended arbitration graph with fallback layers. 
+        The red components marked with a lightning bolt were rejected by the verifier.
+        The safety buoy indicates a last resort fallback which does not need to pass verification.}
+    \label{fig:pacman-arbitrator-safe}
+\end{figure}
+
+Where the original arbitration graph shown in \cref{fig:pacman-arbitrator-base} may have been functional in principle, it might fail in practice if a behavior component returns an unsafe or unreliable command.
+Consider the scenario depicted in \cref{fig:pacman-scenario}.
+Since the ghosts are relatively far away and there is only one dot cluster left, the only applicable behavior is \behavior{EatClosestDot}.
+Ideally, this behavior has the intended effect and Pac-Man should move towards the last remaining dots.
+In our hypothetical scenario, however, a bug in the underlying path planning algorithm leads to erroneous results.
+Consequently, the behavior component fails to generate a valid command, causing the system to behave unpredictably or even crash.
+
+\Cref{fig:pacman-arbitrator-safe} shows the arbitration graph from \cref{fig:pacman-arbitrator-base} extended with fallback layers.
+With \behavior{EatClosestDot} not returning a valid command, the system falls back to the newly added \behavior{MoveRandomly} behavior component.
+Moving Pac-Man in a random direction is a simple action which might help the primary behavior components to escape a deadlock and find a new valid command.
+In our scenario, however, \behavior{MoveRandomly} returns a command which would lead to a collision with a wall.
+This command is therefore rejected by the verifier, and the system falls back to the last resort behavior \behavior{StayInPlace}.
+While it might be impossible to complete the level with this behavior, the system remains in a predictable and safe state giving the primary behavior components a chance to recover.
+
+Of course it would be possible to find the bug in \behavior{EatClosestDot} through testing prior to deployment in this toy example.
+In a real-world scenario, however, it is not feasible to test all possible situations and bugs might only manifest in specific edge cases.
+The proposed safety concept explicitly handles safety within the verifiers, transferring the responsibility away from individual behavior components and their arrangement to the verifiers.
+This approach allows for the integration of imperfect or experimental behaviors without compromising the system's overall safety.
+
