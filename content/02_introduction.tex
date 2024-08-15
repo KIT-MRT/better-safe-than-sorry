@@ -15,7 +15,7 @@ This paper aims to enhance arbitration graph safety and robustness by identifyin
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/entt_pacman.png}
+    \includegraphics[width=0.8\columnwidth]{figures/entt_pacman.png}
     \caption{The Pac-Man implementation used to demonstrate the proposed method and the corresponding arbitration graph.}
     \label{fig:entt-pacman}
 \end{figure}
@@ -24,8 +24,8 @@ This paper aims to enhance arbitration graph safety and robustness by identifyin
     \centering
     \includesvg[width=\columnwidth,inkscapelatex=false]{figures/pacman_arbitrator_base}
     % \includesvg[width=\columnwidth,inkscapelatex=true,pretex=\begin{svgfontonly},apptex=\end{svgfontonly}]{figures/pacman_arbitrator_base}
-    \caption{The Pac-Man implementation used to demonstrate the proposed method and the corresponding arbitration graph.}
-    \label{fig:entt-pacman}
+    \caption{A basic arbitration graph for playing Pac-Man.}
+    \label{fig:pacman-arbitrator-base}
 \end{figure}
 
 \subsection{State of the art}
@@ -40,7 +40,7 @@ Arbitration graphs, combining subsumption and object-oriented programming, enhan
 
 \subsection{Pac-Man}
 Pac-Man, the 1980 arcade game, involves navigating a maze to eat dots while avoiding ghosts.
-Depicted in Figure \ref{fig:entt-pacman} is an open-source implementation\footnote{github.com/indianakernick/EnTT-Pacman} \todo{fix number} of the game that that is being used use to demonstrate the proposed method.
+Depicted in \cref{fig:entt-pacman} is an open-source implementation\footnote{github.com/indianakernick/EnTT-Pacman} \todo{fix number} of the game that that is being used use to demonstrate the proposed method.
 We split Pac-Man's behavior into the following behavioral components:
 
 \begin{itemize}
@@ -50,7 +50,7 @@ We split Pac-Man's behavior into the following behavioral components:
     \item \textbf{Change Dot Cluster:} Pac-Man moves towards another area with a high dot density.
 \end{itemize}
 
-The arbitration graph in Figure \ref{fig:entt-pacman}\todo{Add cost for behaviors, center behavior names} visualizes the corresponding arbitration graph.
+The arbitration graph in \cref{fig:pacman-arbitrator-base} visualizes the corresponding arbitration graph.
 
 \subsection{Contributions}
 
