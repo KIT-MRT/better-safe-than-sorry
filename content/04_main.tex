@@ -65,10 +65,15 @@ In this section, we will explore methods for detecting and mitigating unsafe and
 \Cref{algo:verifying_arbitrator} shows the generic arbitration algorithm from \cite{lauer}
 that we have extended with a verification logic.
 The utilized verifier~$\verifier$ is domain-specific and may run various checks on the behavior command.
+% Examples of verifiers
 In Pac-Man for example, the verifier could check whether the command would lead to a collision with walls or ghosts.
 In autonomous driving, one could verify if the behavior output is free of collisions and respects traffic rules.
 Similarly, a robotic manipulator could verify if the command is within the robot's workspace and does not exceed joint limits.
 More generally, the verifier could check if the format of the command is correct and respects the system's specifications.
+% Multiple verifiers
+Integrating the verification step into the arbitration algorithm allows for the use of different verifiers at various levels within the arbitration graph.
+This enables a more fine-grained and adaptable safety concept.
+For example, verifiers can be customized for specific scenarios, or computationally intensive verifiers can be reserved for higher levels of the arbitration graph.
 
 The verification step is embedded as follows:
 First, in \cref{algo:verifying_arbitrator:situation}, the current situation~$\situation$ is determined.
