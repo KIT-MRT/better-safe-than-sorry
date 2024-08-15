@@ -25,7 +25,7 @@ arbitration:
         type: CostArbitrator
         name: EatDots
         invocationCondition: true
-        commitmentCondition: true
+        commitmentCondition: false
         options:
           - type: Option
             behavior:
@@ -33,7 +33,7 @@ arbitration:
               name: EatClosestDot
               invocationCondition: true
               commitmentCondition: false
-            verificationResult: noTimelyResponse
+            verificationResult: failed
             cost: 0
           - type: Option
             behavior:
@@ -41,16 +41,13 @@ arbitration:
               name: ChangeDotCluster
               invocationCondition: false
               commitmentCondition: false
-            verificationResult: passed
-            cost: 0
-        activeBehavior: -1
-      verificationResult: noTimelyResponse
+      verificationResult: failed
       flags:
         - INTERRUPTABLE
     - type: Option
       behavior:
         type: Behavior
-        name: RandomWalk
+        name: MoveRandomly
         invocationCondition: true
         commitmentCondition: false
       verificationResult: failed
