@@ -1,0 +1,80 @@
+type: PriorityArbitrator
+name: AutomatedDriving
+invocationCondition: true
+commitmentCondition: true
+options:
+  - type: Option
+    behavior:
+      type: Behavior
+      name: ParkNearGoal
+      invocationCondition: false
+      commitmentCondition: false
+  - type: Option
+    behavior:
+      type: Behavior
+      name: SlowlyPassZebra
+      invocationCondition: false
+      commitmentCondition: false
+  - type: Option
+    behavior:
+      type: CostArbitrator
+      name: UrbanDriving
+      invocationCondition: true
+      commitmentCondition: true
+      options:
+        - type: Option
+          behavior:
+            type: Behavior
+            name: FollowLane
+            invocationCondition: true
+            commitmentCondition: true
+          verificationResult: failed
+          flags:
+            - INTERRUPTABLE
+          cost: 4
+        - type: Option
+          behavior:
+            type: Behavior
+            name: ChangeLaneLeft
+            invocationCondition: false
+            commitmentCondition: false
+        - type: Option
+          behavior:
+            type: Behavior
+            name: ChangeLaneRight
+            invocationCondition: true
+            commitmentCondition: false
+          verificationResult: passed
+          cost: 5
+        - type: Option
+          behavior:
+            type: Behavior
+            name: ContinueLastManeuver
+            invocationCondition: true
+            commitmentCondition: true
+          verificationResult: passed
+          flags:
+            - INTERRUPTABLE
+          cost: 4
+      activeBehavior: 3
+    verificationResult: passed
+    flags:
+      - INTERRUPTABLE
+  - type: Option
+    behavior:
+      type: Behavior
+      name: FailSafeFallback
+      invocationCondition: true
+      commitmentCondition: false
+    flags:
+      - INTERRUPTABLE
+  - type: Option
+    behavior:
+      type: Behavior
+      name: EmergencyStop
+      invocationCondition: true
+      commitmentCondition: false
+    flags:
+      - INTERRUPTABLE
+      - FALLBACK
+activeBehavior: 2

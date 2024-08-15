@@ -1,0 +1,41 @@
+\ProvidesPackage{customCommands}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% custom notes/todos %
+%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{xargs}
+\usepackage{ifdraft}
+\usepackage{xcolor}
+\usepackage{soul}
+
+% \newlength{\footnotemarkwidth}
+% \settowidth{\footnotemarkwidth}{\footnotemark\ }
+
+\colorlet{todocolor}{orange}
+% \newcommandx{\todo}[2][1=]{%
+%   \ifoptionfinal{}{
+%     \let\oldthefootnote=\thefootnote%
+%     \renewcommand{\thefootnote}{$^\blacktriangledown$}%
+%     \hspace{-.5\footnotemarkwidth}%
+%     \textcolor{todocolor}{\footnote{#2}}%
+%     \hspace{-.5\footnotemarkwidth}%
+%     \let\thefootnote=\oldthefootnote%
+%     \setcounter{footnote}{\value{footnote}-1}%
+%   }
+% }
+\newcommandx{\todoi}[2][1=]{\ifoptionfinal{}{\sethlcolor{todocolor}\hl{~#2~}}}
+
+% usage:
+% foo\todo{todo} bar
+% foo \todoi{todo inline} bar
+
+% notes:
+% the everyshi package might help placing the todos under the footer -> not changing page layout
+
+\newcommand{\eg}{e.g.,\xspace}
+\newcommand{\Eg}{E.g.,\xspace}
+\newcommand{\ie}{i.e.,\xspace}
+\newcommand{\Ie}{I.e.,\xspace}
+\newcommand{\incl}{incl.\xspace}
+\newcommand{\Incl}{Incl.\xspace}
