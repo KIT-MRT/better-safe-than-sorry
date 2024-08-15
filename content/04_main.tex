@@ -127,10 +127,9 @@ This layered approach using multiple fallback behavior components allows the sys
 \begin{figure}
     \centering
     \includesvg[width=\columnwidth,inkscapelatex=false]{figures/pacman_arbitrator_safe}
-    \caption{The extended arbitration graph with fallback layers. The icons indicate whether a behavior component
-        timed out (hourglass),
-        failed verification (lightning bolt),
-        or is a last resort fallback (safety buoy).}
+    \caption{The extended arbitration graph with fallback layers. 
+        The red components marked with a lightning bolt were rejected by the verifier.
+        The safety buoy indicates a last resort fallback which does not need to pass verification.}
     \label{fig:pacman-arbitrator-safe}
 \end{figure}
 
