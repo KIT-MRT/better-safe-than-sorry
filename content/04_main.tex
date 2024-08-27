@@ -14,12 +14,11 @@ This responsibility is manageable when components are simple and isolated.
 However, it does not scale well with increasingly complex architectures.
 
 To address these challenges, we propose a safety concept embedded directly into the arbitration graph framework.
-With this approach, we aim to reduce the burden on both behavior component developers and system engineers.
-It centralizes the responsibility for the platform's safety within the decision-making framework,
-    allowing for more scalable and maintainable safety assurance.
+With this approach, we aim to reduce the burden on both behavior component developers and system engineers
+by shifting the responsibility for the platform's safety to the verification step within the decision-making framework.
 This ensures that even in the presence of unreliable or unsafe behavior components, the system as a whole remains robust and secure.
 
-In this section, we will explore methods for detecting and mitigating unsafe and unreliable behaviors, with the following safety goals in mind:
+In this section, we will explore methods for detecting and mitigating unsafe and unreliable behavior components, with the following safety goals in mind:
 
 \begin{itemize}
     \item The system ensures that a safety action is taken whenever operating conditions exceed the system's designed capabilities.
@@ -66,10 +65,15 @@ In this section, we will explore methods for detecting and mitigating unsafe and
 \Cref{algo:verifying_arbitrator} shows the generic arbitration algorithm from \cite{lauer}
 that we have extended with a verification logic.
 The utilized verifier~$\verifier$ is domain-specific and may run various checks on the behavior command.
+% Examples of verifiers
 In Pac-Man for example, the verifier could check whether the command would lead to a collision with walls or ghosts.
 In autonomous driving, one could verify if the behavior output is free of collisions and respects traffic rules.
 Similarly, a robotic manipulator could verify if the command is within the robot's workspace and does not exceed joint limits.
 More generally, the verifier could check if the format of the command is correct and respects the system's specifications.
+% Multiple verifiers
+Integrating the verification step into the arbitration algorithm allows for the use of different verifiers at various levels within the arbitration graph.
+This enables a more fine-grained and adaptable safety concept.
+For example, verifiers can be customized for specific scenarios, or computationally intensive verifiers can be reserved for higher levels of the arbitration graph.
 
 The verification step is embedded as follows:
 First, in \cref{algo:verifying_arbitrator:situation}, the current situation~$\situation$ is determined.
