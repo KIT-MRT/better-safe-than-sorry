@@ -1,15 +1,17 @@
 \section{Conclusion}
 % Summary of the approach
-This paper presents an extension to the arbitration graph framework that focuses on improving the safety and robustness of autonomous systems operating in complex, dynamic environments.
+This paper presented an extension to the arbitration graph framework that focuses on improving the safety and robustness of autonomous systems operating in complex, dynamic environments.
 It builds upon the strengths of arbitration graphs, which provide a flexible, scalable, and transparent decision-making framework for autonomous systems.
-By embedding a runtime verification into the arbitrators and adding structured fallback layers to the arbitration graph,
+By embedding a verification step into the arbitrators and adding structured fallback layers to the arbitration graph,
 the proposed method ensures that only verified and safe commands are executed.
 
 % Proof of concept and validation
-The introduced method was demonstrated using a Pac-Man simulation, where the arbitration graph successfully maintained safe operations even in the presence of unexpected faults or bugs.
+The introduced method was demonstrated using a Pac-Man simulation, where the arbitration graph successfully maintained safe operation of the Pac-Man agent even in the presence of unexpected faults or bugs.
 %
 Further validation was conducted in the context of autonomous driving, where the method demonstrated a reduction in accident risk and an overall improvement in system safety.
-These results underline the applicability of the proposed approach to real-world applications, confirming that arbitration graphs, when equipped with safety mechanisms, can effectively manage the complexities and uncertainties of autonomous decision-making.
+These results underline the applicability of the proposed approach to real-world problems, 
+confirming that arbitration graphs, when equipped with safety mechanisms, 
+can effectively manage the complexities and uncertainties of autonomous decision-making.
 
 % Bottom-up approach allows immature behaviors and graceful degradation
 The framework’s bottom-up approach enables the incremental integration of new behavior components with diverse underlying methods into a coherent decision-making system.
@@ -17,6 +19,8 @@ The extension introduced in this work allows for the addition of new components,
 The modular structure also supports the inclusion of multiple fallback layers, ensuring graceful degradation in the face of unforeseen faults.
 
 % Centralizing responsibility for safety
-By explicitly defining the conditions under which a behavior component is considered safe, the responsibility for system safety is shifted to the verification step of the algorithm.
-This is a crucial step towards the development of safe autonomous systems as the overall safety of the system now largely depends on the assumptions made during the verification step.
+By explicitly defining the conditions under which a behavior component is considered safe,
+the responsibility for system safety is shifted to the verifiers used by the algorithm.
+This is a crucial advancement towards safe autonomous systems as
+the overall safety of the system now mainly depends on the assumptions made by these verifiers.
 
