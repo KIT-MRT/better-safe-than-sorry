@@ -101,19 +101,20 @@ One common approach in fault-tolerant systems is to increase the system's divers
 In the case of arbitration graphs this can be achieved by adding additional behavior components.
 A redundant behavior component is merely a duplicate instantiation of an existing behavior component.
 If it is non-deterministic, the redundant behavior component might find a safe command where the original behavior component failed to do so.
+
 In contrast, a diverse behavior component addresses the same task but with a different approach.
 For example, a preferred experimental or learning-based behavior component could be complemented by a fallback that employs a more conservative yet stable method to generate the command.
-% 
+
 % Increase robustness by adding continue last maneuver behavior
 Another approach is to add a behavior component that repeats or continues the last maneuver.
 This helps to mitigate short-term failures, such as a single frame where the behavior component fails to produce a valid command.
-%
+
 % Increase robustness by adding emergency behavior
 Finally, a last resort behavior component should be added to the arbitration graph.
 This behavior should be simple and safe, ensuring that the system always has a valid command to execute.
 For example, in a mobile robot, the emergency behavior could be to stop moving and wait for further instructions.
 Since this is the last resort, the emergency behavior does not need to pass the verification step.
-%
+
 % Seamless degradation
 This layered approach using multiple fallback behavior components allows the system's performance to degrade gracefully instead of having to execute an emergency command right away.
 % https://github.com/KIT-MRT/safe_arbitrators_paper/pull/7/files#r1717325535
@@ -131,7 +132,7 @@ This layered approach using multiple fallback behavior components allows the sys
 \begin{figure}
     \centering
     \includesvg[width=\columnwidth,inkscapelatex=false]{figures/pacman_arbitrator_safe}
-    \caption{The extended arbitration graph with fallback layers. 
+    \caption{The extended arbitration graph with fallback layers.
         The red components marked with a lightning bolt were rejected by the verifier.
         The safety buoy indicates a last resort fallback which does not need to pass verification.}
     \label{fig:pacman-arbitrator-safe}
@@ -148,7 +149,7 @@ Consequently, the behavior component fails to generate a valid command, causing 
 With \behavior{EatClosestDot} not returning a valid command, the system falls back to the newly added \behavior{MoveRandomly} behavior component.
 Moving Pac-Man in a random direction is a simple action which might help the primary behavior components to escape a deadlock and find a new valid command.
 In our scenario, however, \behavior{MoveRandomly} returns a command which would lead to a collision with a wall.
-This command is therefore rejected by the verifier, and the system falls back to the last resort behavior \behavior{StayInPlace}.
+This command is therefore rejected by the verifier as well, and the system falls back to the last resort behavior \behavior{StayInPlace}.
 While it might be impossible to complete the level with this behavior, the system remains in a predictable and safe state giving the primary behavior components a chance to recover.
 
 Of course it would be possible to find the bug in \behavior{EatClosestDot} through testing prior to deployment in this toy example.
