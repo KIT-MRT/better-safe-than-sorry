@@ -2,6 +2,16 @@
 % -*- root: ../root.tex -*-
 \begin{abstract}
 
-\lipsum[1]
+This paper introduces an extension to the \linebreak
+arbitration graph framework designed to enhance the safety and robustness of autonomous systems in complex, dynamic environments.
+Building on the flexibility and scalability of arbitration graphs, the proposed method incorporates runtime verification and structured fallback layers in the decision-making process.
+This ensures that only verified and safe commands are executed while enabling graceful degradation in the presence of unexpected faults or bugs.
+The approach is demonstrated using a Pac-Man simulation and further validated in the context of autonomous driving where it shows significant reductions in accident risk and improvements in overall system safety.
+The bottom-up design of arbitration graphs allows for an incremental integration of new behavior components.
+The extension presented in this work enables the integration of experimental or immature behavior components
+while maintaining system safety by clearly and precisely defining the conditions under which behaviors are considered safe.
+The proposed method is implemented as a ready to use header-only C++ library, published under the MIT License.
+Together with the Pac-Man demo, it is available at \linebreak
+\url{github.com/KIT-MRT/arbitration_graphs}
 
 \end{abstract}
