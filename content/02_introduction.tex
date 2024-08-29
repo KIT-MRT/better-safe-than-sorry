@@ -5,11 +5,11 @@
 \subsection{Motivation}
 
 Behavior planning and decision-making are crucial for robots to operate autonomously in dynamic environments, ensuring they achieve goals while adapting to changes and uncertainties.
-Key to reliable operation in fields like autonomous driving and industrial automation is ensuring safety and robustness in these processes.
+Key to reliable operation in fields like mobile, industrial, or service robotics is ensuring safety and robustness in these processes.
 
 Arbitration graphs, hierarchical behavior models, manage complex decision-making
 by allowing integration of diverse methods while ensuring scalability, maintainability, and transparency.
-However, real-world complexities challenge the safety and robustness of these systems.
+However, real-world complexities challenge the safety and robustness of such systems.
 
 This paper aims to enhance arbitration graph safety and robustness by identifying and handling erroneous or unsafe behavior commands at runtime.
 
@@ -40,7 +40,7 @@ Arbitration graphs, combining subsumption and object-oriented programming, enhan
 
 \subsection{Pac-Man}
 Pac-Man, the 1980 arcade game, involves navigating a maze to eat dots while avoiding ghosts.
-Depicted in \cref{fig:entt-pacman} is an open-source implementation\footnote{github.com/indianakernick/EnTT-Pacman} \todo{fix number} of the game that that is being used use to demonstrate the proposed method.
+Depicted in \cref{fig:entt-pacman} is an open-source implementation\footnote{github.com/indianakernick/EnTT-Pacman} \todo{fix number} of the game that is being used use to demonstrate the proposed method.
 We split Pac-Man's behavior into the following behavioral components:
 
 \begin{itemize}
@@ -56,6 +56,6 @@ The arbitration graph in \cref{fig:pacman-arbitrator-base} visualizes the corres
 
 \begin{itemize}
 \item \textbf{Verification Logic:} We extend the arbitration process to ensure that only verified behaviors are executed.
-\item \textbf{Fallback Logic:} We introduce fallback options for cases where behaviors fail verification.
-\item \textbf{Application:} We evaluate the safety concept in autonomous driving simulations, demonstrating reduced accident risk and improved safety.
+\item \textbf{Fallback Logic:} We introduce fallback options for cases where behavior commands fail verification.
+\item \textbf{Application:} We validate the safety concept in autonomous driving simulations, demonstrating reduced accident risk and improved safety.
 \end{itemize}
