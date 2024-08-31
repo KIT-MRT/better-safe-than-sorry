@@ -35,8 +35,13 @@
 \usepackage{csquotes}
 \usepackage[english]{babel}
 \usepackage[export]{adjustbox}
-\usepackage{caption}
-\usepackage{subcaption}
+
+\ifCLASSOPTIONcompsoc
+    \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\else
+    \usepackage[caption=false,font=footnotesize]{subfig}
+\fi
+
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{lipsum}
 \usepackage[acronym]{glossaries}
