@@ -152,7 +152,7 @@ In our scenario, however, \behavior{MoveRandomly} returns a command which would 
 This command is therefore rejected by the verifier as well, and the system falls back to the last resort behavior \behavior{StayInPlace}.
 While it might be impossible to complete the level with this behavior, the system remains in a predictable and safe state giving the primary behavior components a chance to recover.
 
-Of course it would be possible to find the bug in \behavior{EatClosestDot} through testing prior to deployment in this toy example.
+Of course, it would be possible to find the bug in \behavior{EatClosestDot} through testing prior to deployment in this toy example.
 In a real-world scenario, however, it is not feasible to test all possible situations and bugs might only manifest in specific edge cases.
 The proposed safety concept explicitly handles safety within the verifiers, transferring the responsibility away from individual behavior components and their arrangement to the verifiers.
 This approach allows for the integration of imperfect or experimental behaviors without compromising the system's overall safety.
