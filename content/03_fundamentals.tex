@@ -25,15 +25,15 @@ Condition nodes check if their underlying conditions are met without affecting t
 By distinguishing between condition and action nodes, the preconditions of a behavior  are decoupled from the actual execution of the behavior.
 To design a safe system, these actions must be linked to reliable condition nodes.
 
-Behavior trees generalize many architectures, such as hierarchical finite state machines and decision trees [Col17], excelling in modularity, hierarchical organization, reusability, responsiveness, and interpretability [Col18].
-Their flexibility allows reuse of individual behaviors [Bag12].
+Behavior trees generalize many architectures, such as hierarchical finite state machines and decision trees \cite{colledanchiseHowBehaviorTrees2017} excelling in modularity, hierarchical organization, reusability, responsiveness, and interpretability \cite{colledanchiseBehaviorTreesRobotics2018}.
+Their flexibility allows reuse of individual behaviors \cite{bagnellIntegratedSystemAutonomous2012}.
 The selection mechanism is intuitive and easy to follow during operation.
 However, extensive preconditions can make representations cumbersome, and safety as well as reliability depend significantly on node arrangement.
 These drawbacks are addressed by arbitration graphs.
 
 % Arbitration Graphs
 The concept of behavior arbitration originated in the context of robot soccer, integrating ideas from Brooks' behavior-based subsumption, knowledge-based architectures like Belief-Desire-Intention (BDI), and programming paradigms such as object-oriented programming.
-This approach was thoroughly described in [Lau10] and is summarized in the following.
+This approach was thoroughly described in \cite{lauerCognitiveConceptsAutonomous2010} and is summarized in the following.
 
 This modular framework is characterized by clear interfaces for transparent decision-making, using atomic behavior components to represent simple abilities and behaviors.
 These modules are combined using arbitrators to create complex system behaviors.
