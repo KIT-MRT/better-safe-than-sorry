@@ -43,7 +43,7 @@ introducing a safety concept for arbitration graphs in the context of automated 
     \label{fig:arbitration-graph-evaluation}
 \end{figure}
 
-\Cref{fig:arbitration-graph-evaluation} depicts a simplified arbitration graph for automated driving,
+\Cref{fig:arbitration-graph-evaluation} depicts a simplified arbitration graph for automated driving
 that will be used to showcase our safety concept.
 It contains three behavior components for basic lateral behaviors \behavior{FollowLane}, \behavior{ChangeLaneLeft} and \behavior{ChangeLaneRight},
 a parking behavior \behavior{ParkNearGoal}
@@ -104,7 +104,7 @@ The $\invCond$ and $\comCond$ conditions of behavior components are derived from
 As an example, we will examine the \behavior{ChangeLaneLeft} behavior component.
 %% Invocation Condition
 Its $\invCond$ condition is true,
-if the ego vehicle is on a multi-lane road and the distance to objects in the adjacent lane is sufficient for a lane change.
+if there is a lane to the left of the current lane that the ego vehicle can legally change to and the distance to objects in the adjacent lane is sufficient for a lane change.
 %% Committment Condition
 The $\comCond$ condition is true, as long as the ego vehicle is actively changing lanes
 and the target lane remains clear.
@@ -171,7 +171,7 @@ in case of intermittent failures.
 % This option is provided as first fallback option by \behavior{ContinueLastManeuver}.
 % This is given by \behavior{ContinueLastManeuver}.
 
-In case the last planned trajectory is not suitable any more or unsafe,
+Should the last planned trajectory no longer be suitable or safe,
 \behavior{FailSafe} can be chosen to execute the fail-safe trajectory described above.
 
 As a last resort, \behavior{EmergencyStop} can bring the vehicle to a full stop.
