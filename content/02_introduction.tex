@@ -45,20 +45,19 @@ Arbitration graphs, combining subsumption and object-oriented programming, enhan
 Pac-Man, the 1980 arcade game, involves navigating a maze to eat dots while avoiding ghosts.
 Depicted in \cref{fig:entt-pacman} is an open-source implementation\footnote{github.com/indianakernick/EnTT-Pacman} of the game that is being used use to demonstrate the proposed method.
 We split Pac-Man's behavior into the following behavioral components:
-
-\begin{itemize}
-    \item \textbf{Avoid Ghosts:} Pac-Man tries to increase the distance to the ghosts to avoid being eaten.
-    \item \textbf{Chase Ghosts:} After consuming a energizer Pac-Man might try to eat the ghosts for extra points.
-    \item \textbf{Eat Closest Dot:} Pac-Man moves towards the dot closest to him.
-    \item \textbf{Change Dot Cluster:} Pac-Man moves towards another area with a high dot density.
-\end{itemize}
+\begin{description}[align=left]
+    \item[Avoid Ghosts] Pac-Man tries to increase the distance to the ghosts to avoid being eaten.
+    \item[Chase Ghosts] After consuming an energizer, Pac-Man might try to eat the ghosts for extra points.
+    \item[Eat Closest Dot] Pac-Man moves towards the dot closest to him.
+    \item[Change Dot Cluster] Pac-Man moves towards another area with a high dot density.
+\end{description}
 
 The arbitration graph in \cref{fig:pacman-arbitrator-base} visualizes the corresponding arbitration graph.
 
 \subsection{Contributions}
 
-\begin{itemize}
-\item \textbf{Verification Logic:} We extend the arbitration process to ensure that only verified behaviors are executed.
-\item \textbf{Fallback Logic:} We introduce fallback options for cases where behavior commands fail verification.
-\item \textbf{Application:} We validate the safety concept in autonomous driving simulations, demonstrating reduced accident risk and improved safety.
-\end{itemize}
+\begin{description}[align=left]
+    \item[Verification Logic] We extend the arbitration process to ensure that only verified behaviors are executed.
+    \item[Fallback Logic] We introduce fallback options for cases where behavior commands fail verification.
+    \item[Application] We validate the safety concept in autonomous driving simulations, demonstrating reduced accident risk and improved safety.
+\end{description}
