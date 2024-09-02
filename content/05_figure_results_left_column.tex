@@ -1,0 +1,33 @@
+% We have to tweak around with the placement of the figure:
+%
+% Another LATEX 2ε limitation (patched with stfloats or not) is
+% that double column floats will not appear on the same page
+% where they are defined. So, the user will have to define such
+% things prior to the page on which they are to (possibly) appear.
+%
+% --- IEEEtran_HOWTO.pdf
+
+\begin{figure}[!t]
+    \centering
+    \includesvg[width=\columnwidth]{figures/experiments_safe_occupancies}
+    \caption{
+        Predicted worst-case occupancies in green and
+        the egos fail-safe trajectory occupancy in blue
+        at $t=\SI{1.9}{\second}$.
+        An overlap hints towards a risk.
+    }
+    \label{fig:experiments-safe-occupancies}
+\end{figure}
+
+\begin{figure}[!t]
+    \centering
+    \includesvg[width=\columnwidth]{figures/experiments_safe_arbitration_graph}
+    \caption{
+        Arbitration graph with verification at $t=\SI{1.9}{\second}$.
+        The safety verifier detects that the fail-safe trajectory of \behavior{ChangeLaneLeft}
+        overlaps with the worst-case occupancies of the green vehicle
+        (\cref{fig:experiments-safe-occupancies}).
+        As a result, the \arbitrator{UrbanDriving} arbitrator choses the next best option \behavior{FollowLane}.
+    }
+    \label{fig:experiments-safe-arbitration-graph}
+\end{figure}
