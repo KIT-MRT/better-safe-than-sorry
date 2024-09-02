@@ -8,7 +8,7 @@
 
 %% real life applicable
 Arbitration graphs can be applied to a wide range of real-world scenarios.
-In [?]\todo{Ref to Arbitrators Burger},
+In \cite{orzechowskiDecisionMakingAutomatedVehicles2020a},
 they have been used to model the decision-making process of automated vehicles.
 There, a behavior component represents driving maneuvers of approximately $5$ to $20$ seconds.
 This includes, for example, lane changes, parking maneuvers, or crossing intersections.
@@ -21,8 +21,8 @@ sensor limitations, traffic rules, and vehicle safety (e.g., collision avoidance
 Therefore, verifying planned behavior and providing fallback options in case of failure are crucial,
 especially in the context of automated driving.
 
-This section summarizes [?]\todo{Ref diss Pio},
-which extends [?]\todo{Ref to Arbitrators Burger} by
+This section summarizes \cite{orzechowskiVerhaltensentscheidungFuerAutomatisierte2023},
+which extends \cite{orzechowskiDecisionMakingAutomatedVehicles2020a} by
 introducing a safety concept for arbitration graphs in the context of automated driving.
 
 
@@ -50,7 +50,7 @@ a parking behavior \behavior{ParkNearGoal}
 and a stopping behavior \behavior{EmergencyStop}.
 The arbitration graph for a real-world application would include more behavior components and arbitrators
 in order to cover a wide range of driving maneuvers and scenarios
-([?]\todo{Ref Waymo safety stuff} discusses behavior compentencies and operational design domains in detail).
+(\cite{waymo_safety_report_2020} discusses behavior compentencies and operational design domains in detail).
 
 
 \subsection{Behavior Components --- \textbf{How} to do it?}
@@ -80,7 +80,7 @@ in order to cover a wide range of driving maneuvers and scenarios
     \includegraphics[width=\columnwidth]{test_track_300dpi}
     \caption{%
         Test track in Karlsruhe, Germany.
-        Part of \emph{Testfeld Autonomes Fahren Baden\-/Württemberg} \cite{fuchs_hartetest_2018}.
+        Part of \emph{Testfeld Autonomes Fahren Baden\-/Württemberg} \cite{fuchsHaertetestFuerFahrroboter2018}.
     }
     \label{fig:test-track}
 \end{figure}
@@ -113,7 +113,7 @@ The trajectory smoothly transitions to the left lane.
 % while the fail-safe trajectory brings the ego vehicle back to the original lane.
 
 % Other behavior components for automated driving are described in detail in~[?]\todo{ref Pios Diss}.
-See [?]\todo{ref Pios Diss} for other behavior components for automated driving.
+See \cite{orzechowskiVerhaltensentscheidungFuerAutomatisierte2023} for other behavior components for automated driving.
 
 
 
@@ -137,7 +137,7 @@ and adheres to traffic rules.
 
 In order to achieve vehicle safety, we
 provide worst-case occupancy predictions of other traffic participants
-and extend the behavior command with a fail-safe trajectory \cite{althoff_set-based_2016}.
+and extend the behavior command with a fail-safe trajectory \cite{althoffSetBasedPredictionTraffic2016}.
 The fail-safe trajectory is designed to be safe under worst-case assumptions
 and can be used in fallback layers in case of a failure or too risky situation.
 As a result, each behavior component is responsible for generating both
@@ -192,14 +192,14 @@ without the need for contextual knowledge.
 \subsection{Experiments}
 
 % Context experiments (Simulation Environment / Test Track)
-We validate the proposed concept in the automated driving simulator CoInCar-Sim~\cite{naumann_coincar-sim_2018}
+We validate the proposed concept in the automated driving simulator CoInCar-Sim~\cite{naumannCoInCarSimOpenSourceSimulation2018}
 using handcrafted but realistic driving scenarios
 from our real-world test track%
 (\cref{fig:test-track}).
 
 %% Scenario
 We analyze two different use cases
-in [?]\todo{Ref to Pio's Diss}:
+in \cite{orzechowskiVerhaltensentscheidungFuerAutomatisierte2023}:
 %
 \begin{description}[align=left]
     \item[Ensuring driveability]
