@@ -1,28 +1,243 @@
-\section{Application}
+\section{Safe and Reliable Behavior Arbitration for Automated Vehicles}
 
-\todo[inline]{Condense and include the following two sections that used to be in fundamentals.}
-\subsubsection*{Behavior Verification}
 
-Reachable sets:
-\begin{itemize}
-  \item Aims to maintain a provably safe fail-safe trajectory that can be switched to if a collision is imminent
-  \item Fail-safe trajectory is only considered safe if it has no overlap with the worst-case positions of other road users
-  \item Set-point trajectory only needs to ensure that a switch to the fail-safe trajectory is still possible in the next planning interval
-  \item \textbf{Advantages:}
-        \begin{itemize}
-            \item Consistent, intuitive, and efficient
-            \item Fail-safe trajectory concept can be well integrated into a behavior decision-making with fallbacks
-        \end{itemize}
-  \item \textbf{Disadvantages:}
-        \begin{itemize}
-            \item Previous publications make far-reaching assumptions that need to be relaxed for real-world application (e.g., vehicles do not leave their lanes except for lane changes)
-        \end{itemize}
-\end{itemize}
 
-\subsubsection*{3-layer model for automated driving}
-\begin{itemize}
-    \item \textbf{Strategic layer:} Defines general long-term preferences and goals (e.g., planned route)
-    \item \textbf{Tactical layer:} Generates driving maneuvers (e.g., lane change, stop maneuver) based on current situation and goals
-    \item \textbf{Operational layer:} Actuates the intended maneuver with a high update frequency (e.g., milliseconds)
-\end{itemize}
+%%%%%%%%%%%%%%%%
+% Introduction %
+%%%%%%%%%%%%%%%%
 
+%% real life applicable
+Arbitration graphs can be applied to a wide range of real-world scenarios.
+In [?]\todo{Ref to Arbitrators Burger},
+they have been used to model the decision-making process of automated vehicles.
+There, a behavior component represents driving maneuvers of approximately $5$ to $20$ seconds.
+This includes, for example, lane changes, parking maneuvers, or crossing intersections.
+
+%% AV → failure states, stuff to consider (which leads to verifiers)
+Behavior planning for automated driving comes with a variety of challenges.
+The environment is highly complex and dynamic, and safety-critical decisions must be made under real-time constraints.
+Among other things, the agent has to consider kinematic and dynamic constraints,
+sensor limitations, traffic rules, and vehicle safety (e.g., collision avoidance).
+Therefore, verifying planned behavior and providing fallback options in case of failure are crucial,
+especially in the context of automated driving.
+
+This section summarizes [?]\todo{Ref diss Pio},
+which extends [?]\todo{Ref to Arbitrators Burger} by
+introducing a safety concept for arbitration graphs in the context of automated driving.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%
+% Arbitration Graph %
+%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Arbitration Graph --- \textbf{What} to do?}
+
+%% show the graph (simplified, others possible)
+\begin{figure}
+    \centering
+    \includesvg[width=\columnwidth,inkscapelatex=false]{figures/arbitration_graph_simulation_italic}
+    \caption{
+        A minimalistic arbitration graph for automated driving as introduced in [?] (Ref to Arbitrators Burger), extended by fallback layers (italic font).
+    }
+    \label{fig:arbitration-graph-evaluation}
+\end{figure}
+
+\Cref{fig:arbitration-graph-evaluation} depicts a simplified arbitration graph for automated driving
+that will be used to showcase our safety concept.
+It contains three behavior components for basic lateral behaviors \behavior{FollowLane}, \behavior{ChangeLaneLeft} and \behavior{ChangeLaneRight},
+a parking behavior \behavior{ParkNearGoal}
+and a stopping behavior \behavior{EmergencyStop}.
+The arbitration graph for a real-world application would include more behavior components and arbitrators
+in order to cover a wide range of driving maneuvers and scenarios
+([?]\todo{Ref Waymo safety stuff} discusses behavior compentencies and operational design domains in detail).
+
+
+\subsection{Behavior Components --- \textbf{How} to do it?}
+
+%%%%%%%%%%%%%%%%%%%%%
+% Environment Model %
+%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}
+    \centering
+    \includesvg[width=\columnwidth,inkscapelatex=true,pretex=\begin{svgfontonly},apptex=\end{svgfontonly}]{figures/environment_model}
+
+    \caption{%
+        Excerpt from the environment model with
+        ego vehicle speed,
+        last planned intended and fail-safe trajectory
+        (blue dashed and red solid lines)
+        and sensor range (blue).
+        Another vehicle (green)
+        with its predicted trajectory (dashed line)
+        and its predicted worst-case occupancy (green).
+    }
+    \label{fig:environment-model}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{test_track_300dpi}
+    \caption{%
+        Test track in Karlsruhe, Germany.
+        Part of \emph{Testfeld Autonomes Fahren Baden\-/Württemberg} \cite{fuchs_hartetest_2018}.
+    }
+    \label{fig:test-track}
+\end{figure}
+
+%% environment model → short (we use …, but other representations are possible)
+In our implementation, each behavior component has access to an environment model (situation~$\situation$) and outputs a trajectory as well as HMI outputs such as indicators (command~$\command$).
+%
+The environment model contains information
+such as the ego vehicle state, other traffic participants, and the planned route.
+% The trajectory consists of an intended and a fail-safe part,
+% where the fail-safe trajectory is designed to be safe under worst-case assumptions.
+\Cref{fig:environment-model} illustrates an example scenario with the ego vehicle in blue,
+another vehicle in green, and the planned ego trajectory in dashed blue.
+
+%% take one behavior component → explain → short
+The $\invCond$ and $\comCond$ conditions of behavior components are derived from the operational design domain of their addressed driving maneuver.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+% Example: Lane Change %
+%%%%%%%%%%%%%%%%%%%%%%%%
+As an example, we will examine the \behavior{ChangeLaneLeft} behavior component.
+%% Invocation Condition
+Its $\invCond$ condition is true,
+if there is a lane to the left of the current lane that the ego vehicle can legally change to and the distance to objects in the adjacent lane is sufficient for a lane change.
+%% Committment Condition
+The $\comCond$ condition is true, as long as the ego vehicle is actively changing lanes
+and the target lane remains clear.
+%% Behavior Generation
+The trajectory smoothly transitions to the left lane.
+% while the fail-safe trajectory brings the ego vehicle back to the original lane.
+
+% Other behavior components for automated driving are described in detail in~[?]\todo{ref Pios Diss}.
+See [?]\todo{ref Pios Diss} for other behavior components for automated driving.
+
+
+
+\input{content/05_figure_results_topview}
+
+%%%%%%%%%%%%%%%%%%%%%
+%   Verification    %
+%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Verification --- What is considered \textbf{safe}?}
+
+In order to detect unsafe and unreliable behaviors,
+various aspects need to be considered in the behavior generation process.
+%
+%% focus on verification (we check …, but other things are possible)
+In our case, we verify the behavior commands for validity and safety.
+But other aspects could be considered as well.
+
+The verifier for validity ensures that the planned trajectory fulfills the kinematic and dynamic constraints of the ego vehicle
+and adheres to traffic rules.
+
+In order to achieve vehicle safety, we
+provide worst-case occupancy predictions of other traffic participants
+and extend the behavior command with a fail-safe trajectory \cite{althoff_set-based_2016}.
+The fail-safe trajectory is designed to be safe under worst-case assumptions
+and can be used in fallback layers in case of a failure or too risky situation.
+As a result, each behavior component is responsible for generating both
+a planned trajectory and a fail-safe trajectory (see \cref{fig:environment-model}).
+%% explain overlap fail-safe worst-case occupancies
+The safety verifier checks if the occupancy of the fail-safe trajectory does not overlap
+with the worst-case occupancies of other traffic participants,
+\ie the fail-safe trajectory is collision-free under worst-case assumptions.
+
+
+
+\input{content/05_figure_results_left_column}
+
+%%%%%%%%%%%%%%%%%%%%%
+%  Fallback Layers  %
+%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Fallback Layers --- How to always \textbf{drive safe}?}
+
+In order to mitigate unsafe or unreliable behaviors,
+we extended the arbitration graph in \cref{fig:arbitration-graph-evaluation}
+by the proposed verifiers and multiple fallback layers
+shown in italic font.
+% This ensures safety and enables graceful degradation.
+
+Since trajectories are planned for a given horizon,
+it is feasible to fall back to the last planned trajectory
+% in case of intermittent failures.
+provided by \behavior{ContinueLastManeuver},
+in case of intermittent failures.
+% This option is provided as first fallback option by \behavior{ContinueLastManeuver}.
+% This is given by \behavior{ContinueLastManeuver}.
+
+Should the last planned trajectory no longer be suitable or safe,
+\behavior{FailSafe} can be chosen to execute the fail-safe trajectory described above.
+
+As a last resort, \behavior{EmergencyStop} can bring the vehicle to a full stop.
+% This might be necessary if the assumptions of the worst-case occupancy predictions are violated.
+This may be necessary if the assumptions of the fail-safe trajectory are violated.
+%
+Since this is the last resort fallback layer,
+it does not go through verification.
+Therefore, it is crucial that it is implemented in a simple, deterministic and reliable fashion
+without the need for contextual knowledge.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%    Validation     %
+%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Experiments}
+
+% Context experiments (Simulation Environment / Test Track)
+We validate the proposed concept in the automated driving simulator CoInCar-Sim~\cite{naumann_coincar-sim_2018}
+using handcrafted but realistic driving scenarios
+from our real-world test track%
+(\cref{fig:test-track}).
+
+%% Scenario
+We analyze two different use cases
+in [?]\todo{Ref to Pio's Diss}:
+%
+\begin{description}[align=left]
+    \item[Ensuring driveability]
+        The verifiers and fallback layers lead to stable trajectory commands,
+        even under high probability for broken trajectories of some behavior components.
+    \item[Guaranteeing vehicle safety]
+        The verifiers and fallback layers ensure collision free behavior,
+        even if a behavior component provides unsafe commands.
+\end{description}
+
+%% what's the challenge, why do we need verification
+Here, we focus on the latter, more critical case.
+Traditional decision-making approaches select maneuver options solely based on their preconditions.
+As a result, they might select unsafe maneuver options,
+if the preconditions have been designed too optimistically.
+%
+\Cref{fig:experiments-topview} shows such a scenario, where the ego vehicle wants to change lanes,
+but another vehicle follows too closely in the target lane.
+We compare the evolution of the scene with and without verification in the decision-making process.
+
+
+% Results
+\subsection{Results}
+
+\input{content/05_figure_results_right_column}
+
+% Due to a too optimistic $\invCond$ condition,
+% an arbitration graph without verification would select \behavior{ChangeLaneLeft}.
+In order to provoke a risky situation,
+the $\invCond$ condition of \behavior{ChangeLaneLeft} has been modified to be too optimistic.
+Consequently, the arbitration graph without verification selects \behavior{ChangeLaneLeft} after $t=\SI{1.9}{\second}$.
+As the other vehicle does not slow down, a collision occurs at $t=\SI{5.3}{\second}$ (\cref{fig:experiments-topview}).
+
+With verification, on the other hand, the safety verifier detects the risk of a collision based on the worst-case occupancies of the other vehicle (\cref{fig:experiments-safe-occupancies}).
+As a result, \behavior{ChangeLaneLeft} fails the verification and
+the \arbitrator{UrbanDriving} arbitrator selects \behavior{FollowLane}
+as its next best option (\cref{fig:experiments-safe-arbitration-graph}).
+This makes the ego vehicle slow down and not change the lane
+until the green vehicle has passed (\cref{fig:experiments-safe-timeline}).
+A collision has successfully been prevented
+while maintaining a smooth driving behavior.
