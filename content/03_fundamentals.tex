@@ -3,19 +3,19 @@
 
 \section{Fundamentals}
 
-\todo[inline]{Fix references}
+\todo{Fix references}
 
 \subsection{Decision-Making}
 
 Decision-making is crucial in a robot's planning module, determining commands based on the current situation.
 Methods range from graph-based techniques like A*, PRM*, and RRT* to probabilistic methods and machine learning for implicit decisions.
-This work, however, focuses on rule-based methods, such as finite state machines, behavior trees, or arbitration graphs, which address decision making through discrete state or mode transitions.
+This work, however, focuses on rule-based methods, such as \glspl{FSM}, \glspl{BT}, or arbitration graphs, which address decision making through discrete state or mode transitions.
 
 % Finite State Machines
 \glspl{FSM}, first used in hardware design and theoretical computer science, represent behavior modes with transitions triggered by events.
 Despite their simplicity, \glspl{FSM} scale poorly and are difficult to modify due to the amount of transitions increasing exponentially with the number of states.
 % Behavior Trees
-Behavior trees, initially designed for game development, have been increasingly used in robotics since 2012.
+\glspl{BT}, initially designed for game development, have been increasingly used in robotics since 2012.
 They separate behavior decision-making from execution by leveraging a tree structure.
 Internal nodes determine selection mechanisms, while leaves describe behaviors and conditions.
 Evaluated at a fixed frequency, nodes return their status as running, completed, or failed.
@@ -25,15 +25,15 @@ Condition nodes check if their underlying conditions are met without affecting t
 By distinguishing between condition and action nodes, the preconditions of a behavior  are decoupled from the actual execution of the behavior.
 To design a safe system, these actions must be linked to reliable condition nodes.
 
-Behavior trees generalize many architectures, such as hierarchical finite state machines and decision trees [Col17], excelling in modularity, hierarchical organization, reusability, responsiveness, and interpretability [Col18].
-Their flexibility allows reuse of individual behaviors [Bag12].
+\glspl{BT} generalize many architectures, such as hierarchical \glspl{FSM} and decision trees \cite{colledanchiseHowBehaviorTrees2017} excelling in modularity, hierarchical organization, reusability, responsiveness, and interpretability \cite{colledanchiseBehaviorTreesRobotics2018}.
+Their flexibility allows reuse of individual behaviors \cite{bagnellIntegratedSystemAutonomous2012}.
 The selection mechanism is intuitive and easy to follow during operation.
 However, extensive preconditions can make representations cumbersome, and safety as well as reliability depend significantly on node arrangement.
 These drawbacks are addressed by arbitration graphs.
 
 % Arbitration Graphs
 The concept of behavior arbitration originated in the context of robot soccer, integrating ideas from Brooks' behavior-based subsumption, knowledge-based architectures like Belief-Desire-Intention (BDI), and programming paradigms such as object-oriented programming.
-This approach was thoroughly described in [Lau10] and is summarized in the following.
+This approach was thoroughly described in \cite{lauerCognitiveConceptsAutonomous2010} and is summarized in the following.
 
 This modular framework is characterized by clear interfaces for transparent decision-making, using atomic behavior components to represent simple abilities and behaviors.
 These modules are combined using arbitrators to create complex system behaviors.
