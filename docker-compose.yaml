@@ -1,0 +1,7 @@
+services:
+  latex_builder:
+    image: latex_builder
+    build: .
+    volumes:
+      - .:/home/writer/project
+
