@@ -6,24 +6,25 @@
 \subsection{Decision-Making}
 
 Decision-making is crucial in the planning module of a robot, determining commands based on the current situation.
-Methods range from graph-based techniques like A*, PRM*, and RRT* to probabilistic methods and machine learning for implicit decisions.
+Methods range from graph-based techniques like A*, PRM*, and RRT* to probabilistic and machine learning methods.
 This work, however, focuses on rule-based methods, such as \glspl{FSM}, \glspl{BT}, or arbitration graphs, which address decision making through discrete state or mode transitions.
 Refer to \cite{schwartingPlanningDecisionMakingAutonomous2018,yurtseverSurveyAutonomousDriving2020,gammellAsymptoticallyOptimalSamplingBased2021}
 for a detailed overview of available approaches.
 
 % Finite State Machines
-\glspl{FSM}, first used in hardware design and theoretical computer science,
+\textbf{\glspl{FSM}}, first used in hardware design and theoretical computer science,
 represent behavior modes with transitions triggered by events \cite{wagnerModelingSoftwareFinite2006,hopcroftIntroductionAutomataTheory2007}.
 Despite their simplicity, \glspl{FSM} scale poorly and are difficult to modify due to the amount of transitions increasing exponentially with the number of states.
+
 % Behavior Trees
-\glspl{BT}, initially designed for game development \cite{iovinoProgrammingEffortRequired2022},
+\textbf{\glspl{BT}}, initially designed for game development \cite{iovinoProgrammingEffortRequired2022},
 have been increasingly used in robotics since 2012 \cite{bagnellIntegratedSystemAutonomous2012,ogrenIncreasingModularityUAV2012}.
-They separate behavior decision-making from execution by leveraging a tree structure \cite{colledanchiseBehaviorTreesRobotics2018}.
+They separate behavior decision-making from execution using a tree structure \cite{colledanchiseBehaviorTreesRobotics2018}.
 Internal nodes determine selection mechanisms, while leaves describe behaviors and conditions.
 Evaluated at a fixed frequency, nodes return their status as running, completed, or failed.
 Control flow nodes decide on further evaluations.
-
-Condition nodes check if their underlying conditions are met without affecting the environment, while action nodes execute behaviors and return their status.
+%
+Condition nodes check if their conditions are met without affecting the environment, while action nodes execute behaviors and return their status.
 By distinguishing between condition and action nodes, the preconditions of a behavior  are decoupled from the actual execution of the behavior.
 To design a safe system, these actions must be linked to reliable condition nodes.
 
@@ -34,12 +35,13 @@ However, extensive preconditions can make representations cumbersome, and safety
 These drawbacks are addressed by arbitration graphs.
 
 % Arbitration Graphs
-The concept of behavior arbitration originated in the context of robot soccer, integrating ideas from Brooks' behavior-based subsumption \cite{brooksRobustLayeredControl1986},
+\textbf{Arbitration graphs} originated in the context of robot soccer \cite{lauerCognitiveConceptsAutonomous2010},
+integrating ideas from Brooks' behavior-based subsumption \cite{brooksRobustLayeredControl1986},
 knowledge-based architectures like Belief-Desire-Intention (BDI) \cite{raoAbstractArchitectureRational1992},
 and programming paradigms such as object-oriented programming \cite{stefikObjectOrientedProgrammingThemes1985}.
-This approach was thoroughly described in \cite{lauerCognitiveConceptsAutonomous2010} and is summarized in the following.
 
-This modular framework is characterized by clear interfaces for transparent decision-making, using atomic behavior components to represent simple abilities and behaviors.
+This modular framework is characterized by clear interfaces for transparent decision-making,
+using atomic behavior components to represent simple abilities and behaviors.
 These modules are combined using arbitrators to create complex system behaviors.
 
 The input to a behavior component is the current situation~$\situation$, provided as sensor data or an interpreted environment model.
@@ -59,7 +61,7 @@ Due to inheritance and a shared interface, arbitrators can include both behavior
 In automated systems, both hardware and software issues can compromise performance and safety.
 Causes include programming errors and runtime issues such as optimization problems, making error diagnosis and treatment crucial in system design and during runtime.
 
-Research on reliable and fault-tolerant systems aims to design dependable hardware and software
+Reliable systems aim to maintain performance
 despite potential errors, using metrics like error probability, mean lifespan, failure rate, and availability \cite{echtleFehlertoleranzverfahren1990}.
 Terminology varies, but disturbances (\enquote{faults}) can lead to errors, potentially causing system failures.
 
@@ -70,6 +72,15 @@ Error tolerance involves diagnosing and handling errors—restoring faulty compo
 computing correct results despite faults, or removing faulty components from the system \cite{echtleFehlertoleranzverfahren1990}.
 
 \subsection{Pac-Man}
+
+\begin{figure}
+    \centering
+    \includesvg[width=\columnwidth,inkscapelatex=false]{figures/pacman_arbitrator_base}
+    % \includesvg[width=\columnwidth,inkscapelatex=true,pretex=\begin{svgfontonly},apptex=\end{svgfontonly}]{figures/pacman_arbitrator_base}
+    \caption{A basic arbitration graph for playing Pac-Man.}
+    \label{fig:pacman-arbitrator-base}
+\end{figure}
+
 Pac-Man, the 1980 arcade game, involves navigating a maze to eat dots while avoiding ghosts.
 Depicted in \cref{fig:entt-pacman} is an open-source implementation\footnote{\url{github.com/indianakernick/EnTT-Pacman}}
 of the game that is being used to demonstrate the proposed method.
@@ -78,8 +89,8 @@ We split the behavior of Pac-Man into the following behavioral components:
     \item[Avoid Ghosts] Pac-Man tries to increase the distance to the ghosts to avoid being eaten.
     \item[Chase Ghosts] After consuming an energizer, Pac-Man might try to eat the ghosts for extra points.
     \item[Eat Closest Dot] Pac-Man moves towards the dot closest to him.
-    \item[Change Dot Cluster] Pac-Man moves towards another area with a high dot density.
+    \item[Change Dot Cluster] Pac-Man moves towards another area with a higher dot density.
 \end{description}
 
-The arbitration graph in \cref{fig:pacman-arbitrator-base} visualizes the corresponding arbitration graph.
+The corresponding arbitration graph is shown in \cref{fig:pacman-arbitrator-base}.
 

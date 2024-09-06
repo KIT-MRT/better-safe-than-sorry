@@ -27,7 +27,7 @@ In this section, we will explore methods for detecting and mitigating unsafe and
     \item The system avoids risky behavior commands.
 \end{itemize}
 
-\subsection{Detect Unsafe \& Unreliable Behaviors}
+\subsection{\textbf{Detect} Unsafe \& Unreliable Behaviors}
 \begin{algorithm}
   \SetKwFunction{BestOption}{BestOption}%
   \SetKwProg{Fn}{function}{}{end}
@@ -41,7 +41,6 @@ In this section, we will explore methods for detecting and mitigating unsafe and
       get command $\command_a = \getCommand_a(\situation)$\;
 
       verify $\verification_a = \verifier (\command_a)$\;
-      % \If(\tcp*[f]{Verifikation bestanden}){$\verification_a = 0$}{%
       \If{verification passed $\verification_a = 0$}{%
         \KwRet{$(\command_a, \verification_a)$}\;
       }
@@ -55,11 +54,9 @@ In this section, we will explore methods for detecting and mitigating unsafe and
     determine $\verifiedCommand = (\command, \verification) = $ \BestOption{$\situation$}\;
     \If{verification passed $\verification_a = 0$}{
       execute $\command$\;
-    % }{
-    %   Gebe Fehlermeldung mit $\verification_a$ aus\;
     }
   }
-  \caption{Generic arbitration algorithm with verification \label{algo:verifying_arbitrator}}
+  \caption{Generic arbitration with verification \label{algo:verifying_arbitrator}}
 \end{algorithm}
 
 \Cref{algo:verifying_arbitrator} shows the generic arbitration algorithm from \cite{lauerCognitiveConceptsAutonomous2010}
@@ -89,7 +86,7 @@ If none of the options passes the verification step, the arbitrator returns the 
 %
 Otherwise, the command~$\command$ returned by the root arbitrator can be executed and considered safe given the assumptions of the verifier~$\verifier$.
 
-\subsection{Mitigate Unsafe \& Unreliable Behaviors}
+\subsection{\textbf{Mitigate} Unsafe \& Unreliable Behaviors}
 If a behavior component fails the verification step, the arbitration graph must handle this situation to ensure the system remains safe and robust.
 Even without additional measures, the verification step already improves the safety of the system by preventing unsafe commands from being executed.
 If an arbitrator detects a failure and has other applicable options, it simply chooses the next best option.
@@ -122,8 +119,8 @@ This layered approach using multiple fallback behavior components allows the per
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\columnwidth]{figures/pacman_scenario_cropped.png}
-    \caption{A scenario where the \behavior{EatClosestDot} behavior fails to produce a valid command.}
+    \includegraphics[width=0.7\columnwidth]{figures/pacman_scenario_cropped.png}
+    \caption{A scenario where \behavior{EatClosestDot} fails to produce a valid command.}
     \label{fig:pacman-scenario}
 \end{figure}
 
@@ -131,7 +128,7 @@ This layered approach using multiple fallback behavior components allows the per
     \centering
     \includesvg[width=\columnwidth,inkscapelatex=false]{figures/pacman_arbitrator_safe}
     \caption{The extended arbitration graph with fallback layers.
-        The red components marked with a lightning bolt were rejected by the verifier.
+        The components highlighted in red were rejected by the verifier.
         The safety buoy indicates a last resort fallback which does not need to pass verification.}
     \label{fig:pacman-arbitrator-safe}
 \end{figure}
