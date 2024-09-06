@@ -36,21 +36,21 @@ introducing a safety concept for arbitration graphs in the context of automated 
 %% show the graph (simplified, others possible)
 \begin{figure}
     \centering
-    \includesvg[width=\columnwidth,inkscapelatex=false]{figures/arbitration_graph_simulation_italic}
+    \includesvg[width=\columnwidth,inkscapelatex=false]{figures/arbitration_graph_simulation_underlined}
     \caption{
-        A minimalistic arbitration graph for automated driving as introduced in [?] (Ref to Arbitrators Burger), extended by fallback layers (italic font).
+        A minimalistic arbitration graph for automated driving as introduced in \cite{orzechowskiDecisionMakingAutomatedVehicles2020a}, extended by fallback layers (underlined).
     }
     \label{fig:arbitration-graph-evaluation}
 \end{figure}
 
-\Cref{fig:arbitration-graph-evaluation} depicts a simplified arbitration graph for automated driving
+\cref{fig:arbitration-graph-evaluation} depicts a simplified arbitration graph for automated driving
 that will be used to showcase our safety concept.
 It contains three behavior components for basic lateral behaviors \behavior{FollowLane}, \behavior{ChangeLaneLeft} and \behavior{ChangeLaneRight},
 a parking behavior \behavior{ParkNearGoal}
 and a stopping behavior \behavior{EmergencyStop}.
 The arbitration graph for a real-world application would include more behavior components and arbitrators
-in order to cover a wide range of driving maneuvers and scenarios
-(\cite{waymo_safety_report_2020} discusses behavior compentencies and operational design domains in detail).
+in order to cover a wide range of driving maneuvers and scenarios.
+Refer to \cite{waymo_safety_report_2020} for a detailed discussion about behavior competencies and operational design domains.
 
 
 \subsection{Behavior Components --- \textbf{How} to do it?}
@@ -86,13 +86,13 @@ in order to cover a wide range of driving maneuvers and scenarios
 \end{figure}
 
 %% environment model → short (we use …, but other representations are possible)
-In our implementation, each behavior component has access to an environment model (situation~$\situation$) and outputs a trajectory as well as HMI outputs such as indicators (command~$\command$).
+In our implementation, each behavior component has access to an environment model (situation~$\situation$) and returns a trajectory as well as HMI outputs such as indicators (command~$\command$).
 %
 The environment model contains information
 such as the ego vehicle state, other traffic participants, and the planned route.
 % The trajectory consists of an intended and a fail-safe part,
 % where the fail-safe trajectory is designed to be safe under worst-case assumptions.
-\Cref{fig:environment-model} illustrates an example scenario with the ego vehicle in blue,
+\cref{fig:environment-model} illustrates an example scenario with the ego vehicle in blue,
 another vehicle in green, and the planned ego trajectory in dashed blue.
 
 %% take one behavior component → explain → short
@@ -160,7 +160,7 @@ with the worst-case occupancies of other traffic participants,
 In order to mitigate unsafe or unreliable behaviors,
 we extended the arbitration graph in \cref{fig:arbitration-graph-evaluation}
 by the proposed verifiers and multiple fallback layers
-shown in italic font.
+highlighted by underlined text.
 % This ensures safety and enables graceful degradation.
 
 Since trajectories are planned for a given horizon,
@@ -216,7 +216,7 @@ Traditional decision-making approaches select maneuver options solely based on t
 As a result, they might select unsafe maneuver options,
 if the preconditions have been designed too optimistically.
 %
-\Cref{fig:experiments-topview} shows such a scenario, where the ego vehicle wants to change lanes,
+\cref{fig:experiments-topview} shows such a scenario, where the ego vehicle wants to change lanes,
 but another vehicle follows too closely in the target lane.
 We compare the evolution of the scene with and without verification in the decision-making process.
 
