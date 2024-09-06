@@ -21,8 +21,17 @@
 %\usepackage{amsmath} % assumes amsmath package installed
 %\usepackage{amssymb}  % assumes amsmath package installed
 %\usepackage[pdftex,draft]{graphicx} % to turn of figure rendering, see: https://tex.stackexchange.com/questions/51893/turning-off-and-on-images-in-figures
-\usepackage[pdftex]{graphicx}
-\graphicspath{{figures/}}
+
+% Encoding & general utilities
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage[english]{babel}
+\usepackage[export]{adjustbox}
+\usepackage{enumitem}
+\usepackage[acronym]{glossaries}
+
+% Links
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
@@ -31,56 +40,38 @@
     filecolor=black,
     urlcolor=black,
 }
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{csquotes}
-\usepackage[english]{babel}
-\usepackage[export]{adjustbox}
+\usepackage[capitalise]{cleveref}
+\usepackage{orcidlink}
 
+% Figures & Graphics
+\usepackage[pdftex]{graphicx}
+\graphicspath{{figures/}}
+\usepackage[inkscapepath=out/svg-inkscape/,inkscapearea=page]{svg}
+\svgpath{figures/}
+
+\usepackage{placeins}%for \FloatBarrier
 \ifCLASSOPTIONcompsoc
     \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
 \else
     \usepackage[caption=false,font=footnotesize]{subfig}
 \fi
 
+% Draft-specific packages
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{lipsum}
-\usepackage[acronym]{glossaries}
+
+% Algorithms
 \usepackage[algoruled,linesnumbered,ngerman]{algorithm2e}
 \DontPrintSemicolon
-\usepackage{enumitem}
 
-\usepackage{placeins}%for \FloatBarrier
-
-\usepackage{customCommands}
-\usepackage{customMath}
-\usepackage[capitalise]{cleveref}
-
-%for allowing hyphenation of words that contain a dash
-%using shortcuts \-/, \=/, \--, \==, \---, and \===
-\usepackage[shortcuts]{extdash}
-
-
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-% science packages
-% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-\usepackage[range-units=single]{siunitx} % proper number and unit formatting with \si \SI \num and \ang
-%range-phrase = --,
+% Units
+\usepackage[range-units=single]{siunitx}
 \sisetup{locale = US, per-mode = fraction, quotient-mode = fraction, fraction-function = \tfrac}
 \newcommand{\kmh}{\tfrac{\kilo\meter}{\hour}}
 \newcommand{\mps}{\tfrac{\meter}{\second}}
 \newcommand{\mpss}{\tfrac{\meter}{\second^2}}
 
-
-
-\usepackage[inkscapepath=out/svg-inkscape/,inkscapearea=page]{svg}
-\svgpath{figures/}
-\usepackage{customStyles}
-\usepackage{customAcronyms}
-
-
-\usepackage{orcidlink}
+% Bibliography
 \usepackage[style=ieee,
             doi=false,
             url=false,
@@ -91,10 +82,18 @@
             backend=biber]{biblatex}  % supports bibliography with BibLaTeX
 \addbibresource{content/references.bib}
 
+% Custom packages
+\usepackage{customAcronyms}
+\usepackage{customCommands}
+\usepackage{customMath}
+\usepackage{customStyles}
+
+%for allowing hyphenation of words that contain a dash
+%using shortcuts \-/, \=/, \--, \==, \---, and \===
+\usepackage[shortcuts]{extdash}
+
 % correct bad hyphenation here
 \hyphenation{Eat-Clos-est-Dot Mo-ve-Ran-dom-ly Stay-In-Pla-ce Fol-low-La-ne Chan-ge-La-ne-Le-ft Chan-ge-La-ne-Ri-ght Park-Near-Goal E-mer-gen-cy-Stop Con-ti-nue-Last-Ma-neu-ver Fail-Safe Ur-ban-Dri-ving}
-
-
 
 \title{%
 % \vspace{.25in}  % use this in case the IEEE PDF check complains about incompliant page margins
