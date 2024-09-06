@@ -9,17 +9,16 @@
 %% real life applicable
 Arbitration graphs can be applied to a wide range of real-world scenarios.
 In \cite{orzechowskiDecisionMakingAutomatedVehicles2020a},
-they have been used to model the decision-making process of automated vehicles.
-There, a behavior component represents driving maneuvers of approximately $5$ to $20$ seconds.
-This includes, for example, lane changes, parking maneuvers, or crossing intersections.
+they have been used in the context of automated driving.
+There, a behavior component represents driving maneuvers of approximately $5$ to $20$ seconds
+such as lane changes, parking maneuvers, or crossing intersections.
 
 %% AV → failure states, stuff to consider (which leads to verifiers)
 Behavior planning for automated driving comes with a variety of challenges.
 The environment is highly complex and dynamic, and safety-critical decisions must be made under real-time constraints.
 Among other things, the agent has to consider kinematic and dynamic constraints,
-sensor limitations, traffic rules, and vehicle safety (e.g., collision avoidance).
-Therefore, verifying planned behavior and providing fallback options in case of failure are crucial,
-especially in the context of automated driving.
+sensor limitations, traffic rules, and vehicle safety.
+Therefore, verifying planned commands and providing fallback options in case of failure are crucial in this domain.
 
 This section summarizes \cite{orzechowskiVerhaltensentscheidungFuerAutomatisierte2023},
 which extends \cite{orzechowskiDecisionMakingAutomatedVehicles2020a} by
@@ -75,18 +74,9 @@ Refer to \cite{waymo_safety_report_2020} for a detailed discussion about behavio
     }
     \label{fig:environment-model}
 \end{figure}
-\begin{figure}
-    \centering
-    \includegraphics[width=\columnwidth]{test_track_300dpi}
-    \caption{%
-        Test track in Karlsruhe, Germany.
-        Part of \emph{Testfeld Autonomes Fahren Baden\-/Württemberg} \cite{fuchsHaertetestFuerFahrroboter2018}.
-    }
-    \label{fig:test-track}
-\end{figure}
 
 %% environment model → short (we use …, but other representations are possible)
-In our implementation, each behavior component has access to an environment model (situation~$\situation$) and returns a trajectory as well as HMI outputs such as indicators (command~$\command$).
+In our implementation, each behavior component has access to an environment model (situation~$\situation$) and returns a trajectory (command~$\command$).
 %
 The environment model contains information
 such as the ego vehicle state, other traffic participants, and the planned route.
@@ -125,12 +115,11 @@ See \cite{orzechowskiVerhaltensentscheidungFuerAutomatisierte2023} for other beh
 
 \subsection{Verification --- What is considered \textbf{safe}?}
 
-In order to detect unsafe and unreliable behaviors,
+In order to detect unsafe and unreliable behaviors commands,
 various aspects need to be considered in the behavior generation process.
 %
 %% focus on verification (we check …, but other things are possible)
-In our case, we verify the behavior commands for validity and safety.
-But other aspects could be considered as well.
+In our case, we verify the validity and safety of the planned trajectory.
 
 The verifier for validity ensures that the planned trajectory fulfills the kinematic and dynamic constraints of the ego vehicle
 and adheres to traffic rules.
@@ -163,11 +152,10 @@ by the proposed verifiers and multiple fallback layers
 highlighted by underlined text.
 % This ensures safety and enables graceful degradation.
 
-Since trajectories are planned for a given horizon,
+In case of intermittent failures,
 it is feasible to fall back to the last planned trajectory
-% in case of intermittent failures.
 provided by \behavior{ContinueLastManeuver},
-in case of intermittent failures.
+since trajectories are planned for a given horizon.
 % This option is provided as first fallback option by \behavior{ContinueLastManeuver}.
 % This is given by \behavior{ContinueLastManeuver}.
 
@@ -194,9 +182,7 @@ without the need for contextual knowledge.
 % Context experiments (Simulation Environment / Test Track)
 We validate the proposed concept in the automated driving simulator CoInCar-Sim~\cite{naumannCoInCarSimOpenSourceSimulation2018}
 using handcrafted but realistic driving scenarios
-from our real-world test track%
-(\cref{fig:test-track}).
-
+from our real-world test track in Karlsruhe, Germany.
 %% Scenario
 We analyze two different use cases
 in \cite{orzechowskiVerhaltensentscheidungFuerAutomatisierte2023}:
@@ -204,7 +190,7 @@ in \cite{orzechowskiVerhaltensentscheidungFuerAutomatisierte2023}:
 \begin{description}[align=left]
     \item[Ensuring driveability]
         The verifiers and fallback layers lead to stable trajectory commands,
-        even under high probability for broken trajectories of some behavior components.
+        even under high probability for broken trajectories.
     \item[Guaranteeing vehicle safety]
         The verifiers and fallback layers ensure collision free behavior,
         even if a behavior component provides unsafe commands.
@@ -228,16 +214,16 @@ We compare the evolution of the scene with and without verification in the decis
 
 % Due to a too optimistic $\invCond$ condition,
 % an arbitration graph without verification would select \behavior{ChangeLaneLeft}.
-In order to provoke a risky situation,
-the $\invCond$ condition of \behavior{ChangeLaneLeft} has been modified to be too optimistic.
-Consequently, the arbitration graph without verification selects \behavior{ChangeLaneLeft} after $t=\SI{1.9}{\second}$.
-As the other vehicle does not slow down, a collision occurs at $t=\SI{5.3}{\second}$ (\cref{fig:experiments-topview}).
+To provoke a risky situation,
+the $\invCond$ condition of \behavior{ChangeLaneLeft} was made overly optimistic.
+As a result, the arbitration graph without verification selects \behavior{ChangeLaneLeft} at $t=\SI{1.9}{\second}$
+leading to a collision at $t=\SI{5.3}{\second}$ (\cref{fig:experiments-topview}).
 
-With verification, on the other hand, the safety verifier detects the risk of a collision based on the worst-case occupancies of the other vehicle (\cref{fig:experiments-safe-occupancies}).
-As a result, \behavior{ChangeLaneLeft} fails the verification and
+With verification, the safety verifier detects the risk of a collision based on the worst-case occupancies of the other vehicle (\cref{fig:experiments-safe-occupancies}).
+Consequently, \behavior{ChangeLaneLeft} fails the verification and
 the \arbitrator{UrbanDriving} arbitrator selects \behavior{FollowLane}
 as its next best option (\cref{fig:experiments-safe-arbitration-graph}).
 This makes the ego vehicle slow down and not change the lane
 until the green vehicle has passed (\cref{fig:experiments-safe-timeline}).
-A collision has successfully been prevented
+A collision has been prevented
 while maintaining a smooth driving behavior.
