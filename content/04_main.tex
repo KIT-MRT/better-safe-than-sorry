@@ -41,7 +41,6 @@ In this section, we will explore methods for detecting and mitigating unsafe and
       get command $\command_a = \getCommand_a(\situation)$\;
 
       verify $\verification_a = \verifier (\command_a)$\;
-      % \If(\tcp*[f]{Verifikation bestanden}){$\verification_a = 0$}{%
       \If{verification passed $\verification_a = 0$}{%
         \KwRet{$(\command_a, \verification_a)$}\;
       }
@@ -55,11 +54,9 @@ In this section, we will explore methods for detecting and mitigating unsafe and
     determine $\verifiedCommand = (\command, \verification) = $ \BestOption{$\situation$}\;
     \If{verification passed $\verification_a = 0$}{
       execute $\command$\;
-    % }{
-    %   Gebe Fehlermeldung mit $\verification_a$ aus\;
     }
   }
-  \caption{Generic arbitration algorithm with verification \label{algo:verifying_arbitrator}}
+  \caption{Generic arbitration with verification \label{algo:verifying_arbitrator}}
 \end{algorithm}
 
 \Cref{algo:verifying_arbitrator} shows the generic arbitration algorithm from \cite{lauerCognitiveConceptsAutonomous2010}
@@ -122,8 +119,8 @@ This layered approach using multiple fallback behavior components allows the per
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\columnwidth]{figures/pacman_scenario_cropped.png}
-    \caption{A scenario where the \behavior{EatClosestDot} behavior fails to produce a valid command.}
+    \includegraphics[width=0.7\columnwidth]{figures/pacman_scenario_cropped.png}
+    \caption{A scenario where \behavior{EatClosestDot} fails to produce a valid command.}
     \label{fig:pacman-scenario}
 \end{figure}
 
@@ -131,7 +128,7 @@ This layered approach using multiple fallback behavior components allows the per
     \centering
     \includesvg[width=\columnwidth,inkscapelatex=false]{figures/pacman_arbitrator_safe}
     \caption{The extended arbitration graph with fallback layers.
-        The red components marked with a lightning bolt were rejected by the verifier.
+        The components highlighted in red were rejected by the verifier.
         The safety buoy indicates a last resort fallback which does not need to pass verification.}
     \label{fig:pacman-arbitrator-safe}
 \end{figure}
