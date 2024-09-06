@@ -28,9 +28,10 @@
 \usepackage{csquotes}
 \usepackage[english]{babel}
 \usepackage[export]{adjustbox}
-\usepackage{enumitem}
 \usepackage[acronym]{glossaries}
 
+\let\labelindent\relax % fixes conflict between enumitem and IEEEconf
+\usepackage{enumitem}
 % Links
 \usepackage{hyperref}
 \hypersetup{
