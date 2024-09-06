@@ -7,7 +7,7 @@
 
 \subsection{Decision-Making}
 
-Decision-making is crucial in a robot's planning module, determining commands based on the current situation.
+Decision-making is crucial in the planning module of a robot, determining commands based on the current situation.
 Methods range from graph-based techniques like A*, PRM*, and RRT* to probabilistic methods and machine learning for implicit decisions.
 This work, however, focuses on rule-based methods, such as \glspl{FSM}, \glspl{BT}, or arbitration graphs, which address decision making through discrete state or mode transitions.
 
@@ -42,7 +42,7 @@ The input to a behavior component is the current situation~$\situation$, provide
 If its preconditions are met, the $\invCond$ condition indicates that the behavior component is applicable in the current situation~$\situation$.
 In this case, the higher-level instance (i.e., the arbitrator) can instruct the behavior component to compute a command~$\command$.
 The currently active behavior component additionally uses the $\comCond$ condition to indicate that its behavior can be continued.
-Consequently, the calling instance does not need to know the prerequisites for executing the behavior's command.
+Consequently, the calling instance does not need to know the prerequisites for executing the command returned by the behavior.
 
 Generic arbitrators combine behavior components $\options = \left< o_0, o_1, \dots \right>$,
 filter out the applicable subset $\applicableOptions \subset \options$ using their invocation and commitment conditions,
