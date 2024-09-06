@@ -27,7 +27,7 @@ In this section, we will explore methods for detecting and mitigating unsafe and
     \item The system avoids risky behavior commands.
 \end{itemize}
 
-\subsection{Detect Unsafe \& Unreliable Behaviors}
+\subsection{\textbf{Detect} Unsafe \& Unreliable Behaviors}
 \begin{algorithm}
   \SetKwFunction{BestOption}{BestOption}%
   \SetKwProg{Fn}{function}{}{end}
@@ -86,7 +86,7 @@ If none of the options passes the verification step, the arbitrator returns the 
 %
 Otherwise, the command~$\command$ returned by the root arbitrator can be executed and considered safe given the assumptions of the verifier~$\verifier$.
 
-\subsection{Mitigate Unsafe \& Unreliable Behaviors}
+\subsection{\textbf{Mitigate} Unsafe \& Unreliable Behaviors}
 If a behavior component fails the verification step, the arbitration graph must handle this situation to ensure the system remains safe and robust.
 Even without additional measures, the verification step already improves the safety of the system by preventing unsafe commands from being executed.
 If an arbitrator detects a failure and has other applicable options, it simply chooses the next best option.
