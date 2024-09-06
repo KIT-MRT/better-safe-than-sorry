@@ -63,3 +63,16 @@ Prevention and removal focus on design and development, while tolerance involves
 Prediction estimates future failures.
 Error tolerance involves diagnosing and handling errors—restoring faulty components, computing correct results despite faults, or removing faulty components from the system.
 
+\subsection{Pac-Man}
+Pac-Man, the 1980 arcade game, involves navigating a maze to eat dots while avoiding ghosts.
+Depicted in \cref{fig:entt-pacman} is an open-source implementation\footnote{github.com/indianakernick/EnTT-Pacman} of the game that is being used to demonstrate the proposed method.
+We split the behavior of Pac-Man into the following behavioral components:
+\begin{description}[align=left]
+    \item[Avoid Ghosts] Pac-Man tries to increase the distance to the ghosts to avoid being eaten.
+    \item[Chase Ghosts] After consuming an energizer, Pac-Man might try to eat the ghosts for extra points.
+    \item[Eat Closest Dot] Pac-Man moves towards the dot closest to him.
+    \item[Change Dot Cluster] Pac-Man moves towards another area with a high dot density.
+\end{description}
+
+The arbitration graph in \cref{fig:pacman-arbitrator-base} visualizes the corresponding arbitration graph.
+
