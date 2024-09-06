@@ -4,7 +4,7 @@
 
 \subsection{Motivation}
 
-Behavior planning and decision-making are crucial for robots to operate autonomously in dynamic environments, ensuring they achieve goals while adapting to changes and uncertainties.
+Behavior planning and decision-making are crucial for robots to operate autonomously in dynamic environments, ensuring to achieve their goals while adapting to changes and uncertainties.
 Key to reliable operation in fields like mobile, industrial, or service robotics is ensuring safety and robustness in these processes.
 
 Arbitration graphs, hierarchical behavior models, manage complex decision-making
@@ -37,14 +37,14 @@ Behavioral decision-making includes both monothematic methods and generic archit
 End-to-end machine learning approaches learn the entire process from sensor data to commands, requiring extensive data and computational power.
 Due to their highly integrated nature, it is challenging to interpret or influence the resulting behavior directly.
 
-Traditional architectures like \glspl{FSM} allow situational planning but scale poorly with complexity. Behavior-based methods, derived from Brooks' subsumption architecture, evolved into \glspl{BT} (among others). Popularized by their use in gaming, they are also applied in robotics. These structure decision making hierarchically, offering modularity and responsiveness but becoming unwieldy with extensive conditions.
+Traditional architectures like \glspl{FSM} allow situational planning but scale poorly with complexity. Behavior-based methods, derived from Brooks' subsumption architecture, evolved into \glspl{BT}, among others. Popularized by their use in gaming, they are also applied in robotics. These provide a hierarchical decision making structure, offering modularity and responsiveness but becoming cumbersome with extensive conditions.
 
 Arbitration graphs, combining subsumption and object-oriented programming, enhance reusability and system clarity through modularity and functional decomposition. Used in robotic soccer and automated driving, these graphs employ behavior components to interpret situations and plan actions, while arbitrators select the most suitable behaviors.
 
 \subsection{Pac-Man}
 Pac-Man, the 1980 arcade game, involves navigating a maze to eat dots while avoiding ghosts.
-Depicted in \cref{fig:entt-pacman} is an open-source implementation\footnote{github.com/indianakernick/EnTT-Pacman} of the game that is being used use to demonstrate the proposed method.
-We split Pac-Man's behavior into the following behavioral components:
+Depicted in \cref{fig:entt-pacman} is an open-source implementation\footnote{github.com/indianakernick/EnTT-Pacman} of the game that is being used to demonstrate the proposed method.
+We split the behavior of Pac-Man into the following behavioral components:
 \begin{description}[align=left]
     \item[Avoid Ghosts] Pac-Man tries to increase the distance to the ghosts to avoid being eaten.
     \item[Chase Ghosts] After consuming an energizer, Pac-Man might try to eat the ghosts for extra points.

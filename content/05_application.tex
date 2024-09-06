@@ -49,8 +49,8 @@ It contains three behavior components for basic lateral behaviors \behavior{Foll
 a parking behavior \behavior{ParkNearGoal}
 and a stopping behavior \behavior{EmergencyStop}.
 The arbitration graph for a real-world application would include more behavior components and arbitrators
-in order to cover a wide range of driving maneuvers and scenarios
-(\cite{waymo_safety_report_2020} discusses behavior compentencies and operational design domains in detail).
+in order to cover a wide range of driving maneuvers and scenarios.
+Refer to \cite{waymo_safety_report_2020} for a detailed discussion about behavior competencies and operational design domains.
 
 
 \subsection{Behavior Components --- \textbf{How} to do it?}
@@ -86,7 +86,7 @@ in order to cover a wide range of driving maneuvers and scenarios
 \end{figure}
 
 %% environment model → short (we use …, but other representations are possible)
-In our implementation, each behavior component has access to an environment model (situation~$\situation$) and outputs a trajectory as well as HMI outputs such as indicators (command~$\command$).
+In our implementation, each behavior component has access to an environment model (situation~$\situation$) and returns a trajectory as well as HMI outputs such as indicators (command~$\command$).
 %
 The environment model contains information
 such as the ego vehicle state, other traffic participants, and the planned route.
