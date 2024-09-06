@@ -143,7 +143,7 @@ Ideally, this behavior has the intended effect and Pac-Man should move towards t
 In our hypothetical scenario, however, a bug in the underlying path planning algorithm leads to erroneous results.
 Consequently, the behavior component fails to generate a valid command, causing the system to behave unpredictably or even crash.
 
-\Cref{fig:pacman-arbitrator-safe} shows the arbitration graph from \cref{fig:pacman-arbitrator-base} extended with fallback layers.
+\cref{fig:pacman-arbitrator-safe} shows the arbitration graph from \cref{fig:pacman-arbitrator-base} extended with fallback layers.
 With \behavior{EatClosestDot} not returning a valid command, the system falls back to the newly added \behavior{MoveRandomly} behavior component.
 Moving Pac-Man in a random direction is a simple action which might help the primary behavior components to escape a deadlock and find a new valid command.
 In our scenario, however, \behavior{MoveRandomly} returns a command which would lead to a collision with a wall.

@@ -43,7 +43,7 @@ introducing a safety concept for arbitration graphs in the context of automated 
     \label{fig:arbitration-graph-evaluation}
 \end{figure}
 
-\Cref{fig:arbitration-graph-evaluation} depicts a simplified arbitration graph for automated driving
+\cref{fig:arbitration-graph-evaluation} depicts a simplified arbitration graph for automated driving
 that will be used to showcase our safety concept.
 It contains three behavior components for basic lateral behaviors \behavior{FollowLane}, \behavior{ChangeLaneLeft} and \behavior{ChangeLaneRight},
 a parking behavior \behavior{ParkNearGoal}
@@ -92,7 +92,7 @@ The environment model contains information
 such as the ego vehicle state, other traffic participants, and the planned route.
 % The trajectory consists of an intended and a fail-safe part,
 % where the fail-safe trajectory is designed to be safe under worst-case assumptions.
-\Cref{fig:environment-model} illustrates an example scenario with the ego vehicle in blue,
+\cref{fig:environment-model} illustrates an example scenario with the ego vehicle in blue,
 another vehicle in green, and the planned ego trajectory in dashed blue.
 
 %% take one behavior component → explain → short
@@ -216,7 +216,7 @@ Traditional decision-making approaches select maneuver options solely based on t
 As a result, they might select unsafe maneuver options,
 if the preconditions have been designed too optimistically.
 %
-\Cref{fig:experiments-topview} shows such a scenario, where the ego vehicle wants to change lanes,
+\cref{fig:experiments-topview} shows such a scenario, where the ego vehicle wants to change lanes,
 but another vehicle follows too closely in the target lane.
 We compare the evolution of the scene with and without verification in the decision-making process.
 
