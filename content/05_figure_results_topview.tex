@@ -11,8 +11,7 @@
   \centering
   \includesvg[width=\textwidth,inkscapelatex=true,pretex=\begin{svgfont},apptex=\end{svgfont}]{figures/experiments_crash_combined_topview}
   \caption{
-      At position \textit{b} (see \cref{fig:test-track}),
-      the ego vehicle intends to change lanes at $t=\SI{1.9}{\second}$,
+      The ego vehicle intends to change lanes at $t=\SI{1.9}{\second}$,
       but another vehicle is following close and fast.
       Without verification, the too optimistic \behavior{ChangeLaneLeft} behavior is chosen,
       leading to a collision at $t=\SI{5.3}{\second}$.
