@@ -70,6 +70,15 @@ Error tolerance involves diagnosing and handling errors—restoring faulty compo
 computing correct results despite faults, or removing faulty components from the system \cite{echtleFehlertoleranzverfahren1990}.
 
 \subsection{Pac-Man}
+
+\begin{figure}
+    \centering
+    \includesvg[width=\columnwidth,inkscapelatex=false]{figures/pacman_arbitrator_base}
+    % \includesvg[width=\columnwidth,inkscapelatex=true,pretex=\begin{svgfontonly},apptex=\end{svgfontonly}]{figures/pacman_arbitrator_base}
+    \caption{A basic arbitration graph for playing Pac-Man.}
+    \label{fig:pacman-arbitrator-base}
+\end{figure}
+
 Pac-Man, the 1980 arcade game, involves navigating a maze to eat dots while avoiding ghosts.
 Depicted in \cref{fig:entt-pacman} is an open-source implementation\footnote{\url{github.com/indianakernick/EnTT-Pacman}}
 of the game that is being used to demonstrate the proposed method.
