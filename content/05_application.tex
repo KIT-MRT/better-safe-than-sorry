@@ -18,7 +18,7 @@ Behavior planning for automated driving comes with a variety of challenges.
 The environment is highly complex and dynamic, and safety-critical decisions must be made under real-time constraints.
 Among other things, the agent has to consider kinematic and dynamic constraints,
 sensor limitations, traffic rules, and vehicle safety.
-Therefore, verifying planned behavior and providing fallback options in case of failure are crucial in this domain.
+Therefore, verifying planned commands and providing fallback options in case of failure are crucial in this domain.
 
 This section summarizes \cite{orzechowskiVerhaltensentscheidungFuerAutomatisierte2023},
 which extends \cite{orzechowskiDecisionMakingAutomatedVehicles2020a} by
@@ -119,7 +119,7 @@ In order to detect unsafe and unreliable behaviors commands,
 various aspects need to be considered in the behavior generation process.
 %
 %% focus on verification (we check …, but other things are possible)
-Many aspects could be considered, but here we focus on validity and safety.
+In our case, we verify the validity and safety of the planned trajectory.
 
 The verifier for validity ensures that the planned trajectory fulfills the kinematic and dynamic constraints of the ego vehicle
 and adheres to traffic rules.
@@ -152,11 +152,10 @@ by the proposed verifiers and multiple fallback layers
 highlighted by underlined text.
 % This ensures safety and enables graceful degradation.
 
-Since trajectories are planned for a given horizon,
+In case of intermittent failures,
 it is feasible to fall back to the last planned trajectory
-% in case of intermittent failures.
 provided by \behavior{ContinueLastManeuver},
-in case of intermittent failures.
+since trajectories are planned for a given horizon.
 % This option is provided as first fallback option by \behavior{ContinueLastManeuver}.
 % This is given by \behavior{ContinueLastManeuver}.
 
