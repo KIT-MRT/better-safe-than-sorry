@@ -8,7 +8,7 @@
 
 %% real life applicable
 Arbitration graphs can be applied to a wide range of real-world scenarios.
-In \cite{orzechowskiDecisionMakingAutomatedVehicles2020a},
+In \cite{orzechowskiDecisionMakingAutomatedVehicles2020},
 they have been used in the context of automated driving.
 There, a behavior component represents driving maneuvers of approximately $5$ to $20$ seconds
 such as lane changes, parking maneuvers, or crossing intersections.
@@ -21,7 +21,7 @@ sensor limitations, traffic rules, and vehicle safety.
 Therefore, verifying planned commands and providing fallback options in case of failure are crucial in this domain.
 
 This section summarizes \cite{orzechowskiVerhaltensentscheidungFuerAutomatisierte2023},
-which extends \cite{orzechowskiDecisionMakingAutomatedVehicles2020a} by
+which extends \cite{orzechowskiDecisionMakingAutomatedVehicles2020} by
 introducing a safety concept for arbitration graphs in the context of automated driving.
 
 
@@ -37,7 +37,7 @@ introducing a safety concept for arbitration graphs in the context of automated 
     \centering
     \includesvg[width=\columnwidth,inkscapelatex=false]{figures/arbitration_graph_simulation_underlined}
     \caption{
-        A minimalistic arbitration graph for automated driving as introduced in \cite{orzechowskiDecisionMakingAutomatedVehicles2020a}, extended by fallback layers (underlined).
+        A minimalistic arbitration graph for automated driving as introduced in \cite{orzechowskiDecisionMakingAutomatedVehicles2020}, extended by fallback layers (underlined).
     }
     \label{fig:arbitration-graph-evaluation}
 \end{figure}
@@ -60,7 +60,7 @@ Refer to \cite{waymo_safety_report_2020} for a detailed discussion about behavio
 
 \begin{figure}
     \centering
-    \includesvg[width=\columnwidth,inkscapelatex=true,pretex=\begin{svgfontonly},apptex=\end{svgfontonly}]{figures/environment_model}
+    \includesvg[width=\columnwidth,inkscapelatex=true,pretex=\begin{svgfont},apptex=\end{svgfont}]{figures/environment_model}
 
     \caption{%
         Excerpt from the environment model with
@@ -103,7 +103,7 @@ The trajectory smoothly transitions to the left lane.
 % while the fail-safe trajectory brings the ego vehicle back to the original lane.
 
 % Other behavior components for automated driving are described in detail in~[?]\todo{ref Pios Diss}.
-See \cite{orzechowskiVerhaltensentscheidungFuerAutomatisierte2023} for other behavior components for automated driving.
+See \cite{orzechowskiVerhaltensentscheidungFuerAutomatisierte2023} for more details and other behavior components for automated driving.
 
 
 
@@ -115,7 +115,7 @@ See \cite{orzechowskiVerhaltensentscheidungFuerAutomatisierte2023} for other beh
 
 \subsection{Verification --- What is considered \textbf{safe}?}
 
-In order to detect unsafe and unreliable behaviors commands,
+In order to detect unsafe and unreliable behavior commands,
 various aspects need to be considered in the behavior generation process.
 %
 %% focus on verification (we check …, but other things are possible)

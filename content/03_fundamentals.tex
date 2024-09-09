@@ -7,7 +7,7 @@
 
 Decision-making is crucial in the planning module of a robot, determining commands based on the current situation.
 Methods range from graph-based techniques like A*, PRM*, and RRT* to probabilistic and machine learning methods.
-This work, however, focuses on rule-based methods, such as \glspl{FSM}, \glspl{BT}, or arbitration graphs, which address decision making through discrete state or mode transitions.
+This work, however, focuses on rule-based methods, such as \glspl{FSM}, \glspl{BT}, or arbitration graphs, which address decision-making through discrete state or mode transitions.
 Refer to \cite{schwartingPlanningDecisionMakingAutonomous2018,yurtseverSurveyAutonomousDriving2020,gammellAsymptoticallyOptimalSamplingBased2021}
 for a detailed overview of available approaches.
 
@@ -76,7 +76,6 @@ computing correct results despite faults, or removing faulty components from the
 \begin{figure}
     \centering
     \includesvg[width=\columnwidth,inkscapelatex=false]{figures/pacman_arbitrator_base}
-    % \includesvg[width=\columnwidth,inkscapelatex=true,pretex=\begin{svgfontonly},apptex=\end{svgfontonly}]{figures/pacman_arbitrator_base}
     \caption{A basic arbitration graph for playing Pac-Man.}
     \label{fig:pacman-arbitrator-base}
 \end{figure}
@@ -88,7 +87,7 @@ We split the behavior of Pac-Man into the following behavioral components:
 \begin{description}[align=left]
     \item[Avoid Ghosts] Pac-Man tries to increase the distance to the ghosts to avoid being eaten.
     \item[Chase Ghosts] After consuming an energizer, Pac-Man might try to eat the ghosts for extra points.
-    \item[Eat Closest Dot] Pac-Man moves towards the dot closest to him.
+    \item[Eat Closest Dot] Pac-Man moves towards the dot that is closest to him.
     \item[Change Dot Cluster] Pac-Man moves towards another area with a higher dot density.
 \end{description}
 

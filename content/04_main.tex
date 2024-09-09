@@ -21,8 +21,8 @@ This ensures that even in the presence of unreliable or unsafe behavior componen
 In this section, we will explore methods for detecting and mitigating unsafe and unreliable behavior components, with the following safety goals in mind:
 
 \begin{itemize}
-    \item The system ensures that a safety action is taken whenever operating conditions exceed its designed capabilities.
-    \item The system is robust against behavior component failures.
+    \item The system ensures that a safety action is taken when operating conditions exceed its designed capabilities.
+    \item The system is robust against failures of behavior components.
     \item The system prevents invalid behavior commands.
     \item The system avoids risky behavior commands.
 \end{itemize}
@@ -33,7 +33,7 @@ In this section, we will explore methods for detecting and mitigating unsafe and
   \SetKwProg{Fn}{function}{}{end}
 
   \Fn{\BestOption{situation $\situation$}}{\label{algo:verifying_arbitrator:bestOption}
-    filter applicable options $\applicableOptions \subset \options$\;
+    filter applicable options $\applicableOptions \subseteq \options$\;
     sort applicable options
       $\sortedApplicableOptions = \left< a_0, a_1, \dots \right> = \text{strategie}(\applicableOptions)$\;
 
@@ -147,7 +147,7 @@ In our scenario, however, \behavior{MoveRandomly} returns a command which would 
 Therefore, this command is rejected by the verifier as well, and the system falls back to the last resort behavior \behavior{StayInPlace}.
 While it might be impossible to complete the level with this behavior, the system remains in a predictable and safe state giving the primary behavior components a chance to recover.
 
-Of course, it would be possible to find the bug in \behavior{EatClosestDot} through testing prior to deployment in this toy example.
+Of course, in this toy example it would be possible to find the bug in \behavior{EatClosestDot} through testing prior to deployment.
 In a real-world scenario, however, it is not feasible to test all possible situations and bugs might only manifest in specific edge cases.
 The proposed safety concept explicitly handles safety within the verifiers, transferring the responsibility away from individual behavior components and their arrangement to the verifiers.
 This approach allows for the integration of imperfect or experimental behavior components without compromising the overall safety of the system.
