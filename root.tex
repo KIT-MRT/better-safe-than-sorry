@@ -91,6 +91,31 @@
 %using shortcuts \-/, \=/, \--, \==, \---, and \===
 \usepackage[shortcuts]{extdash}
 
+% Copyright box for arxiv upload
+\usepackage[absolute]{textpos}
+\usepackage{setspace}
+\setlength{\TPHorizModule}{\paperwidth}
+\setlength{\TPVertModule}{\paperheight}
+\TPMargin{5pt}
+\newcommand{\copyrightstatement}{
+    \begin{textblock}{0.82}(0.09,0.94)
+        \setstretch{0.65} % Adjusts line spacing (0.85 is slightly compact)
+        \noindent{\footnotesize{
+            % After hand-in, before acceptance:
+            \copyright~2024 IEEE.
+            This work has been submitted to the IEEE for possible publication.
+            Copyright may be transferred without notice, after which this version may no longer be accessible.
+            % After acceptance:
+            % 10.1000/xyz123~ % Insert your DOI after publication
+            % \copyright~2024 IEEE.
+            % Personal use of this material is permitted.
+            % Permission from IEEE must be obtained for all other uses, including reprinting/republishing this material for advertising or promotional purposes,
+            % collecting new collected works for resale or redistribution to servers or lists, or reuse of any copyrighted component of this work in other works.
+        }}
+    \end{textblock}
+}
+
+
 % correct bad hyphenation here
 \hyphenation{Eat-Clos-est-Dot Mo-ve-Ran-dom-ly Stay-In-Pla-ce Fol-low-La-ne Chan-ge-La-ne-Le-ft Chan-ge-La-ne-Ri-ght Park-Near-Goal E-mer-gen-cy-Stop Con-ti-nue-Last-Ma-neu-ver Fail-Safe Ur-ban-Dri-ving}
 
@@ -119,22 +144,7 @@
 
 \begin{document}
 \maketitle
-
-%% add copyright notice for arxiv or other non-IEEE publications, see https://ieeeauthorcenter.ieee.org/publish-with-ieee/author-education-resources/guidelines-and-policies/policy-posting-your-article/
-%% 1. enable \IEEEoverridecommandlockouts
-%% 2. uncomment \IEEEpubidadjcol and the appropriate \IEEEpubid section
-%% 3. place \IEEEpubidadjcol also in the second column of the title page (probably somewhere in your introduction section)
-%% 4. disable the \thispagestyle{empty} command
-%% Use this after submission for review (but not after acceptance):
-% \IEEEpubid{\begin{minipage}{\textwidth}~\\[12pt] \centering%
-%   This work has been submitted to the IEEE for possible publication. Copyright may be transferred without notice, after which this version may no longer be accessible.
-% \end{minipage}}
-%% Use this after acceptance:
-% \IEEEpubid{\begin{minipage}{\textwidth}~\\[12pt] \centering%
-%   10.1000/xyz123~ % Insert your DOI after publication
-%   \copyright~2018 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other uses, including reprinting/republishing this material for advertising or promotional purposes, collecting new collected works for resale or redistribution to servers or lists, or reuse of any copyrighted component of this work in other works.
-% \end{minipage}}
-% \IEEEpubidadjcol
+\copyrightstatement
 
 \thispagestyle{empty}
 \pagestyle{empty}
