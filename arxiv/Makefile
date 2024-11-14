@@ -19,6 +19,11 @@ copyfiles:
 		sed -r 's#.*\\includegraphics[^{]*\{([^}]*)\}.*#\1#g' | `# Extracts the file path from the \includegraphics command.` \
 		xargs -I% find ../figures -regextype sed -regex "../%\(\.pdf\|\.png\|\.jpg\|\.jpeg\)\?" | `# Finds the file path in the figures directory.` \
 		xargs -I% cp % figures `# Copy the file to the figures directory.`
+	# When including graphics in svg format using \includesvg,
+	# add this to your root.tex file:
+	# \usepackage[extractpath=out/svg-extract]{svg-extract}
+	# This will generate the following directory with ready-to-upload pdf files.
+	test -d "../out/svg-extract" && cp ../out/svg-extract/* figures
 
 archive:
 	zip -r arxiv.zip * -x *.zip Makefile
