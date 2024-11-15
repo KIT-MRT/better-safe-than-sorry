@@ -24,6 +24,8 @@ copyfiles:
 	# \usepackage[extractpath=out/svg-extract]{svg-extract}
 	# This will generate the following directory with ready-to-upload pdf files.
 	test -d "../out/svg-extract" && cp ../out/svg-extract/* figures
+	for file in figures/*_svg-raw-extract.pdf; do mv "$$file" "$${file%_svg-raw-extract.pdf}.pdf"; done
+	for file in figures/*_svg-tex-extract.pdf; do mv "$$file" "$${file%_svg-tex-extract.pdf}.pdf"; done
 
 archive:
 	zip -r arxiv.zip * -x *.zip Makefile
