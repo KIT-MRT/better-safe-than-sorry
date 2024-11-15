@@ -21,7 +21,7 @@ copyfiles:
 		xargs -I% cp % figures `# Copy the file to the figures directory.`
 	# When including graphics in svg format using \includesvg,
 	# add this to your root.tex file:
-	# \usepackage[extractpath=out/svg-extract]{svg-extract}
+	# \usepackage[extractpath=out/svg-extract,extractname=filename]{svg-extract}
 	# This will generate the following directory with ready-to-upload pdf files.
 	test -d "../out/svg-extract" && cp ../out/svg-extract/* figures
 	for file in figures/*_svg-raw-extract.pdf; do mv "$$file" "$${file%_svg-raw-extract.pdf}.pdf"; done
