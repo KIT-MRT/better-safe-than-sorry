@@ -26,6 +26,8 @@ copyfiles:
 	test -d "../out/svg-extract" && cp ../out/svg-extract/* figures
 	for file in figures/*_svg-raw-extract.pdf; do mv "$$file" "$${file%_svg-raw-extract.pdf}.pdf"; done
 	for file in figures/*_svg-tex-extract.pdf; do mv "$$file" "$${file%_svg-tex-extract.pdf}.pdf"; done
+	# This includes the extracted pdf files instead of the svg files.
+	# You need to check the settings (in the [brackets]) manually to make sure they are compatible with includegraphics.
 	sed -i 's/\\includesvg\[/\\includegraphics\[/g' root.tex
 
 archive:
