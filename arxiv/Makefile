@@ -13,7 +13,7 @@ latexbuild:
 
 copyfiles:
 	cd .. && latexpand --empty-comments root.tex > arxiv/root.tex
-	cd .. && cp root.bbl ieeeconf.cls arxiv
+	cd .. && cp root.bbl ieeeconf.cls custom*.sty arxiv
 	mkdir figures
 	grep -E "includegraphics\[?.*\]?{[^}]+}" root.tex | `# Extract all \includegraphics commands from the root.tex file.` \
 		sed -r 's#.*\\includegraphics[^{]*\{([^}]*)\}.*#\1#g' | `# Extracts the file path from the \includegraphics command.` \
