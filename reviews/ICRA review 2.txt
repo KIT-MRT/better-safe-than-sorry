@@ -1,0 +1,59 @@
+The paper presents a novel extension to arbitration graphs
+by embedding verification steps and structured fallback
+layers into the decision-making process. This is a
+meaningful contribution as it addresses a critical
+challenge in autonomous systems—handling unsafe or
+erroneous behavior commands in real-time. The claimed
+benefits, such as robust operation in the face of faults
+and enabling the integration of experimental components,
+are relevant for applications in autonomous driving and
+robotics. The paper provides a satisfactory overview of
+related works, citing foundational decision-making methods
+such as FSMs, Behavior Trees, and arbitration graphs. The
+proposed approach appears technically sound and
+well-structured. The integration of verification logic
+within arbitration graphs is detailed, and the fallback
+mechanisms are described comprehensively. The modular
+framework and bottom-up design are advantageous, enabling
+incremental integration of behavior components. The
+methodology for obtaining results is well-explained, with
+clear descriptions of the simulations and the scenarios
+tested. The availability of the source code and the Pac-Man
+simulation on GitHub is commendable, ensuring
+reproducibility.
+
+However,
+    1. While the theoretical underpinnings are clear, the
+contribution could be more explicitly compared to other
+contemporary fault-tolerant decision-making frameworks to
+highlight its uniqueness.
+    2. The analysis of the state of the art is somewhat
+surface-level and does not critically engage with competing
+approaches or recent advancements. For instance, other
+modular and scalable decision-making architectures or
+safety-critical systems in robotics and autonomous vehicles
+could have been analyzed in greater depth. The references
+are sufficient for contextualization but lack breadth in
+exploring how this work directly advances the field.
+    3. The success of the verification step heavily relies
+on the accuracy of domain-specific verifiers. This
+dependency raises questions about the adaptability of the
+method across diverse environments, which the paper does
+not fully address. Moreover, while the fallback mechanism
+provides robustness, its performance in more complex,
+real-world scenarios is not extensively tested.
+    4. The validation in autonomous driving scenarios could
+have included quantitative metrics beyond accident risk
+reduction, such as computational efficiency or success
+rates across a broader range of conditions. Additionally,
+more details on the implementation of domain-specific
+verifiers would strengthen confidence in reproducibility.
+
+The paper provides a meaningful contribution to improving
+arbitration graphs for autonomous decision-making,
+addressing key challenges in safety and robustness. While
+technically sound, the lack of a comprehensive analysis of
+competing approaches and the limited validation in complex
+scenarios detract slightly from its impact. If these
+shortcomings can be addressed, the paper has strong
+potential for advancing the field.
