@@ -88,7 +88,7 @@ Otherwise, the command~$\command$ returned by the root arbitrator can be execute
 
 \subsection{\textbf{Mitigate} Unsafe \& Unreliable Behaviors}
 If a behavior component fails the verification step, the arbitration graph must handle this situation to ensure the system remains safe and robust.
-Even without additional measures, the verification step already improves the safety of the system by preventing unsafe commands from being executed.
+Even without additional measures, the verification step improves the safety of the system by preventing unsafe commands from being executed.
 If an arbitrator detects a failure and has other applicable options, it simply chooses the next best option.
 %
 However, to further increase robustness and reduce performance degradation, we make use of the bottom-up approach of arbitration graphs to add fallback layers in the form of additional behavior components.
@@ -147,7 +147,7 @@ In our scenario, however, \behavior{MoveRandomly} returns a command which would 
 Therefore, this command is rejected by the verifier as well, and the system falls back to the last resort behavior \behavior{StayInPlace}.
 While it might be impossible to complete the level with this behavior, the system remains in a predictable and safe state giving the primary behavior components a chance to recover.
 
-Of course, in this toy example it would be possible to find the bug in \behavior{EatClosestDot} through testing prior to deployment.
+Of course, in this toy example it would be possible to find the bug in \behavior{EatClosestDot} through testing.
 In a real-world scenario, however, it is not feasible to test all possible situations and bugs might only manifest in specific edge cases.
 The proposed safety concept explicitly handles safety within the verifiers, transferring the responsibility away from individual behavior components and their arrangement to the verifiers.
 This approach allows for the integration of imperfect or experimental behavior components without compromising the overall safety of the system.

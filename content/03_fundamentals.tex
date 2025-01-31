@@ -13,7 +13,7 @@ for a detailed overview of available approaches.
 
 % Finite State Machines
 \textbf{\glspl{FSM}}, first used in hardware design and theoretical computer science,
-represent behavior modes with transitions triggered by events \cite{wagnerModelingSoftwareFinite2006,hopcroftIntroductionAutomataTheory2007}.
+represent behavior modes with transitions triggered by events \cite{wagnerModelingSoftwareFinite2006}.
 Despite their simplicity, \glspl{FSM} scale poorly and are difficult to modify due to the amount of transitions increasing exponentially with the number of states.
 
 % Behavior Trees
@@ -25,8 +25,8 @@ Evaluated at a fixed frequency, nodes return their status as running, completed,
 Control flow nodes decide on further evaluations.
 %
 Condition nodes check if their conditions are met without affecting the environment, while action nodes execute behaviors and return their status.
-By distinguishing between condition and action nodes, the preconditions of a behavior  are decoupled from the actual execution of the behavior.
-To design a safe system, these actions must be linked to reliable condition nodes.
+% By distinguishing between condition and action nodes, the preconditions of a behavior  are decoupled from the actual execution of the behavior.
+% To design a safe system, these actions must be linked to reliable condition nodes.
 
 \glspl{BT} generalize many architectures, such as hierarchical \glspl{FSM} and decision trees \cite{colledanchiseHowBehaviorTrees2017} excelling in modularity, hierarchical organization, reusability, responsiveness, and interpretability \cite{colledanchiseBehaviorTreesRobotics2018}.
 Their flexibility allows reuse of individual behaviors \cite{bagnellIntegratedSystemAutonomous2012}.
@@ -116,7 +116,7 @@ Reliability measures include error prevention, removal, tolerance, and predictio
 Prevention and removal focus on design and development, while tolerance involves detecting and preventing operational errors.
 Prediction estimates future failures.
 Error tolerance involves diagnosing and handling errors—restoring faulty components,
-computing correct results despite faults, or removing faulty components from the system \cite{echtleFehlertoleranzverfahren1990}.
+computing correct results despite faults, or removing faulty components \cite{echtleFehlertoleranzverfahren1990}.
 
 \subsection{Pac-Man}
 
