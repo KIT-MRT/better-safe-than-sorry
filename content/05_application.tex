@@ -20,7 +20,7 @@ Among other things, the agent has to consider kinematic and dynamic constraints,
 sensor limitations, traffic rules, and vehicle safety.
 Therefore, verifying planned commands and providing fallback options in case of failure are crucial in this domain.
 
-This section summarizes \cite{orzechowskiVerhaltensentscheidungFuerAutomatisierte2023},
+This section summarizes our work in \cite{orzechowskiVerhaltensentscheidungFuerAutomatisierte2023},
 which extends \cite{orzechowskiDecisionMakingAutomatedVehicles2020} by
 introducing a safety concept for arbitration graphs in the context of automated driving.
 
@@ -148,7 +148,7 @@ with the worst-case occupancies of other traffic participants,
 
 In order to mitigate unsafe or unreliable behaviors,
 we extended the arbitration graph in \cref{fig:arbitration-graph-evaluation}
-by the proposed verifiers and multiple fallback layers
+by the proposed verifiers and fallback layers
 highlighted by underlined text.
 % This ensures safety and enables graceful degradation.
 
@@ -168,7 +168,7 @@ This may be necessary if the assumptions of the fail-safe trajectory are violate
 %
 Since this is the last resort fallback layer,
 it does not go through verification.
-Therefore, it is crucial that it is implemented in a simple, deterministic and reliable fashion
+Hence, it is crucial that it is implemented in a simple, deterministic and reliable fashion
 without the need for contextual knowledge.
 
 

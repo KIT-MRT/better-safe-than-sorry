@@ -13,7 +13,7 @@ for a detailed overview of available approaches.
 
 % Finite State Machines
 \textbf{\glspl{FSM}}, first used in hardware design and theoretical computer science,
-represent behavior modes with transitions triggered by events \cite{wagnerModelingSoftwareFinite2006,hopcroftIntroductionAutomataTheory2007}.
+represent behavior modes with transitions triggered by events \cite{wagnerModelingSoftwareFinite2006}.
 Despite their simplicity, \glspl{FSM} scale poorly and are difficult to modify due to the amount of transitions increasing exponentially with the number of states.
 
 % Behavior Trees
@@ -25,8 +25,8 @@ Evaluated at a fixed frequency, nodes return their status as running, completed,
 Control flow nodes decide on further evaluations.
 %
 Condition nodes check if their conditions are met without affecting the environment, while action nodes execute behaviors and return their status.
-By distinguishing between condition and action nodes, the preconditions of a behavior  are decoupled from the actual execution of the behavior.
-To design a safe system, these actions must be linked to reliable condition nodes.
+% By distinguishing between condition and action nodes, the preconditions of a behavior  are decoupled from the actual execution of the behavior.
+% To design a safe system, these actions must be linked to reliable condition nodes.
 
 \glspl{BT} generalize many architectures, such as hierarchical \glspl{FSM} and decision trees \cite{colledanchiseHowBehaviorTrees2017} excelling in modularity, hierarchical organization, reusability, responsiveness, and interpretability \cite{colledanchiseBehaviorTreesRobotics2018}.
 Their flexibility allows reuse of individual behaviors \cite{bagnellIntegratedSystemAutonomous2012}.
@@ -56,6 +56,53 @@ and select the best applicable option~$a^*$ for execution.
 Arbitration schemes include priority-based, sequence-based, cost-based, and random.
 Due to inheritance and a shared interface, arbitrators can include both behavior components and other arbitrators, enabling a hierarchical architecture.
 
+% Comparing Arbitration graphs to BTs
+%
+%% Return type/Interfaces: command vs. status
+%% Preconditions: decoupled from nodes, distributed over tree vs. tightly coupled to nodes
+%% Safety: nodes decide on success/failure vs. integrated into selection mechanism with node-independent verifiers
+
+\textbf{Comparing Arbitration graphs to BTs}, both appear similar at first glance, but differ in several key aspects:
+
+% Return Type/Interfaces
+\gls{BT} nodes return execution status, while arbitration graphs return commands.
+%% note: we talk about the AG behavior components, but "arbitration graph behavior components" is a bit lengthy…
+%
+% While the former adds more flexibility to each nodes actuator-facing interfaces,
+While the former adds more flexibility to each nodes actuator interfaces,
+%
+% the latter focuses on a consistent control theory motivated interface $f(\situation) \to \command$.
+% the latter focuses on a control theory motivated and verifiable interface $f(\situation) \to \command$.
+the latter focuses on a control theory motivated interface $f(\situation) \to \command$ % with verifiable~$\command$.
+allowing the command to be verified before executing it in a down-stream module.
+
+% Preconditions
+In \glspl{BT}, preconditions are realized by condition nodes distributed throughout the tree.
+%
+% In contrast, arbitration graphs couple a behavior component with its preconditions.
+In contrast, arbitration graphs require behavior components to implement their own preconditions.
+%
+% This tight coupling ensures that robustness and safety are less dependent on node arrangement.
+% This tight coupling is a foundation for robustness and safety being independent of node arrangement.
+% This tight coupling leads to robustness and safety being less dependent on the node arrangement.
+% Robustness and safety are less dependent on the node arrangement due to this tight coupling.
+This tight coupling makes robustness and safety less dependent on the node arrangement.
+%
+% This tight coupling follows a more object-oriented approach,
+% where the behavior component is responsible for its own preconditions.
+% adding to overall system robustness and safety.
+
+% Safety
+\glspl{BT} rely on each node to decide on its success or failure,
+which can lead to safety and reliability issues if not carefully managed.
+Arbitration graphs, as enhanced in this paper, integrate safety into the selection mechanism,
+using node-independent verifiers.
+This functional decomposition reduces the burden on behavior engineers and
+allows an easy integration of unsafe, e.g.\ learning-based, behavior components.
+
+% Overall, arbitration graphs offer a more modular and potentially safer approach to decision-making compared to \glspl{BT}, particularly in complex systems where safety and reliability are critical.
+
+
 \subsection{Fault-tolerant/Robust Systems}
 
 In automated systems, both hardware and software issues can compromise performance and safety.
@@ -69,7 +116,7 @@ Reliability measures include error prevention, removal, tolerance, and predictio
 Prevention and removal focus on design and development, while tolerance involves detecting and preventing operational errors.
 Prediction estimates future failures.
 Error tolerance involves diagnosing and handling errors—restoring faulty components,
-computing correct results despite faults, or removing faulty components from the system \cite{echtleFehlertoleranzverfahren1990}.
+computing correct results despite faults, or removing faulty components \cite{echtleFehlertoleranzverfahren1990}.
 
 \subsection{Pac-Man}
 
