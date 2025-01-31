@@ -1,0 +1,40 @@
+The paper's proposed method does not seem to be novel or
+significant enough to be considered a contribution.
+
+The paper proposes extensions to the arbitration graph
+framework proposed in a previous work that works similarly
+to behaviour trees. One aspect of the proposed extension is
+a verification step. However this aspect seemed vague and
+not enough detail was provided for it to be useful to
+someone trying to implement this algorithm. Another aspect
+of the proposed extension are "fallback layers" which
+perform actions guaranteed to be safe. Fallback layers,
+however, seem to just be a special case of an
+implementation of an arbitration graph or behaviour tree
+and something that one would already think of without
+necessarily labelling them as "fallback layers".
+
+The PacMan example did not seem to add much to the paper.
+The situation that the paper described involved some
+behavioural component having a "bug" and this causing a
+collision with a wall. I did not understand why colliding
+with a wall would be a possibility when playing Pac-Man and
+I did not understand why a "bug" in a behavioural component
+was the unsafe situation chosen rather than something like
+the player almost running into a ghost.
+
+The autonomous driving scenario also did not seem strong.
+It seems clear that checking that it is safe to change
+lanes would result in less collisions. I do not think the
+example was complex enough to show the merits of the
+proposed model.
+
+I think comparing the proposed extension to the arbitration
+graph framework to not only arbitration graphs but other
+similar methods such as behaviour trees and finite state
+machines may have made this paper stronger if the authors
+were able to show how the proposed method was more elegant,
+for example, in comparison to similar methods. One might
+also demonstrate using the proposed method with integrating
+new behaviours and do the same thing with an FSM, for
+example.
