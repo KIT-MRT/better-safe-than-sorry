@@ -73,7 +73,8 @@ While the former adds more flexibility to each nodes actuator interfaces,
 %
 % the latter focuses on a consistent control theory motivated interface $f(\situation) \to \command$.
 % the latter focuses on a control theory motivated and verifiable interface $f(\situation) \to \command$.
-the latter focuses on a control theory motivated interface $f(\situation) \to \command$ with verifiable~$\command$.
+the latter focuses on a control theory motivated interface $f(\situation) \to \command$ % with verifiable~$\command$.
+allowing the command to be verified before executing it in a down-stream module.
 
 % Preconditions
 In \glspl{BT}, preconditions are realized by condition nodes distributed throughout the tree.
@@ -94,7 +95,7 @@ This tight coupling makes robustness and safety less dependent on the node arran
 % Safety
 \glspl{BT} rely on each node to decide on its success or failure,
 which can lead to safety and reliability issues if not carefully managed.
-Arbitration graphs integrate safety into the selection mechanism,
+Arbitration graphs, as enhanced in this paper, integrate safety into the selection mechanism,
 using node-independent verifiers.
 This functional decomposition reduces the burden on behavior engineers and
 allows an easy integration of unsafe, e.g.\ learning-based, behavior components.
