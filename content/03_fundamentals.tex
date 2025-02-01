@@ -69,7 +69,7 @@ Due to inheritance and a shared interface, arbitrators can include both behavior
 %% note: we talk about the AG behavior components, but "arbitration graph behavior components" is a bit lengthy…
 %
 % While the former adds more flexibility to each nodes actuator-facing interfaces,
-While the former adds more flexibility to each nodes actuator interfaces,
+While the former adds more flexibility to each node's actuator interfaces,
 %
 % the latter focuses on a consistent control theory motivated interface $f(\situation) \to \command$.
 % the latter focuses on a control theory motivated and verifiable interface $f(\situation) \to \command$.
@@ -77,10 +77,10 @@ the latter focuses on a control theory motivated interface $f(\situation) \to \c
 allowing the command to be verified before executing it in a down-stream module.
 
 % Preconditions
-In \glspl{BT}, preconditions are realized by condition nodes distributed throughout the tree.
+In \glspl{BT}, preconditions are implemented by condition nodes distributed throughout the tree.
 %
 % In contrast, arbitration graphs couple a behavior component with its preconditions.
-In contrast, arbitration graphs require behavior components to implement their own preconditions.
+In contrast, arbitration graphs require behavior components to define their own preconditions.
 %
 % This tight coupling ensures that robustness and safety are less dependent on node arrangement.
 % This tight coupling is a foundation for robustness and safety being independent of node arrangement.
