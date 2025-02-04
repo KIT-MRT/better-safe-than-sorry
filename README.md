@@ -1,10 +1,9 @@
-# Safe Arbitrators Paper - ICRA 2025
+# Safe Arbitrators Paper - IV 2025
 
-2025 IEEE International Conference on Robotics & Automation, 19–23 May, Atlanta, USA
+2025 IEEE Intelligent Vehicles Symposium, June 22-25, Cluj-Napoca, Romania
 
 ## Deadlines
-- Paper Submission Deadline: 15.09.24
-- Internal Deadline: 16.08.24
+- Paper Submission Deadline: 01.02.2025
 
 ## Template
 - The latest version looks like [this](https://gitlab.mrt.kit.edu/MRT/ieee_conference_template_latex/-/jobs/artifacts/master/file/root.pdf?job=compile_pdf).
