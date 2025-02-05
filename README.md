@@ -1,8 +1,8 @@
 # Better Safe Than Sorry: Enhancing Arbitration Graphs for Safe and Robust Autonomous Decision-Making
 
-Piotr Spieker [<sup><img src="supp_material/ORCID-iD_icon_vector.svg" height="14"/></sup>](https://orcid.org/0000-0002-0449-3741),
-Nick Le Large [<sup><img src="supp_material/ORCID-iD_icon_vector.svg" height="14"/></sup>](https://orcid.org/0009-0006-5191-9043) and
-Martin Lauer [<sup><img src="supp_material/ORCID-iD_icon_vector.svg" height="14"/></sup>](https://orcid.org/0000-0003-4414-5722)
+Piotr Spieker [<sup><img src="supp_material/ORCID-iD_icon.svg" height="14"/></sup>](https://orcid.org/0000-0002-0449-3741),
+Nick Le Large [<sup><img src="supp_material/ORCID-iD_icon.svg" height="14"/></sup>](https://orcid.org/0009-0006-5191-9043) and
+Martin Lauer [<sup><img src="supp_material/ORCID-iD_icon.svg" height="14"/></sup>](https://orcid.org/0000-0003-4414-5722)
 
 2025 IEEE Intelligent Vehicles Symposium, June 22-25, Cluj-Napoca, Romania *(in review)*
 
