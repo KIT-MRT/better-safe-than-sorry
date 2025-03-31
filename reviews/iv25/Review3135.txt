@@ -1,0 +1,55 @@
+Reviewer 2 of IV 2025 submission 362
+
+Comments to the author
+======================
+
+This paper give a comprehensive approach to enhancing
+safety and robustness in autonomous systems through the
+integration of verification and structured fallback
+mechanisms within the arbitration graph framework. This
+allows for the incremental addition of new behavior
+components without compromising overall system safety,
+explicitly defining responsibility for safety through the
+verifiers. The system's practicality is further supported
+by its demonstrated applicability in both simulated Pac-Man
+and autonomous driving scenarios, building upon the
+inherent flexibility, scalability, and transparency of
+existing arbitration graphs while addressing the critical
+need for improved safety in complex and dynamic
+environments.
+
+But I still have some questions about the method
+instroduced in the paper:
+
+Verifier Limitations: How can the system ensure safety in
+scenarios where the assumptions made by the verifiers are
+incomplete or inaccurate, potentially leading to unforeseen
+unsafe behaviors?
+Conservatism Trade-off: What strategies can be employed to
+mitigate the potential for overly conservative behavior
+introduced by the verification step, balancing safety with
+efficiency and task completion?
+Verifier Design Complexity: What methodologies or tools can
+be developed to simplify the design and implementation of
+effective and reliable verifiers, reducing the burden on
+developers and ensuring comprehensive coverage?
+Computational Cost: How can the computational overhead
+introduced by the verification step be minimized to ensure
+real-time performance, especially in resource-constrained
+environments or systems with complex decision-making
+processes?
+Real-World Applicability: What additional real-world
+testing and validation are planned or necessary to fully
+demonstrate the system's effectiveness and robustness in
+diverse and unpredictable scenarios, beyond the simulated
+environments?
+Invocation Condition Realism: How can the design of
+invocation conditions be made more realistic to better
+reflect real-world scenarios, ensuring the verification
+process is tested under conditions that closely resemble
+actual operating environments?
+Simulation Fidelity Impact: To what extent does the
+fidelity of the simulation environment affect the validity
+of the results, and what measures can be taken to improve
+simulation accuracy and ensure the transferability of
+findings to real-world applications?
