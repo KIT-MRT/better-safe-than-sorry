@@ -1,0 +1,17 @@
+Reviewer 11 of IV 2025 submission 362
+
+Comments to the author
+======================
+
+Reference 17 is not in English and cannot be searched,
+therefore further evaluation cannot be conducted.
+
+The paper should emphasize technological innovation,
+especially what improvements have been made in existing
+work and what innovations have been made?
+
+How does the proposed method compare to other
+decision-making methods ?
+
+The proposed method suggests conducting experiments on real
+vehicles, which may be more convincing.

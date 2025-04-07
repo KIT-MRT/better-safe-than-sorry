@@ -1,0 +1,31 @@
+Reviewer 7 of IV 2025 submission 362
+
+Comments to the author
+======================
+
+This paper introduces an extension to the arbitration graph
+framework aimed at enhancing the safety and robustness of
+autonomous systems in dynamic environments. By
+incorporating a verification step and structured fallback
+layers into the decision-making process, the approach
+ensures that only validated commands are executed while
+allowing for graceful degradation in the presence of faults
+or bugs. The effectiveness of this method is demonstrated
+through a Pac-Man simulation and validated in an autonomous
+driving scenario, showing significant safety improvements.
+
+The paper is easy to follow and clearly explains the
+concepts, allowing readers to understand the method
+thoroughly. The figures are precise, but more refined
+examples of arbitration graphs would be beneficial. The
+authors claim that the proposed method suits complex system
+behaviors; however, none of the examples effectively
+demonstrate this, particularly concerning safety and
+robustness.
+
+The most notable issue is the lack of a proper experimental
+and results section. In its current state, the paper only
+demonstrates the feasibility of the concept through a
+single, simple experiment. There is no rigorous comparison
+with state-of-the-art approaches nor an assessment of the
+statistical significance of the results. 

@@ -1,0 +1,25 @@
+Reviewer 17 of IV 2025 submission 362
+
+Comments to the author
+======================
+
+This paper proposes a safe and robust autonomous decision
+making method, which is innovative to some extent, but I
+think it has some shortcomings in theory and experiment:
+1. the arbitration graphs proposed in this paper do not
+have a specific mathematical model and proof of the
+existence of the optimal solution, do not have sufficient
+theoretical support, and are not technically rigorous
+enough
+2. the experimental comparison in this paper is
+insufficient, lacking quantitative comparison with the
+existing baseline and SOTA methods, and only through self
+comparison with and without verification to prove the
+effectiveness.
+3. the two parts of the article feel very fragmented, and
+can be directly used for model construction and
+experimental verification in the automatic driving scene,
+but the modeling experiment should be conducted in the game
+environment first, and the significance of the first part
+is not seen, and the connection of the content is not
+smooth enough

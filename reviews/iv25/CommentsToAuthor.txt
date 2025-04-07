@@ -1,0 +1,42 @@
+Comments to author (Associate Editor)
+=====================================
+
+This paper presents an extension to the arbitration graph
+framework designed to improve the safety and reliability of
+autonomous systems in dynamic environments. It introduces a
+verification step and fallback layers into decision-making,
+ensuring that only validated actions are performed while
+maintaining system stability during errors or faults. The
+method’s effectiveness is shown in simulation through the
+Pac-Man game and validated afterward in an elementary
+autonomous driving scenario (still in simulation). 
+
+The bottom-up construction of the proposed architecture is
+inspired from behavioral control architectures (as the
+works of Akin or Brooks control architectures). The authors
+emphasize that this approach allows for the incremental
+integration of new behavior components, even those not
+fully matured, without compromising overall system safety.
+More details about this important feature of the proposed
+architecture are very important to better understand the
+proposed concepts.
+
+It is suitable to have in the paper either a rigorous
+comparison with state-of-the-art approaches or an
+assessment of the statistical significance of the results.
+The reviewers wonder whether it is possible to give a
+mathematical formalization of the proposed approach to
+confirm its optimality / sub-optimality.  
+
+Several other open questions remain, such as how to prevent
+overly cautious behavior from the verification step (how to
+avoid too conservative navigation), reduce the complexity
+of designing verifiers, and minimize computational overhead
+for real-time performance, mainly in resource-limited
+systems.
+
+
+----------------------------------------
+Comments on Video demonstration:
+
+[None found]
