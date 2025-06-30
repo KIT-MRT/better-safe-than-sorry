@@ -1,0 +1,43 @@
+Reviewer 3 of IEEE SMC 2025 submission 912
+
+Comments to the author
+======================
+
+The authors present an enhancement to arbitration graphs, a
+modular decision-making framework, by integrating a
+verification mechanism and structured fallback layers to
+improve safety and robustness in autonomous systems. The
+authors demonstrate the method using:
+•	A Pac-Man simulation to illustrate architectural
+behavior and fault handling,
+•	A simulated autonomous driving task that showcases
+the framework's ability to prevent unsafe maneuvers through
+trajectory verification and fallback strategies.
+The key contribution is a verifiable arbitration process
+that shifts safety responsibility from behavior component
+developers to system-level verifiers, enabling the safe
+integration of experimental or learning-based behaviors.
+The design of the verification step and fallback layers is
+motivated and well-structured, incorporating fail-safe
+trajectories and a last-resort behavior (e.g., Emergency
+Stop) adds robustness. The use of arbitration graphs
+promotes bottom-up integration and graceful degradation,
+making them highly adaptable for complex systems.
+The Pac-Man simulation results visualize how fallback
+behaviors work. Additionally, in the autonomous driving
+simulation, the verification system effectively prevents a
+lane change that would lead to a collision, demonstrating
+its practical efficacy.
+Implementation is available as a header-only C++ library
+under an open-source license, providing access to
+simulation environments that aid reproducibility and
+adoption.
+It is generally well-written, but some sections (especially
+III and IV) are dense and could benefit from tighter
+subheadings or flow improvements.
+The authors have made a valuable and practically impactful
+contribution to autonomous decision-making frameworks by
+improving the safety and robustness of arbitration graphs.
+The idea of embedding verification at the architecture
+level and layering fallback behaviors is elegant and
+practical.
