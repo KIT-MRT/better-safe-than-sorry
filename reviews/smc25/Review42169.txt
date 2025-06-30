@@ -1,0 +1,49 @@
+Reviewer 8 of IEEE SMC 2025 submission 912
+
+Comments to the author
+======================
+
+This paper attempts to extend the arbitration graph
+framework that focuses on improving the safety and robust
+ness of autonomous systems operating in complex, dynamic
+environments. Building on the flexibility and scalability
+of arbitration graphs, the proposed method incorporated a
+verification step and structured fallback layers in the
+decision making process.  In the presented contents, the
+authors first introduced the research motivation, the state
+of the art on the studied problem, and mentioned the main
+contributions of the paper. Afterward, the authors recalled
+some preliminaries on fundamentals of the paper, and then
+elaborated the proposed methods for detecting and
+mitigating unsafe and unreliable behavior components. Later
+on, the proposed algorithm was applied to deal with safe
+and reliable behavior arbitration for automated vehicles;
+some simulations were carried out to show the effectiveness
+of the proposed method.
+  By comparing to existing and latest methods on the
+studied problem, the paper is well organized, and the
+proposed is clearly written and shown effective via
+simulations.  Nevertheless, no theoretical analysis was
+provided to investigate the properties of the proposed
+method, no comparative studies were conducted to show the
+superiority of the proposed system, and no real-world
+experiments were conducted to show the practicability of
+the proposed method.  In addition, the paper would be
+improved in the following aspects.
+
+1.In Section I, the novelty and main technical
+contributions of the paper would be clearly explained term
+by term in comparison with existing methods in related
+literature.  The paper organization would be added.
+2.Algorithm 1 is good but not new.
+3.The writing of the conclusion section would be polished.
+For example, the first sentence “This paper presented an
+extension to the arbitration graph framework that focuses
+on improving the safety and robust ness of autonomous
+systems operating in complex, dynamic environments.” would
+be improved by “This paper has presented an extension to
+the arbitration graph framework that focuses on improving
+the safety and robust ness of autonomous systems operating
+in complex, dynamic environments.”
+4.Some cited references would be formatted according to the
+IEEE paper template.
