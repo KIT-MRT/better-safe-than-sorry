@@ -19,7 +19,7 @@ mitigating unsafe and unreliable behavior components. Later
 on, the proposed algorithm was applied to deal with safe
 and reliable behavior arbitration for automated vehicles;
 some simulations were carried out to show the effectiveness
-of the proposed method. 
+of the proposed method.
   By comparing to existing and latest methods on the
 studied problem, the paper is well organized, and the
 proposed is clearly written and shown effective via
@@ -29,21 +29,21 @@ method, no comparative studies were conducted to show the
 superiority of the proposed system, and no real-world
 experiments were conducted to show the practicability of
 the proposed method.  In addition, the paper would be
-improved in the following aspects. 
+improved in the following aspects.
 
 1.In Section I, the novelty and main technical
 contributions of the paper would be clearly explained term
 by term in comparison with existing methods in related
-literature.  The paper organization would be added. 
-2.Algorithm 1 is good but not new.  
+literature.  The paper organization would be added.
+2.Algorithm 1 is good but not new.
 3.The writing of the conclusion section would be polished.
-For example, the first sentence ìThis paper presented an
+For example, the first sentence ‚ÄúThis paper presented an
 extension to the arbitration graph framework that focuses
 on improving the safety and robust ness of autonomous
-systems operating in complex, dynamic environments.î would
-be improved by ìThis paper has presented an extension to
+systems operating in complex, dynamic environments.‚Äù would
+be improved by ‚ÄúThis paper has presented an extension to
 the arbitration graph framework that focuses on improving
 the safety and robust ness of autonomous systems operating
-in complex, dynamic environments.î
+in complex, dynamic environments.‚Äù
 4.Some cited references would be formatted according to the
-IEEE paper template. 
+IEEE paper template.

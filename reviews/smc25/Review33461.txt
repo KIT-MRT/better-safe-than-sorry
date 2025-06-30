@@ -8,9 +8,9 @@ modular decision-making framework, by integrating a
 verification mechanism and structured fallback layers to
 improve safety and robustness in autonomous systems. The
 authors demonstrate the method using:
-•	A Pac-Man simulation to illustrate architectural
+â€¢	A Pac-Man simulation to illustrate architectural
 behavior and fault handling,
-•	A simulated autonomous driving task that showcases
+â€¢	A simulated autonomous driving task that showcases
 the framework's ability to prevent unsafe maneuvers through
 trajectory verification and fallback strategies.
 The key contribution is a verifiable arbitration process
