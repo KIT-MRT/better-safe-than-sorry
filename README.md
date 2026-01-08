@@ -4,7 +4,8 @@ Piotr Spieker [<sup><img src="supp_material/ORCID-iD_icon.svg" height="14"/></su
 Nick Le Large [<sup><img src="supp_material/ORCID-iD_icon.svg" height="14"/></sup>](https://orcid.org/0009-0006-5191-9043) and
 Martin Lauer [<sup><img src="supp_material/ORCID-iD_icon.svg" height="14"/></sup>](https://orcid.org/0000-0003-4414-5722)
 
-2025 IEEE Intelligent Vehicles Symposium, June 22-25, Cluj-Napoca, Romania *(in review)*
+Presented at 2025 IEEE International Conference on Systems, Man, and Cybernetics (SMC)  
+October 5-8, Vienna, Austria  
 
 ## Abstract
 
