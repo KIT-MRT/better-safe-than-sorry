@@ -4,7 +4,14 @@ Piotr Spieker [<sup><img src="supp_material/ORCID-iD_icon.svg" height="14"/></su
 Nick Le Large [<sup><img src="supp_material/ORCID-iD_icon.svg" height="14"/></sup>](https://orcid.org/0009-0006-5191-9043) and
 Martin Lauer [<sup><img src="supp_material/ORCID-iD_icon.svg" height="14"/></sup>](https://orcid.org/0000-0003-4414-5722)
 
-2025 IEEE Intelligent Vehicles Symposium, June 22-25, Cluj-Napoca, Romania *(in review)*
+Presented at 2025 IEEE International Conference on Systems, Man, and Cybernetics (SMC).  
+October 5-8, Vienna, Austria  
+
+Find the accompanying presentation slides [here](supp_material/2025-smc-presentation.pdf).
+
+---
+
+![Arbitration Graph with Safety Extensions](supp_material/visual_abstract_poster.svg)
 
 ## Abstract
 
@@ -23,3 +30,14 @@ while maintaining system safety by clearly and precisely defining the conditions
 The proposed method is implemented as a ready to use header-only C++ library, published under the MIT License.
 Together with the Pac-Man demo, it is available at 
 [github.com/KIT-MRT/arbitration_graphs](https://github.com/KIT-MRT/arbitration_graphs).
+
+---
+
+<sup>
+© 2025 IEEE.
+Personal use of this material is permitted.
+Permission from IEEE must be obtained for all other uses, in any current or future media,
+including reprinting/republishing this material for advertising or promotional purposes,
+creating new collective works, for resale or redistribution to servers or lists,
+or reuse of any copyrighted component of this work in other works.
+</sup>
