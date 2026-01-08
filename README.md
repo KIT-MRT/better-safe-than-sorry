@@ -7,6 +7,10 @@ Martin Lauer [<sup><img src="supp_material/ORCID-iD_icon.svg" height="14"/></sup
 Presented at 2025 IEEE International Conference on Systems, Man, and Cybernetics (SMC)  
 October 5-8, Vienna, Austria  
 
+---
+
+![Arbitration Graph with Safety Extensions](supp_material/visual_abstract_poster.svg)
+
 ## Abstract
 
 This paper introduces an extension to the 
