@@ -7,7 +7,7 @@ Martin Lauer [<sup><img src="supp_material/ORCID-iD_icon.svg" height="14"/></sup
 Presented at 2025 IEEE International Conference on Systems, Man, and Cybernetics (SMC).  
 October 5-8, Vienna, Austria  
 
-Find the accompanying presentation slides [here](supp_material/2025-smc-presentation.pdf).
+Find the accompanying presentation slides [here](supp_material/2025-smc-presentation.pdf) and paper on [IEEE Xplore](https://doi.org/10.1109/SMC58881.2025.11343055) or [arXiv](https://arxiv.org/abs/2411.10170).
 
 ---
 
