@@ -94,29 +94,57 @@
 %using shortcuts \-/, \=/, \--, \==, \---, and \===
 \usepackage[shortcuts]{extdash}
 
-% Copyright box for arxiv upload
+% add copyright statement to use with ieeeconf class
+\usepackage{textcomp}
 \usepackage[absolute]{textpos}
 \usepackage{setspace}
+
+%set unit to be pagewidth and height, and increase inner margin of box
 \setlength{\TPHorizModule}{\paperwidth}
 \setlength{\TPVertModule}{\paperheight}
 \TPMargin{5pt}
-\newcommand{\copyrightstatement}{
+
+\newcommand*{\presentationfont}{\fontfamily{lmss}\selectfont}
+\newcommand{\presentationinformation}[2]{
+\TPshowboxesfalse 
+\begin{textblock}{0.82}(0.02,0.01)
+    \vspace{2mm}
+    \noindent{\bfseries{\presentationfont{\footnotesize{#1 \\
+                                                        DOI: \href{http://dx.doi.org/#2}{#2}}}}}
+\end{textblock}
+}
+
+
+\newcommand{\submissionnotice}{
     \begin{textblock}{0.82}(0.09,0.94)
-        \setstretch{0.65} % Adjusts line spacing (0.85 is slightly compact)
-        \noindent{\footnotesize{
-            % After hand-in, before acceptance:
-            % This work has been submitted to the IEEE for possible publication.
-            % Copyright may be transferred without notice, after which this version may no longer be accessible.
-            % After acceptance:
-            10.1109/SMC58881.2025.11343055~ % Insert your DOI after publication
-            \copyright~2024 IEEE.
-            Personal use of this material is permitted.
-            Permission from IEEE must be obtained for all other uses, including reprinting/republishing this material for advertising or promotional purposes,
-            collecting new collected works for resale or redistribution to servers or lists, or reuse of any copyrighted component of this work in other works.
-        }}
+        \setstretch{0.65} % Adjusts line spacing 
+         \noindent{\footnotesize{
+          This work has been submitted to the IEEE for possible publication.
+          Copyright may be transferred without notice, after which this version may no longer be accessible.
+          }}
     \end{textblock}
 }
 
+
+\newcommand{\copyrightstatement}[1]{
+    \begin{textblock}{0.825}(0.089,0.94)
+        \setstretch{0.65}%
+        \noindent
+        \begin{minipage}{\linewidth}
+            {\fontsize{6.5pt}{8pt}\selectfont
+                \parbox{\dimexpr\linewidth-0mm}{% Adjust width to account for left/right padding
+                    \copyright{} #1 IEEE.
+                    Personal use of this material is permitted.
+                    Permission from IEEE must be obtained for all other uses, in any current or future media,
+                    including reprinting/republishing this material for advertising or promotional purposes,
+                    creating new collective works, for resale or redistribution to servers or lists,
+                    or reuse of any copyrighted component of this work in other works.
+                }
+            }
+            \vspace{-1mm} % Bottom padding
+        \end{minipage}
+    \end{textblock}
+}
 
 % correct bad hyphenation here
 \hyphenation{Eat-Clos-est-Dot Mo-ve-Ran-dom-ly Stay-In-Pla-ce Fol-low-La-ne Chan-ge-La-ne-Le-ft Chan-ge-La-ne-Ri-ght Park-Near-Goal E-mer-gen-cy-Stop Con-ti-nue-Last-Ma-neu-ver Fail-Safe Ur-ban-Dri-ving}
