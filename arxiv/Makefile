@@ -9,7 +9,7 @@ clean:
 	cd .. && latexmk -C && rm -f root.bbl
 
 latexbuild:
-	cd .. && pwd && docker run --rm --user $(id -u):$(id -g) --volume .:/workdir --workdir /workdir makisyu/texlive-2020 latexmk
+	cd .. && pwd && docker run --rm --user $(id -u):$(id -g) --volume .:/workdir --workdir /workdir texlive/texlive latexmk
 
 copyfiles:
 	cd .. && latexpand --empty-comments root.tex > arxiv/root.tex
@@ -29,6 +29,7 @@ copyfiles:
 	# This includes the extracted pdf files instead of the svg files.
 	# You need to check the settings (in the [brackets]) manually to make sure they are compatible with includegraphics.
 	sed -i 's/\\includesvg\[/\\includegraphics\[/g' root.tex
+	sed -i 's/,inkscapelatex=false//g' root.tex
 
 archive:
 	zip -r arxiv.zip * -x *.zip Makefile
