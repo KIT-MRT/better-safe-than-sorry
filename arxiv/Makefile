@@ -29,6 +29,7 @@ copyfiles:
 	# This includes the extracted pdf files instead of the svg files.
 	# You need to check the settings (in the [brackets]) manually to make sure they are compatible with includegraphics.
 	sed -i 's/\\includesvg\[/\\includegraphics\[/g' root.tex
+	sed -i 's/,inkscapelatex=false//g' root.tex
 
 archive:
 	zip -r arxiv.zip * -x *.zip Makefile
